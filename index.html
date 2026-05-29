@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finanzas y Datos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Arial, sans-serif; color: #111827; background: #f6f7f3; }
+    nav { background: #0f3d2e; display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; }
+    .logo { color: #fff; font-size: 16px; font-weight: 600; }
+    .logo span { color: #5DCAA5; }
+    .nav-links a { color: rgba(255,255,255,0.7); font-size: 13px; text-decoration: none; margin-left: 24px; }
+    .nav-links a:hover { color: #fff; }
+    .hero { background: #0f3d2e; padding: 72px 40px 80px; }
+    .hero-tag { display: inline-block; background: rgba(93,202,165,0.15); color: #5DCAA5; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 24px; border: 1px solid rgba(93,202,165,0.3); }
+    .hero h1 { color: #fff; font-size: 42px; font-weight: 600; line-height: 1.1; max-width: 600px; margin-bottom: 20px; }
+    .hero h1 em { color: #5DCAA5; font-style: normal; }
+    .hero p { color: rgba(255,255,255,0.65); font-size: 16px; line-height: 1.6; max-width: 500px; margin-bottom: 32px; }
+    .hero-btns { display: flex; gap: 12px; }
+    .btn-primary { background: #1e8e5a; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
+    .btn-secondary { background: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.3); padding: 12px 24px; border-radius: 8px; font-size: 14px; cursor: pointer; text-decoration: none; }
+    .section { padding: 56px 40px; background: #fff; }
+    .section-alt { padding: 56px 40px; background: #f6f7f3; }
+    .section-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #1e8e5a; font-weight: 600; margin-bottom: 8px; }
+    .section h2 { font-size: 28px; font-weight: 600; margin-bottom: 36px; }
+    .section-alt h2 { font-size: 28px; font-weight: 600; margin-bottom: 36px; }
+    .pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .pillar { border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; background: #f9fafb; }
+    .pillar-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(15,61,46,0.08); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .pillar-icon i { color: #0f3d2e; font-size: 18px; }
+    .pillar h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .pillar p { font-size: 13px; color: #6b7280; line-height: 1.5; }
+    .cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .case { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; background: #fff; }
+    .case-thumb { height: 90px; display: flex; align-items: center; justify-content: center; }
+    .t1 { background: #0f3d2e; }
+    .t2 { background: #085041; }
+    .t3 { background: #1e8e5a; }
+    .case-body { padding: 16px; }
+    .case-tag { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: #1e8e5a; font-weight: 600; margin-bottom: 6px; }
+    .case-body h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .case-body p { font-size: 12px; color: #6b7280; line-height: 1.4; }
+    .method { display: flex; flex-direction: column; }
+    .step { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid #e5e7eb; }
+    .step:last-child { border-bottom: none; }
+    .step-num { width: 30px; height: 30px; border-radius: 50%; background: #0f3d2e; color: #fff; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .step p { font-size: 13px; color: #6b7280; line-height: 1.4; }
+    footer { background: #0f3d2e; padding: 32px 40px; display: flex; justify-content: space-between; align-items: center; }
+    footer p { color: rgba(255,255,255,0.5); font-size: 13px; }
+    .footer-links a { color: rgba(255,255,255,0.5); font-size: 13px; text-decoration: none; margin-left: 20px; }
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 48px 20px; }
+      .hero h1 { font-size: 28px; }
+      .section, .section-alt { padding: 40px 20px; }
+      .pillars, .cases { grid-template-columns: 1fr; }
+      footer { padding: 24px 20px; flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Finanzas<span>&</span>Datos</div>
+    <div class="nav-links">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#metodologia">Metodología</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag">Civic Data Lab · América Latina</div>
+    <h1>Datos para entender <em>problemas públicos</em> complejos.</h1>
+    <p>Inteligencia de datos, visualización e IA para generar evidencia, monitorear realidades y apoyar decisiones.</p>
+    <div class="hero-btns">
+      <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+      <a href="#metodologia" class="btn-secondary">Metodología →</a>
+    </div>
+  </section>
+
+  <section class="section" id="proyectos">
+    <div class="section-label">Qué hacemos</div>
+    <h2>Cuatro pilares de trabajo</h2>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-icon"><i class="ti ti-database"></i></div>
+        <h3>Inteligencia de datos</h3>
+        <p>Estructuramos y analizamos datos públicos para revelar patrones y tendencias clave.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><i class="ti ti-eye"></i></div>
+        <h3>Observatorios y monitoreo</h3>
+        <p>Sistemas de seguimiento continuo de indicadores fiscales, sociales y de gestión.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><i class="ti ti-brain"></i></div>
+        <h3>IA aplicada</h3>
+        <p>Modelos de lenguaje e inteligencia artificial para análisis automatizado de información pública.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon"><i class="ti ti-chart-bar"></i></div>
+        <h3>Narrativas y visualización</h3>
+        <p>Diseñamos gráficas y relatos de datos que transforman evidencia en incidencia.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="section-label">Casos destacados</div>
+    <h2>Proyectos recientes</h2>
+    <div class="cases">
+      <div class="case">
+        <div class="case-thumb t1"><i class="ti ti-map-2" style="color:#5DCAA5;font-size:32px"></i></div>
+        <div class="case-body">
+          <div class="case-tag">Presupuesto</div>
+          <h4>Monitor fiscal Guatemala</h4>
+          <p>Seguimiento mensual de la ejecución presupuestaria del gobierno central.</p>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-thumb t2"><i class="ti ti-trending-up" style="color:#9FE1CB;font-size:32px"></i></div>
+        <div class="case-body">
+          <div class="case-tag">Indicadores</div>
+          <h4>Dashboard social LATAM</h4>
+          <p>Comparación de indicadores de pobreza y desigualdad en 10 países.</p>
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-thumb t3"><i class="ti ti-search" style="color:#E1F5EE;font-size:32px"></i></div>
+        <div class="case-body">
+          <div class="case-tag">Transparencia</div>
+          <h4>Análisis de compras públicas</h4>
+          <p>IA aplicada para detectar patrones en contrataciones del Estado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="metodologia">
+    <div class="section-label">Cómo trabajamos</div>
+    <h2>Metodología</h2>
+    <div class="method">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Identificamos el problema</h4>
+          <p>Partimos de preguntas concretas de política pública o incidencia ciudadana.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Estructuramos los datos</h4>
+          <p>Recopilamos, limpiamos y validamos fuentes primarias y secundarias.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Construimos sistemas de monitoreo</h4>
+          <p>Diseñamos dashboards y flujos de actualización automatizada.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Diseñamos la narrativa</h4>
+          <p>Transformamos el análisis en visualizaciones y relatos accionables.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <p>© 2025 Finanzas y Datos · Guatemala</p>
+    <div class="footer-links">
+      <a href="mailto:contacto@finanzasydatos.com">contacto@finanzasydatos.com</a>
+      <a href="https://github.com" target="_blank">GitHub</a>
+    </div>
+  </footer>
+
+</body>
+</html>
