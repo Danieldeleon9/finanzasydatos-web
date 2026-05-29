@@ -1,187 +1,439 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finanzas y Datos</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', Arial, sans-serif; color: #111827; background: #f6f7f3; }
-    nav { background: #0f3d2e; display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; }
-    .logo { color: #fff; font-size: 16px; font-weight: 600; }
-    .logo span { color: #5DCAA5; }
-    .nav-links a { color: rgba(255,255,255,0.7); font-size: 13px; text-decoration: none; margin-left: 24px; }
-    .nav-links a:hover { color: #fff; }
-    .hero { background: #0f3d2e; padding: 72px 40px 80px; }
-    .hero-tag { display: inline-block; background: rgba(93,202,165,0.15); color: #5DCAA5; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 24px; border: 1px solid rgba(93,202,165,0.3); }
-    .hero h1 { color: #fff; font-size: 42px; font-weight: 600; line-height: 1.1; max-width: 600px; margin-bottom: 20px; }
-    .hero h1 em { color: #5DCAA5; font-style: normal; }
-    .hero p { color: rgba(255,255,255,0.65); font-size: 16px; line-height: 1.6; max-width: 500px; margin-bottom: 32px; }
-    .hero-btns { display: flex; gap: 12px; }
-    .btn-primary { background: #1e8e5a; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
-    .btn-secondary { background: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.3); padding: 12px 24px; border-radius: 8px; font-size: 14px; cursor: pointer; text-decoration: none; }
-    .section { padding: 56px 40px; background: #fff; }
-    .section-alt { padding: 56px 40px; background: #f6f7f3; }
-    .section-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #1e8e5a; font-weight: 600; margin-bottom: 8px; }
-    .section h2 { font-size: 28px; font-weight: 600; margin-bottom: 36px; }
-    .section-alt h2 { font-size: 28px; font-weight: 600; margin-bottom: 36px; }
-    .pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .pillar { border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; background: #f9fafb; }
-    .pillar-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(15,61,46,0.08); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
-    .pillar-icon i { color: #0f3d2e; font-size: 18px; }
-    .pillar h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-    .pillar p { font-size: 13px; color: #6b7280; line-height: 1.5; }
-    .cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .case { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; background: #fff; }
-    .case-thumb { height: 90px; display: flex; align-items: center; justify-content: center; }
-    .t1 { background: #0f3d2e; }
-    .t2 { background: #085041; }
-    .t3 { background: #1e8e5a; }
-    .case-body { padding: 16px; }
-    .case-tag { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: #1e8e5a; font-weight: 600; margin-bottom: 6px; }
-    .case-body h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .case-body p { font-size: 12px; color: #6b7280; line-height: 1.4; }
-    .method { display: flex; flex-direction: column; }
-    .step { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid #e5e7eb; }
-    .step:last-child { border-bottom: none; }
-    .step-num { width: 30px; height: 30px; border-radius: 50%; background: #0f3d2e; color: #fff; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .step h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .step p { font-size: 13px; color: #6b7280; line-height: 1.4; }
-    footer { background: #0f3d2e; padding: 32px 40px; display: flex; justify-content: space-between; align-items: center; }
-    footer p { color: rgba(255,255,255,0.5); font-size: 13px; }
-    .footer-links a { color: rgba(255,255,255,0.5); font-size: 13px; text-decoration: none; margin-left: 20px; }
-    @media (max-width: 640px) {
-      nav { padding: 16px 20px; }
-      .hero { padding: 48px 20px; }
-      .hero h1 { font-size: 28px; }
-      .section, .section-alt { padding: 40px 20px; }
-      .pillars, .cases { grid-template-columns: 1fr; }
-      footer { padding: 24px 20px; flex-direction: column; gap: 12px; }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Finanzas y Datos — Civic Data Lab · América Latina</title>
+<meta name="description" content="Inteligencia de datos, visualización e IA para generar evidencia, monitorear realidades y apoyar decisiones en América Latina."/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --verde: #0a3323;
+  --verde-mid: #0f4a32;
+  --verde-light: #1a6644;
+  --acento: #4fd49a;
+  --crema: #f5f2ec;
+  --crema-dark: #ede9e0;
+  --negro: #0d0d0d;
+  --gris: #6b7068;
+  --borde: rgba(10,51,35,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--negro);overflow-x:hidden;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 48px;
+  transition:background .4s,padding .4s;
+}
+nav.scrolled{background:rgba(10,51,35,0.96);padding:14px 48px;backdrop-filter:blur(12px);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:18px;color:#fff;letter-spacing:0.02em;}
+.nav-logo em{font-style:italic;color:var(--acento);}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{color:rgba(255,255,255,0.65);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:#fff;}
+.nav-cta{background:var(--acento);color:var(--verde);padding:8px 18px;border-radius:2px;font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;}
+.nav-cta:hover{opacity:0.85;}
+
+/* HERO */
+.hero{
+  min-height:100vh;background:var(--verde);
+  display:grid;grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+}
+.hero-left{
+  padding:140px 48px 80px;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;z-index:2;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp .8s .2s forwards;
+}
+.eyebrow-line{width:32px;height:1px;background:var(--acento);}
+.eyebrow-text{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--acento);font-weight:500;}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(36px,4vw,58px);
+  color:#fff;line-height:1.05;font-weight:400;
+  margin-bottom:28px;
+  opacity:0;animation:fadeUp .8s .35s forwards;
+}
+.hero h1 em{font-style:italic;color:var(--acento);}
+.hero-desc{
+  font-size:15px;line-height:1.7;color:rgba(255,255,255,0.55);
+  max-width:400px;margin-bottom:48px;font-weight:300;
+  opacity:0;animation:fadeUp .8s .5s forwards;
+}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .65s forwards;}
+.btn-fill{background:var(--acento);color:var(--verde);padding:13px 28px;border-radius:2px;font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;}
+.btn-fill:hover{opacity:0.85;}
+.btn-outline{border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.75);padding:13px 28px;border-radius:2px;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;transition:border-color .2s,color .2s;}
+.btn-outline:hover{border-color:rgba(255,255,255,0.6);color:#fff;}
+
+/* HERO RIGHT */
+.hero-right{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  padding:120px 48px 80px 0;
+  opacity:0;animation:fadeIn 1.2s .5s forwards;
+  z-index:2;
+}
+.hero-visual{
+  width:100%;max-width:420px;
+  border:1px solid rgba(255,255,255,0.1);border-radius:4px;overflow:hidden;
+  background:rgba(255,255,255,0.04);backdrop-filter:blur(4px);
+}
+.hv-header{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:10px;}
+.hv-dots{display:flex;gap:6px;}
+.hv-dot{width:8px;height:8px;border-radius:50%;}
+.hv-dot.r{background:#ff5f56;}.hv-dot.y{background:#ffbd2e;}.hv-dot.g{background:#27c93f;}
+.hv-title{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.05em;}
+.hv-body{padding:24px 18px;}
+.hv-chart-label{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;font-family:'DM Mono',monospace;}
+.hv-bars{display:flex;flex-direction:column;gap:10px;}
+.hv-bar-row{display:flex;align-items:center;gap:12px;}
+.hv-bar-name{font-size:10px;color:rgba(255,255,255,0.45);width:60px;text-align:right;font-family:'DM Mono',monospace;flex-shrink:0;}
+.hv-bar-track{flex:1;height:6px;background:rgba(255,255,255,0.06);border-radius:1px;overflow:hidden;}
+.hv-bar-fill{height:100%;border-radius:1px;background:var(--acento);transform-origin:left;animation:barGrow 1.2s ease-out forwards;transform:scaleX(0);}
+.hv-bar-fill.b2{animation-delay:.1s;}.hv-bar-fill.b3{animation-delay:.2s;}.hv-bar-fill.b4{animation-delay:.3s;}.hv-bar-fill.b5{animation-delay:.4s;}
+.hv-bar-val{font-size:10px;color:var(--acento);font-family:'DM Mono',monospace;width:32px;}
+.hv-divider{margin:20px 0;border:none;border-top:1px solid rgba(255,255,255,0.07);}
+.hv-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.hv-stat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:3px;padding:12px;}
+.hv-stat-val{font-family:'Playfair Display',serif;font-size:22px;color:#fff;margin-bottom:4px;}
+.hv-stat-label{font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.08em;text-transform:uppercase;font-family:'DM Mono',monospace;}
+
+/* HERO DECO */
+.hero-grid-lines{
+  position:absolute;inset:0;z-index:1;
+  background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-circle{position:absolute;right:-120px;top:50%;transform:translateY(-50%);width:480px;height:480px;border-radius:50%;border:1px solid rgba(79,212,154,0.07);z-index:1;}
+.hero-circle-2{position:absolute;right:-60px;top:50%;transform:translateY(-50%);width:320px;height:320px;border-radius:50%;border:1px solid rgba(79,212,154,0.05);z-index:1;}
+
+/* NÚMEROS */
+.numbers{background:var(--crema-dark);display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--borde);}
+.number-item{padding:48px 40px;border-right:1px solid var(--borde);opacity:0;transition:opacity .6s;}
+.number-item.visible{opacity:1;}
+.number-item:last-child{border-right:none;}
+.number-val{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:var(--verde);line-height:1;margin-bottom:10px;}
+.number-val span{color:var(--verde-light);font-size:28px;}
+.number-label{font-size:12px;color:var(--gris);letter-spacing:0.04em;line-height:1.4;font-weight:300;}
+
+/* SECCIONES */
+.section{padding:96px 48px;}
+.section-alt{padding:96px 48px;background:var(--crema-dark);}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;border-bottom:1px solid var(--borde);padding-bottom:24px;}
+.section-kicker{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.kicker-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--verde-light);letter-spacing:0.06em;}
+.kicker-line{width:24px;height:1px;background:var(--verde-light);}
+.section-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:400;color:var(--negro);line-height:1.15;}
+.section-title em{font-style:italic;color:var(--verde-light);}
+.section-link{font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--verde);text-decoration:none;border-bottom:1px solid var(--verde);padding-bottom:2px;font-weight:500;}
+
+/* PILARES */
+.pillars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid var(--borde);}
+.pillar{padding:40px;border-right:1px solid var(--borde);border-bottom:1px solid var(--borde);position:relative;overflow:hidden;transition:background .3s;cursor:default;}
+.pillar:nth-child(2n){border-right:none;}
+.pillar:nth-child(3),.pillar:nth-child(4){border-bottom:none;}
+.pillar:hover{background:var(--crema-dark);}
+.pillar-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--verde-light);letter-spacing:0.1em;margin-bottom:20px;display:block;}
+.pillar h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;margin-bottom:12px;color:var(--negro);}
+.pillar p{font-size:13px;color:var(--gris);line-height:1.65;font-weight:300;}
+.pillar-arrow{position:absolute;bottom:32px;right:32px;width:28px;height:28px;border:1px solid var(--borde);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--gris);opacity:0;transition:opacity .3s;}
+.pillar:hover .pillar-arrow{opacity:1;}
+
+/* PROYECTOS */
+.projects-section{background:var(--verde);padding:96px 48px;}
+.projects-section .section-title{color:#fff;}
+.projects-section .section-title em{color:var(--acento);}
+.projects-section .kicker-num{color:var(--acento);}
+.projects-section .kicker-line{background:var(--acento);}
+.projects-section .section-link{color:var(--acento);border-color:var(--acento);}
+.projects-section .section-header{border-color:rgba(255,255,255,0.1);}
+.projects-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);}
+.project-card{background:var(--verde);padding:36px;display:flex;flex-direction:column;justify-content:space-between;min-height:280px;transition:background .3s;cursor:pointer;}
+.project-card:hover{background:var(--verde-mid);}
+.project-card.featured{background:rgba(79,212,154,0.08);}
+.project-card.featured:hover{background:rgba(79,212,154,0.14);}
+.project-top{margin-bottom:auto;}
+.project-tag{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--acento);font-family:'DM Mono',monospace;margin-bottom:16px;display:block;}
+.project-card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:400;color:#fff;line-height:1.2;margin-bottom:12px;}
+.project-card.featured h3{font-size:28px;}
+.project-card p{font-size:12px;color:rgba(255,255,255,0.45);line-height:1.6;font-weight:300;}
+.project-bottom{margin-top:32px;display:flex;justify-content:space-between;align-items:flex-end;}
+.project-meta{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.05em;}
+.project-icon{width:32px;height:32px;border:1px solid rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.4);}
+
+/* METODOLOGÍA */
+.method-grid{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;}
+.method-intro p{font-size:14px;color:var(--gris);line-height:1.7;font-weight:300;}
+.method-steps{display:flex;flex-direction:column;}
+.method-step{display:grid;grid-template-columns:48px 1fr;gap:24px;padding:28px 0;border-top:1px solid var(--borde);align-items:start;}
+.step-num-big{font-family:'DM Mono',monospace;font-size:13px;color:rgba(10,51,35,0.3);letter-spacing:0.05em;padding-top:3px;}
+.step-content h4{font-family:'Playfair Display',serif;font-size:17px;font-weight:400;margin-bottom:6px;color:var(--negro);}
+.step-content p{font-size:13px;color:var(--gris);line-height:1.6;font-weight:300;}
+
+/* FOOTER */
+footer{background:var(--negro);padding:64px 48px 32px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:32px;}
+.footer-brand h3{font-family:'Playfair Display',serif;font-size:22px;color:#fff;margin-bottom:12px;}
+.footer-brand h3 em{font-style:italic;color:var(--acento);}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,0.35);line-height:1.6;font-weight:300;max-width:260px;}
+.footer-col h4{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:20px;font-weight:500;}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,0.6);text-decoration:none;margin-bottom:10px;transition:color .2s;}
+.footer-col a:hover{color:#fff;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;}
+.footer-bottom p{font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.04em;font-family:'DM Mono',monospace;}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:16px 20px;}
+  nav.scrolled{padding:12px 20px;}
+  .nav-links a:not(.nav-cta){display:none;}
+  .hero{grid-template-columns:1fr;}
+  .hero-left{padding:120px 24px 48px;}
+  .hero-right{display:none;}
+  .numbers{grid-template-columns:repeat(2,1fr);}
+  .number-item{padding:32px 24px;}
+  .section,.section-alt,.projects-section{padding:64px 24px;}
+  .section-header{flex-direction:column;align-items:flex-start;gap:16px;}
+  .pillars-grid{grid-template-columns:1fr;}
+  .pillar:nth-child(2n){border-right:1px solid var(--borde);}
+  .pillar:nth-child(3){border-bottom:1px solid var(--borde);}
+  .pillar:last-child{border-bottom:none;}
+  .projects-grid{grid-template-columns:1fr;}
+  .method-grid{grid-template-columns:1fr;gap:40px;}
+  .footer-top{grid-template-columns:1fr;gap:32px;}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center;}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes barGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+</style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">Finanzas<span>&</span>Datos</div>
-    <div class="nav-links">
+<nav id="nav">
+  <div class="nav-logo">Finanzas<em>&</em>Datos</div>
+  <div class="nav-links">
+    <a href="#pilares">Qué hacemos</a>
+    <a href="#proyectos">Proyectos</a>
+    <a href="#metodologia">Metodología</a>
+    <a href="#contacto" class="nav-cta">Contacto</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle-2"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text">Civic Data Lab · América Latina</span>
+    </div>
+    <h1>Datos para<br>entender <em>problemas<br>públicos</em> complejos.</h1>
+    <p class="hero-desc">Inteligencia de datos, visualización e IA para generar evidencia, monitorear realidades y apoyar decisiones en América Latina.</p>
+    <div class="hero-btns">
+      <a href="#proyectos" class="btn-fill">Ver proyectos</a>
+      <a href="#metodologia" class="btn-outline">Metodología →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hv-header">
+        <div class="hv-dots"><div class="hv-dot r"></div><div class="hv-dot y"></div><div class="hv-dot g"></div></div>
+        <span class="hv-title">monitor_fiscal_2025.py</span>
+      </div>
+      <div class="hv-body">
+        <div class="hv-chart-label">Ejecución presupuestaria — Q1 2025</div>
+        <div class="hv-bars">
+          <div class="hv-bar-row"><span class="hv-bar-name">Salud</span><div class="hv-bar-track"><div class="hv-bar-fill" style="width:78%"></div></div><span class="hv-bar-val">78%</span></div>
+          <div class="hv-bar-row"><span class="hv-bar-name">Educación</span><div class="hv-bar-track"><div class="hv-bar-fill b2" style="width:91%"></div></div><span class="hv-bar-val">91%</span></div>
+          <div class="hv-bar-row"><span class="hv-bar-name">Infraestr.</span><div class="hv-bar-track"><div class="hv-bar-fill b3" style="width:43%"></div></div><span class="hv-bar-val">43%</span></div>
+          <div class="hv-bar-row"><span class="hv-bar-name">Seguridad</span><div class="hv-bar-track"><div class="hv-bar-fill b4" style="width:65%"></div></div><span class="hv-bar-val">65%</span></div>
+          <div class="hv-bar-row"><span class="hv-bar-name">Social</span><div class="hv-bar-track"><div class="hv-bar-fill b5" style="width:55%"></div></div><span class="hv-bar-val">55%</span></div>
+        </div>
+        <hr class="hv-divider"/>
+        <div class="hv-stat-row">
+          <div class="hv-stat"><div class="hv-stat-val">Q7.2B</div><div class="hv-stat-label">Presupuesto analizado</div></div>
+          <div class="hv-stat"><div class="hv-stat-val">14</div><div class="hv-stat-label">Ministerios monitoreados</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NÚMEROS -->
+<div class="numbers" id="numbers">
+  <div class="number-item"><div class="number-val">12<span>+</span></div><div class="number-label">Proyectos de análisis de datos públicos</div></div>
+  <div class="number-item"><div class="number-val">8</div><div class="number-label">Países de América Latina cubiertos</div></div>
+  <div class="number-item"><div class="number-val">4M<span>+</span></div><div class="number-label">Registros procesados y analizados</div></div>
+  <div class="number-item"><div class="number-val">3</div><div class="number-label">Observatorios activos en operación</div></div>
+</div>
+
+<!-- PILARES -->
+<section class="section" id="pilares">
+  <div class="section-header">
+    <div>
+      <div class="section-kicker"><span class="kicker-num">01</span><span class="kicker-line"></span></div>
+      <h2 class="section-title">Cuatro pilares<br><em>de trabajo</em></h2>
+    </div>
+    <a href="#contacto" class="section-link">Trabajemos juntos</a>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar">
+      <span class="pillar-num">01 — Inteligencia de datos</span>
+      <h3>Estructuramos lo que otros no pueden ver</h3>
+      <p>Recopilamos, limpiamos y analizamos datos públicos complejos para revelar patrones, tendencias y anomalías que informan decisiones de política pública.</p>
+      <div class="pillar-arrow">↗</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">02 — Observatorios y monitoreo</span>
+      <h3>Seguimiento continuo de lo que importa</h3>
+      <p>Sistemas automatizados de monitoreo de indicadores fiscales, sociales y de gestión pública con actualización periódica y alertas tempranas.</p>
+      <div class="pillar-arrow">↗</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">03 — IA aplicada</span>
+      <h3>Tecnología al servicio del bien común</h3>
+      <p>Modelos de lenguaje e inteligencia artificial para análisis automatizado de documentos públicos, contratos y presupuestos a escala.</p>
+      <div class="pillar-arrow">↗</div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">04 — Narrativas y visualización</span>
+      <h3>Datos que generan incidencia</h3>
+      <p>Diseñamos visualizaciones y relatos de datos que transforman evidencia compleja en argumentos comprensibles y accionables para distintas audiencias.</p>
+      <div class="pillar-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section class="projects-section" id="proyectos">
+  <div class="section-header">
+    <div>
+      <div class="section-kicker"><span class="kicker-num">02</span><span class="kicker-line"></span></div>
+      <h2 class="section-title">Proyectos<br><em>destacados</em></h2>
+    </div>
+    <a href="#contacto" class="section-link">Ver portafolio</a>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card featured">
+      <div class="project-top">
+        <span class="project-tag">Presupuesto público</span>
+        <h3>Monitor Fiscal Guatemala 2025</h3>
+        <p>Seguimiento mensual de la ejecución presupuestaria del gobierno central. Análisis de 14 ministerios con alertas automáticas de subejercicio y visualizaciones interactivas.</p>
+      </div>
+      <div class="project-bottom">
+        <span class="project-meta">Guatemala · 2024–2025</span>
+        <div class="project-icon">↗</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-top">
+        <span class="project-tag">Indicadores sociales</span>
+        <h3>Dashboard Social LATAM</h3>
+        <p>Comparación de indicadores de pobreza y desigualdad en 10 países de la región con datos actualizados.</p>
+      </div>
+      <div class="project-bottom">
+        <span class="project-meta">LATAM · 2024</span>
+        <div class="project-icon">↗</div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-top">
+        <span class="project-tag">Transparencia</span>
+        <h3>Análisis Compras Públicas</h3>
+        <p>IA aplicada para detectar patrones y anomalías en contrataciones del Estado guatemalteco.</p>
+      </div>
+      <div class="project-bottom">
+        <span class="project-meta">Guatemala · 2025</span>
+        <div class="project-icon">↗</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METODOLOGÍA -->
+<section class="section" id="metodologia">
+  <div class="section-header">
+    <div>
+      <div class="section-kicker"><span class="kicker-num">03</span><span class="kicker-line"></span></div>
+      <h2 class="section-title">Nuestra<br><em>metodología</em></h2>
+    </div>
+  </div>
+  <div class="method-grid">
+    <div class="method-intro">
+      <p>Combinamos rigor analítico con sensibilidad narrativa. Cada proyecto parte de una pregunta concreta y termina con evidencia que puede usarse para tomar decisiones o generar incidencia pública.</p>
+    </div>
+    <div class="method-steps">
+      <div class="method-step">
+        <span class="step-num-big">01</span>
+        <div class="step-content"><h4>Identificamos el problema</h4><p>Partimos de preguntas concretas de política pública o incidencia ciudadana, trabajando junto a aliados estratégicos para definir el alcance.</p></div>
+      </div>
+      <div class="method-step">
+        <span class="step-num-big">02</span>
+        <div class="step-content"><h4>Estructuramos los datos</h4><p>Recopilamos, limpiamos y validamos fuentes primarias y secundarias. Documentamos todo el proceso para garantizar reproducibilidad y transparencia.</p></div>
+      </div>
+      <div class="method-step">
+        <span class="step-num-big">03</span>
+        <div class="step-content"><h4>Construimos sistemas de monitoreo</h4><p>Diseñamos dashboards y flujos de actualización automatizada que permiten seguimiento continuo en el tiempo con mínima intervención manual.</p></div>
+      </div>
+      <div class="method-step">
+        <span class="step-num-big">04</span>
+        <div class="step-content"><h4>Diseñamos la narrativa</h4><p>Transformamos el análisis en visualizaciones y relatos accionables, adaptados a la audiencia específica que necesita actuar con esa información.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <h3>Finanzas<em>&</em>Datos</h3>
+      <p>Civic Data Lab especializado en inteligencia de datos, visualización e IA para América Latina.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <a href="#pilares">Qué hacemos</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#metodologia">Metodología</a>
-      <a href="#contacto">Contacto</a>
     </div>
-  </nav>
-
-  <section class="hero">
-    <div class="hero-tag">Civic Data Lab · América Latina</div>
-    <h1>Datos para entender <em>problemas públicos</em> complejos.</h1>
-    <p>Inteligencia de datos, visualización e IA para generar evidencia, monitorear realidades y apoyar decisiones.</p>
-    <div class="hero-btns">
-      <a href="#proyectos" class="btn-primary">Ver proyectos</a>
-      <a href="#metodologia" class="btn-secondary">Metodología →</a>
-    </div>
-  </section>
-
-  <section class="section" id="proyectos">
-    <div class="section-label">Qué hacemos</div>
-    <h2>Cuatro pilares de trabajo</h2>
-    <div class="pillars">
-      <div class="pillar">
-        <div class="pillar-icon"><i class="ti ti-database"></i></div>
-        <h3>Inteligencia de datos</h3>
-        <p>Estructuramos y analizamos datos públicos para revelar patrones y tendencias clave.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-icon"><i class="ti ti-eye"></i></div>
-        <h3>Observatorios y monitoreo</h3>
-        <p>Sistemas de seguimiento continuo de indicadores fiscales, sociales y de gestión.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-icon"><i class="ti ti-brain"></i></div>
-        <h3>IA aplicada</h3>
-        <p>Modelos de lenguaje e inteligencia artificial para análisis automatizado de información pública.</p>
-      </div>
-      <div class="pillar">
-        <div class="pillar-icon"><i class="ti ti-chart-bar"></i></div>
-        <h3>Narrativas y visualización</h3>
-        <p>Diseñamos gráficas y relatos de datos que transforman evidencia en incidencia.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-alt">
-    <div class="section-label">Casos destacados</div>
-    <h2>Proyectos recientes</h2>
-    <div class="cases">
-      <div class="case">
-        <div class="case-thumb t1"><i class="ti ti-map-2" style="color:#5DCAA5;font-size:32px"></i></div>
-        <div class="case-body">
-          <div class="case-tag">Presupuesto</div>
-          <h4>Monitor fiscal Guatemala</h4>
-          <p>Seguimiento mensual de la ejecución presupuestaria del gobierno central.</p>
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-thumb t2"><i class="ti ti-trending-up" style="color:#9FE1CB;font-size:32px"></i></div>
-        <div class="case-body">
-          <div class="case-tag">Indicadores</div>
-          <h4>Dashboard social LATAM</h4>
-          <p>Comparación de indicadores de pobreza y desigualdad en 10 países.</p>
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-thumb t3"><i class="ti ti-search" style="color:#E1F5EE;font-size:32px"></i></div>
-        <div class="case-body">
-          <div class="case-tag">Transparencia</div>
-          <h4>Análisis de compras públicas</h4>
-          <p>IA aplicada para detectar patrones en contrataciones del Estado.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="metodologia">
-    <div class="section-label">Cómo trabajamos</div>
-    <h2>Metodología</h2>
-    <div class="method">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div>
-          <h4>Identificamos el problema</h4>
-          <p>Partimos de preguntas concretas de política pública o incidencia ciudadana.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div>
-          <h4>Estructuramos los datos</h4>
-          <p>Recopilamos, limpiamos y validamos fuentes primarias y secundarias.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div>
-          <h4>Construimos sistemas de monitoreo</h4>
-          <p>Diseñamos dashboards y flujos de actualización automatizada.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div>
-          <h4>Diseñamos la narrativa</h4>
-          <p>Transformamos el análisis en visualizaciones y relatos accionables.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer id="contacto">
-    <p>© 2025 Finanzas y Datos · Guatemala</p>
-    <div class="footer-links">
+    <div class="footer-col">
+      <h4>Contacto</h4>
       <a href="mailto:contacto@finanzasydatos.com">contacto@finanzasydatos.com</a>
-      <a href="https://github.com" target="_blank">GitHub</a>
+      <a href="https://github.com/danieldeleon9" target="_blank">GitHub</a>
+      <a href="#">LinkedIn</a>
     </div>
-  </footer>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 FINANZAS Y DATOS · GUATEMALA</p>
+    <p>CIVIC DATA LAB · LATAM</p>
+  </div>
+</footer>
 
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+const nums = document.querySelectorAll('.number-item');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 120); }
+  });
+}, { threshold: 0.3 });
+nums.forEach(n => obs.observe(n));
+</script>
 </body>
 </html>
