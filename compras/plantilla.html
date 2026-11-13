@@ -84,10 +84,25 @@ nav ul a{color:var(--ink);text-decoration:none;opacity:.8} nav ul a:hover{opacit
 .legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-2px;margin-right:6px}
 @media (max-width:860px){
-  .scrolly{grid-template-columns:1fr}
-  .sticky{position:sticky;top:60px;height:58vh;min-height:360px;z-index:1;background:var(--bg)}
-  .steps{gap:50vh;position:relative;z-index:2}
+  /* Teléfono: el gráfico queda fijo en la mitad superior y las tarjetas pasan por la franja inferior */
+  body{background-attachment:scroll}
+  .chapter{padding-top:64px}
+  .chapter header{margin-bottom:18px}
+  .scrolly{display:flex;flex-direction:column;gap:0}
+  .sticky{order:-1;position:-webkit-sticky;position:sticky;top:60px;z-index:3;height:auto;min-height:0;
+    background:var(--bg);padding:6px 0 10px;border-bottom:1px solid var(--faint);box-shadow:0 14px 18px -12px rgba(0,0,0,.55)}
+  .sticky{width:100%;align-self:stretch;display:block}
+  .sticky svg{display:block;width:100%;height:44vh;height:44svh;max-height:none}
+  .legend{margin-top:2px}
+  .steps{position:relative;z-index:1;gap:38vh;gap:38svh;padding:3vh 0 34vh;padding:3svh 0 34svh}
+  .step{padding:16px 18px}
+  .step h3{font-size:21px}
+  .step .big{font-size:30px}
+  .step p{font-size:15.5px;line-height:1.5}
+  svg .lbl{font-size:15px}
+  .dim{opacity:.12}
 }
+@media (max-width:420px){ .wrap{padding:0 16px} .hero h1{font-size:40px} }
 svg text{fill:var(--ink);font-family:var(--body)}
 svg .lbl{font-family:var(--mono);font-size:10.5px;fill:var(--muted);letter-spacing:.04em}
 svg .num{font-family:var(--display)}
@@ -298,6 +313,7 @@ const fecha = s => { const [y,m,d]=s.split("-"); return `${+d} de ${MESL[+m-1]} 
 const G = D.general, tip = document.getElementById("tip");
 function showTip(e, html){ tip.innerHTML=html; tip.style.opacity=1; const x=Math.min(e.clientX+14, innerWidth-300); tip.style.left=x+"px"; tip.style.top=(e.clientY+14)+"px"; }
 function hideTip(){ tip.style.opacity=0; }
+addEventListener("scroll", hideTip, {passive:true});
 const byName = (arr, re) => arr.find(d => re.test(d.nombre));
 
 /* ---------- textos ---------- */
@@ -496,7 +512,14 @@ const charts = {};
   hr.append("text").attr("font-size",12).attr("y",0).text(d=>d.nombre.replace(/HOSPITAL /,"H. ").replace(/REGIONAL /,"REG. ").slice(0,28));
   hr.append("rect").attr("y",8).attr("height",10).attr("width",d=>Ux(d.Q)).attr("fill",(d,i)=>i<2?"var(--acc)":"rgba(79,212,154,.35)");
   hr.append("text").attr("class","lbl").attr("y",34).text(d=>`${M(d.Q)} · ${nf.format(d.n)} procesos`);
-  charts.salud = k => { arcs.classed("dim", (d,i)=> k==="hosp"||k==="cd" ? true : k==="seg" ? i>2 : false); hr.classed("dim",(d,i)=> k==="hosp" ? i>1 : k==="seg"||k==="cd"); };
+  const movilS = window.matchMedia("(max-width:860px)").matches;
+  const VB_TODO = "0 0 720 660", VB_ROSA = "-55 140 545 360", VB_HOSP = "478 52 262 300";
+  if (movilS) svg.attr("viewBox", VB_ROSA);
+  charts.salud = k => {
+    arcs.classed("dim", (d,i)=> k==="hosp"||k==="cd" ? true : k==="seg" ? i>2 : false);
+    hr.classed("dim",(d,i)=> k==="hosp" ? i>1 : k==="seg"||k==="cd");
+    if (movilS) svg.transition().duration(650).attr("viewBox", k==="hosp" ? VB_HOSP : VB_ROSA);
+  };
   document.getElementById("s-ms-q").textContent = QQ(S.total);
   document.getElementById("s-ms-t").textContent = `Hasta el ${fecha(D.corte)}, el Ministerio de Salud Pública y Asistencia Social ha adjudicado ${nf.format(S.procesos)} procesos a ${nf.format(S.proveedores)} proveedores, desde ${nf.format(S.unidades)} unidades compradoras. Los cinco proveedores principales se llevan ${pct(S.top5_proveedores_pct)} del monto.`;
   document.getElementById("s-ms-seg").textContent = `Medicamentos (${pct(seg[0].pct)}), equipo e insumos médicos (${pct(seg[1].pct)}) y laboratorio (${pct(seg[2].pct)}) suman ${pct(seg[0].pct+seg[1].pct+seg[2].pct)} de lo adjudicado. La familia más grande: ${S.familias_top[0].nombre.toLowerCase()} (${M(S.familias_top[0].Q)}).`;
@@ -510,7 +533,9 @@ const charts = {};
 document.querySelectorAll(".scrolly").forEach(sc=>{
   const svgId = sc.querySelector(".sticky svg").id.replace("g-",""), fn = () => charts[svgId];
   const steps = sc.querySelectorAll(".step");
-  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ steps.forEach(s=>s.classList.remove("on")); e.target.classList.add("on"); fn() && fn()(e.target.dataset.k); } }),{rootMargin:"-45% 0px -45% 0px"});
+  const movil = window.matchMedia("(max-width:860px)").matches;
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ steps.forEach(s=>s.classList.remove("on")); e.target.classList.add("on"); fn() && fn()(e.target.dataset.k); } }),
+    {rootMargin: movil ? "-58% 0px -22% 0px" : "-45% 0px -45% 0px"});
   steps.forEach(s=>io.observe(s));
 });
 
