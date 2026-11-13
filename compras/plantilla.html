@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitor de Compras Públicas GT</title>
+<meta property="og:title" content="Monitor de Compras Públicas GT · Finanzas&amp;Datos">
+<meta property="og:description" content="Quién compra, qué se compra y quién vende en las compras públicas de Guatemala.">
+<meta name="description" content="Quién compra, qué se compra y quién vende en las compras públicas de Guatemala. Datos OCDS de Guatecompras actualizados a diario. Finanzas&Datos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* Mundo único Finanzas&Datos: verde bosque, crema y menta. Layout: hero con la "flor del año",
+   capítulos de scrollytelling (texto que pasa junto a un gráfico fijo) y un tablero por sector. */
+:root{
+  --bg:#0a3323; --bg2:#0f4a32; --bg3:#13573b;
+  --ink:#f5f2ec; --muted:#a8bcae; --faint:rgba(245,242,236,.10);
+  --acc:#4fd49a; --gold:#d9c27e; --rose:#e8a68f;
+  --display:"Playfair Display",Georgia,"Times New Roman",serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;
+  background-image:linear-gradient(var(--faint) 1px,transparent 1px),linear-gradient(90deg,var(--faint) 1px,transparent 1px);
+  background-size:56px 56px;background-attachment:fixed}
+a{color:var(--acc)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+em,.it{font-family:var(--display);font-style:italic;color:var(--acc);font-weight:400}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;gap:12px;align-items:center}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--acc)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(10,51,35,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--faint)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.logo{font-family:var(--display);font-size:20px;color:var(--ink);text-decoration:none}
+.logo i{color:var(--acc)}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+nav ul a{color:var(--ink);text-decoration:none;opacity:.8} nav ul a:hover{opacity:1;color:var(--acc)}
+@media (max-width:760px){nav ul{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding:64px 0 40px}
+.hero h1{font-size:clamp(40px,6vw,76px);line-height:1.02;margin:18px 0 22px}
+.hero p.lead{color:var(--muted);max-width:52ch;font-size:18px}
+.today{margin-top:28px;border:1px solid rgba(79,212,154,.35);background:rgba(15,74,50,.6);padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;max-width:520px}
+.today .pulse{width:10px;height:10px;border-radius:50%;background:var(--acc);margin-top:8px;box-shadow:0 0 0 0 rgba(79,212,154,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(79,212,154,0)}100%{box-shadow:0 0 0 0 rgba(79,212,154,0)}}
+.today b{font-family:var(--display);font-weight:400;font-size:26px}
+.today small{grid-column:2;color:var(--muted);font-size:14px}
+.flower-box{position:relative}
+.flower-box svg{width:100%;height:auto;display:block}
+.howto{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
+
+/* kpi strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);margin:24px 0 0}
+.strip div{padding:22px 18px;border-right:1px solid var(--faint)}
+.strip div:last-child{border-right:0}
+.strip b{display:block;font-family:var(--display);font-size:clamp(28px,3.4vw,40px);font-weight:400;line-height:1.1}
+.strip span{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:700px){.strip{grid-template-columns:1fr 1fr}.strip div:nth-child(2){border-right:0}}
+
+/* chapters (scrollytelling) */
+.chapter{padding:90px 0 40px;border-top:1px solid var(--faint)}
+.chapter header{max-width:760px;margin-bottom:36px}
+.chapter h2{font-size:clamp(32px,4.4vw,54px);line-height:1.08;margin-top:14px}
+.scrolly{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:48px;align-items:start}
+.steps{display:flex;flex-direction:column;gap:38vh;padding:6vh 0 20vh}
+.step{background:rgba(15,74,50,.82);border-left:2px solid var(--faint);padding:20px 22px;transition:border-color .3s,background .3s}
+.step.on{border-left-color:var(--acc);background:rgba(19,87,59,.92)}
+.step h3{font-size:24px;margin-bottom:8px}
+.step p{margin:0;color:#dfe7e1}
+.step .big{font-family:var(--display);font-size:36px;color:var(--acc);display:block;line-height:1.1;margin-bottom:6px}
+.sticky{position:sticky;top:80px;height:calc(100vh - 110px);min-height:520px;display:flex;flex-direction:column;justify-content:center}
+.sticky svg{width:100%;height:100%;max-height:720px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-2px;margin-right:6px}
+@media (max-width:860px){
+  .scrolly{grid-template-columns:1fr}
+  .sticky{position:sticky;top:60px;height:58vh;min-height:360px;z-index:1;background:var(--bg)}
+  .steps{gap:50vh;position:relative;z-index:2}
+}
+svg text{fill:var(--ink);font-family:var(--body)}
+svg .lbl{font-family:var(--mono);font-size:10.5px;fill:var(--muted);letter-spacing:.04em}
+svg .num{font-family:var(--display)}
+.dim{opacity:.18;transition:opacity .4s}
+.hl{opacity:1!important}
+.tip{position:fixed;pointer-events:none;z-index:50;background:var(--ink);color:var(--bg);padding:8px 10px;font-size:13px;max-width:280px;line-height:1.35;opacity:0;transition:opacity .15s}
+.tip b{font-family:var(--mono);font-weight:500}
+
+/* dashboard */
+#tablero{padding:90px 0 60px;border-top:1px solid var(--faint)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 22px}
+.tabs button{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--ink);border:1px solid rgba(245,242,236,.25);padding:9px 14px;cursor:pointer}
+.tabs button:hover{border-color:var(--acc)}
+.tabs button[aria-selected="true"]{background:var(--acc);color:var(--bg);border-color:var(--acc)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--faint);border:1px solid var(--faint)}
+.kpis div{background:var(--bg);padding:18px}
+.kpis b{display:block;font-family:var(--display);font-weight:400;font-size:30px;line-height:1.15}
+.kpis span{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:860px){.kpis{grid-template-columns:1fr 1fr}}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:22px}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;margin-top:22px}
+@media (max-width:980px){.grid3,.grid2{grid-template-columns:1fr}}
+.panel{border:1px solid var(--faint);background:rgba(10,51,35,.92);padding:18px 18px 12px}
+.panel h3{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:12px;font-weight:500}
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-bottom:1px solid var(--faint);font-size:14px;line-height:1.3}
+.rows li:last-child{border-bottom:0}
+.rows .q{font-family:var(--mono);font-size:13px;color:var(--ink);white-space:nowrap}
+.rows .bar{grid-column:1/-1;height:4px;background:var(--faint)}
+.rows .bar i{display:block;height:100%;background:var(--acc)}
+.rows .sub{grid-column:1/-1;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.months svg{width:100%;height:auto}
+.note{font-size:14px;color:var(--muted);max-width:72ch;margin-top:18px}
+
+/* carrusel + método */
+.cta{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:80px 0;border-top:1px solid var(--faint)}
+.cta h2{font-size:clamp(30px,4vw,48px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chips span{font-family:var(--mono);font-size:12px;border:1px solid rgba(79,212,154,.4);padding:6px 10px;color:var(--acc)}
+@media (max-width:860px){.cta{grid-template-columns:1fr}}
+.method{padding:70px 0 90px;border-top:1px solid var(--faint);display:grid;grid-template-columns:1fr 1.4fr;gap:40px}
+.method h2{font-size:36px}
+.method ol{margin:0;padding-left:20px;color:#dfe7e1}
+.method li{margin-bottom:10px}
+@media (max-width:860px){.method{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--faint);padding:26px 0;font-family:var(--mono);font-size:12px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="/">Finanzas<i>&amp;</i>Datos</a>
+  <ul>
+    <li><a href="#quien-compra">Quién compra</a></li>
+    <li><a href="#como-compra">Cómo</a></li>
+    <li><a href="#que-se-compra">Qué</a></li>
+    <li><a href="#quien-vende">Quién vende</a></li>
+    <li><a href="#salud">Salud</a></li>
+    <li><a href="#tablero">Tablero</a></li>
+  </ul>
+</div></nav>
+
+<main id="inicio">
+<section class="wrap">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Monitor de compras públicas · Guatemala</div>
+      <h1>Cada quetzal que el Estado compra deja <em>una huella.</em></h1>
+      <p class="lead" id="lead"></p>
+      <div class="today" role="status">
+        <span class="pulse" aria-hidden="true"></span>
+        <div><span class="mono" id="hoy-fecha" style="font-size:12px;letter-spacing:.1em;color:var(--acc)"></span><br><b id="hoy-q"></b></div>
+        <small id="hoy-txt"></small>
+      </div>
+    </div>
+    <div class="flower-box">
+      <svg id="flor" viewBox="0 0 560 560" role="img" aria-labelledby="flor-t"><title id="flor-t">Flor del año: monto adjudicado por mes</title></svg>
+      <p class="howto" id="flor-how">CÓMO LEER · cada pétalo es un mes · largo = quetzales adjudicados · ancho = número de procesos · el hueco es lo que falta del año</p>
+    </div>
+  </div>
+  <div class="strip" id="strip"></div>
+</section>
+
+<!-- Capítulo 1 -->
+<section class="chapter wrap" id="quien-compra">
+  <header><div class="eyebrow">01 · Quién compra</div><h2>Un puñado de instituciones <em>concentra</em> el gasto.</h2></header>
+  <div class="scrolly" data-chart="compradores">
+    <div class="steps">
+      <div class="step" data-k="all"><h3>El mapa de compradores</h3><p>Cada círculo es una institución. El anillo exterior mide los quetzales adjudicados en el año; el núcleo, cuántos procesos ganaron proveedor. Dos instituciones con el mismo dinero pueden comprar de formas muy distintas.</p></div>
+      <div class="step" data-k="igss"><span class="big" id="s-igss"></span><h3>El IGSS es el gran comprador cotidiano</h3><p id="s-igss-t"></p></div>
+      <div class="step" data-k="micivi"><span class="big" id="s-micivi"></span><h3>Comunicaciones compra poco y caro</h3><p id="s-micivi-t"></p></div>
+      <div class="step" data-k="mspas"><span class="big" id="s-mspas"></span><h3>Salud Pública, tercera en monto</h3><p id="s-mspas-t"></p></div>
+    </div>
+    <div class="sticky"><svg id="g-compradores" viewBox="0 0 720 640" role="img" aria-label="Círculos de las 20 instituciones que más adjudican"></svg>
+      <div class="legend"><span><i style="border:1.5px solid var(--acc)"></i>anillo = monto (Q)</span><span><i style="background:var(--gold)"></i>núcleo = procesos</span></div></div>
+  </div>
+</section>
+
+<!-- Capítulo 2 -->
+<section class="chapter wrap" id="como-compra">
+  <header><div class="eyebrow">02 · Cómo compra</div><h2>La compra directa es la regla; la licitación, <em>la excepción</em> que mueve más dinero.</h2></header>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step" data-k="all"><h3>Semillas de cada modalidad</h3><p>Cada punto de la espiral equivale a 500 adjudicaciones. El arco que rodea cada semilla marca su parte del dinero total.</p></div>
+      <div class="step" data-k="0"><span class="big" id="s-cd"></span><h3>Compra directa con oferta electrónica</h3><p id="s-cd-t"></p></div>
+      <div class="step" data-k="1"><span class="big" id="s-lic"></span><h3>Licitación pública</h3><p id="s-lic-t"></p></div>
+    </div>
+    <div class="sticky"><svg id="g-semillas" viewBox="0 0 720 640" role="img" aria-label="Espirales de puntos por modalidad de compra"></svg></div>
+  </div>
+</section>
+
+<!-- Capítulo 3 -->
+<section class="chapter wrap" id="que-se-compra">
+  <header><div class="eyebrow">03 · Qué se compra</div><h2>Un herbario del gasto: <em>carreteras, ingeniería y medicinas.</em></h2></header>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step" data-k="all"><h3>Cómo leer el herbario</h3><p>Cada hoja es una familia de productos o servicios según el catálogo UNSPSC que usa Guatecompras. El largo indica los quetzales; el ancho, en cuántos procesos aparece.</p></div>
+      <div class="step" data-k="obra"><h3>Obra pública arriba</h3><p id="s-obra-t"></p></div>
+      <div class="step" data-k="med"><h3>Medicinas, en muchas hojas pequeñas</h3><p>Los medicamentos se reparten en varias familias (sistema nervioso, oncológicos, antiinfecciosos, hematológicos, hormonas). Son hojas angostas en dinero pero anchas en procesos: se compran todos los días.</p></div>
+    </div>
+    <div class="sticky"><svg id="g-herbario" viewBox="-30 0 790 660" role="img" aria-label="Hojas por familia de productos"></svg></div>
+  </div>
+</section>
+
+<!-- Capítulo 4 -->
+<section class="chapter wrap" id="quien-vende">
+  <header><div class="eyebrow">04 · Quién vende</div><h2>La constelación de <em>proveedores</em>.</h2></header>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step" data-k="all"><h3>Compradores al centro, proveedores en órbita</h3><p>En el anillo interior están las 14 instituciones que más adjudican. Alrededor, los 60 proveedores con más dinero ganado con ellas. Cada hilo es una relación de más de Q5 millones; el grosor indica el monto. Pase el cursor sobre una estrella para aislarla.</p></div>
+      <div class="step" data-k="top"><span class="big" id="s-top1"></span><h3 id="s-top1-h"></h3><p id="s-top1-t"></p></div>
+      <div class="step" data-k="farma"><h3>La órbita farmacéutica</h3><p id="s-farma-t"></p></div>
+    </div>
+    <div class="sticky"><svg id="g-constelacion" viewBox="-175 -30 1070 780" role="img" aria-label="Red radial entre compradores y proveedores"></svg></div>
+  </div>
+</section>
+
+<!-- Capítulo 5 -->
+<section class="chapter wrap" id="salud">
+  <header><div class="eyebrow">05 · Salud bajo la lupa</div><h2>¿Qué compra el <em>Ministerio de Salud</em>?</h2></header>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step" data-k="all"><span class="big" id="s-ms-q"></span><h3>El año del MSPAS</h3><p id="s-ms-t"></p></div>
+      <div class="step" data-k="seg"><h3>La rosa de lo que se compra</h3><p id="s-ms-seg"></p></div>
+      <div class="step" data-k="hosp"><span class="big" id="s-ms-h"></span><h3>Dos hospitales, casi la mitad</h3><p id="s-ms-h-t"></p></div>
+      <div class="step" data-k="cd"><span class="big" id="s-ms-cd"></span><h3>Casi todo por compra directa</h3><p id="s-ms-cd-t"></p></div>
+    </div>
+    <div class="sticky"><svg id="g-salud" viewBox="0 0 720 660" role="img" aria-label="Rosa de categorías y hospitales del MSPAS"></svg></div>
+  </div>
+</section>
+
+<!-- Tablero -->
+<section id="tablero" class="wrap">
+  <div class="eyebrow">06 · Tablero</div>
+  <h2 style="font-size:clamp(32px,4.4vw,54px);margin-top:14px">Explora por <em>sector</em>.</h2>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="grid2">
+    <div class="panel months"><h3 id="m-title">Monto adjudicado por mes</h3><svg id="g-meses" viewBox="0 0 640 230"></svg></div>
+    <div class="panel"><h3>Cómo se compra</h3><ul class="rows" id="l-mod"></ul></div>
+  </div>
+  <div class="grid3">
+    <div class="panel"><h3 id="l-comp-t">Quién compra</h3><ul class="rows" id="l-comp"></ul></div>
+    <div class="panel"><h3>Quién vende</h3><ul class="rows" id="l-prov"></ul></div>
+    <div class="panel"><h3>Qué se compra</h3><ul class="rows" id="l-fam"></ul></div>
+  </div>
+  <p class="note" id="t-note"></p>
+</section>
+
+<section class="wrap cta">
+  <div>
+    <div class="eyebrow">En redes</div>
+    <h2>5 cosas sobre compras públicas <em>HOY!!</em></h2>
+    <p style="color:var(--muted)">Cada edición del carrusel toma un enfoque (salud, educación, justicia, ejecutivo) y lo cuenta en cinco datos verificables con la misma fuente de este monitor.</p>
+    <div class="chips"><span>Salud</span><span>Educación</span><span>Justicia</span><span>Ejecutivo</span><span>Municipalidades</span></div>
+  </div>
+  <svg id="g-mini" viewBox="0 0 520 300" role="img" aria-label="Últimos 60 días de adjudicaciones"></svg>
+</section>
+
+<section class="wrap method" id="metodo">
+  <div><div class="eyebrow">Metodología</div><h2>De dónde salen <em>los datos</em></h2></div>
+  <div>
+    <ol>
+      <li>Fuente: archivos mensuales del Estándar de Datos para las Contrataciones Abiertas (OCDS) publicados por el Ministerio de Finanzas Públicas en <a href="https://ocds.guatecompras.gt/descarga-datos">ocds.guatecompras.gt</a>, licencia CC BY 4.0. Se actualizan a diario.</li>
+      <li>Se cuentan las adjudicaciones con estado activo cuya fecha cae en el año analizado. Se descargan los procesos publicados desde septiembre del año anterior para no perder adjudicaciones de concursos antiguos.</li>
+      <li>El comprador es la institución (registro GT-CISP); la unidad compradora es la dependencia que ejecutó el proceso (por ejemplo, un hospital).</li>
+      <li>"Qué se compra" usa la familia UNSPSC (4 dígitos) de los ítems del concurso. Como Guatecompras no publica el monto por ítem adjudicado, el monto de cada proceso se reparte por igual entre sus familias: es una aproximación.</li>
+      <li>Los montos están en quetzales corrientes. El Ministerio de Educación transfiere buena parte de su gasto a organizaciones de padres de familia, que no aparece como compra en Guatecompras.</li>
+    </ol>
+    <p class="note" id="m-corte"></p>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><span>Finanzas&amp;Datos · Civic Data Lab · América Latina</span><span id="f-src"></span></div></footer>
+<div class="tip" id="tip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+const D = /*__DATA__*/null;
+const MES = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"];
+const MESL = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const nf = new Intl.NumberFormat("es-GT");
+const nf1 = new Intl.NumberFormat("es-GT",{maximumFractionDigits:1,minimumFractionDigits:1});
+const M = x => "Q" + nf1.format(x/1e6) + " M";
+const QQ = x => x>=1e9 ? "Q" + nf1.format(x/1e9) + " mil M" : M(x);
+const pct = x => nf.format(Math.round(x*100)) + "%";
+const fecha = s => { const [y,m,d]=s.split("-"); return `${+d} de ${MESL[+m-1]} de ${y}`; };
+const G = D.general, tip = document.getElementById("tip");
+function showTip(e, html){ tip.innerHTML=html; tip.style.opacity=1; const x=Math.min(e.clientX+14, innerWidth-300); tip.style.left=x+"px"; tip.style.top=(e.clientY+14)+"px"; }
+function hideTip(){ tip.style.opacity=0; }
+const byName = (arr, re) => arr.find(d => re.test(d.nombre));
+
+/* ---------- textos ---------- */
+document.getElementById("lead").innerHTML =
+  `En ${D.anio}, el Estado de Guatemala ha adjudicado <b>${QQ(G.total)}</b> en <b>${nf.format(G.procesos)}</b> procesos a <b>${nf.format(G.proveedores)}</b> proveedores. Este monitor lee a diario los datos abiertos de Guatecompras y los convierte en preguntas simples: quién compra, qué compra, cómo y a quién.`;
+document.getElementById("hoy-fecha").textContent = "ÚLTIMO DÍA CON DATOS · " + fecha(D.hoy.fecha).toUpperCase();
+document.getElementById("hoy-q").textContent = M(D.hoy.Q) + " adjudicados";
+document.getElementById("hoy-txt").textContent = `${nf.format(D.hoy.adjudicaciones)} adjudicaciones en un día. El mayor comprador de la jornada: ${D.hoy.top_comprador} (${M(D.hoy.top_comprador_Q)}).`;
+document.getElementById("strip").innerHTML = [
+  [QQ(G.total),"adjudicado en "+D.anio],[nf.format(G.procesos),"procesos adjudicados"],
+  [nf.format(G.proveedores),"proveedores"],[nf.format(G.compradores),"instituciones compradoras"]
+].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
+document.getElementById("m-corte").textContent = `Datos con corte al ${fecha(D.corte)}. Procesado por Finanzas&Datos.`;
+document.getElementById("f-src").textContent = "Fuente: " + D.fuente;
+
+/* ---------- 0. Flor del año ---------- */
+(function(){
+  const svg = d3.select("#flor"), c = 280, r0 = 54;
+  const meses = D.general.meses, maxQ = d3.max(meses,d=>d.Q), maxN = d3.max(meses,d=>d.n);
+  const R = d3.scaleSqrt().domain([0,maxQ]).range([r0+10, 250]);
+  const W = d3.scaleLinear().domain([0,maxN]).range([4, 30]);
+  const g = svg.append("g").attr("transform",`translate(${c},${c})`);
+  [100,160,220].forEach(r=>g.append("circle").attr("r",r).attr("fill","none").attr("stroke","rgba(245,242,236,.08)").attr("stroke-dasharray","2 4"));
+  const petal = (len,w) => `M0,${-r0} C${w},${-r0-len*0.35} ${w*0.9},${-len*0.85} 0,${-len} C${-w*0.9},${-len*0.85} ${-w},${-r0-len*0.35} 0,${-r0}Z`;
+  for(let i=0;i<12;i++){
+    const d = meses.find(x=>+x.mes.slice(5)===i+1), a = i*30;
+    const gg = g.append("g").attr("transform",`rotate(${a})`);
+    if(!d){ gg.append("path").attr("d",petal(150,14)).attr("fill","none").attr("stroke","rgba(245,242,236,.25)").attr("stroke-dasharray","3 4"); }
+    else{
+      const len = R(d.Q), w = W(d.n), last = i === meses.length-1;
+      gg.append("path").attr("d",petal(len,w)).attr("fill", last?"rgba(217,194,126,.35)":"rgba(79,212,154,.28)")
+        .attr("stroke", last?"var(--gold)":"var(--acc)").attr("stroke-width",1.2)
+        .on("mousemove",e=>showTip(e,`<b>${MESL[i]}</b><br>${M(d.Q)} · ${nf.format(d.n)} procesos${last?"<br>(mes en curso)":""}`)).on("mouseleave",hideTip);
+      gg.append("line").attr("y1",-r0).attr("y2",-len+6).attr("stroke", last?"var(--gold)":"var(--acc)").attr("stroke-width",.6).attr("opacity",.7);
+      gg.append("circle").attr("cy",-len).attr("r",2.6).attr("fill",last?"var(--gold)":"var(--acc)");
+    }
+    const lr = 268, la = (a-90)*Math.PI/180;
+    g.append("text").attr("class","lbl").attr("x",lr*Math.cos(la)).attr("y",lr*Math.sin(la)+3).attr("text-anchor","middle").text(MES[i]);
+  }
+  g.append("circle").attr("r",r0-4).attr("fill","var(--bg)").attr("stroke","rgba(79,212,154,.5)");
+  g.append("text").attr("class","num").attr("text-anchor","middle").attr("y",-2).attr("font-size",24).text("Q"+nf1.format(G.total/1e9));
+  g.append("text").attr("class","lbl").attr("text-anchor","middle").attr("y",16).text("MIL MILLONES");
+})();
+
+/* ---------- 1. Compradores (anillo/núcleo) ---------- */
+const charts = {};
+(function(){
+  const svg = d3.select("#g-compradores"), data = G.compradores_top.slice(0,20);
+  const pack = d3.pack().size([700,620]).padding(10);
+  const root = pack(d3.hierarchy({children:data}).sum(d=>d.Q||0));
+  const maxN = d3.max(data,d=>d.n);
+  const g = svg.append("g").attr("transform","translate(10,10)");
+  const node = g.selectAll("g").data(root.leaves()).join("g").attr("transform",d=>`translate(${d.x},${d.y})`)
+    .on("mousemove",(e,d)=>showTip(e,`<b>${d.data.nombre}</b><br>${M(d.data.Q)}<br>${nf.format(d.data.n)} procesos`)).on("mouseleave",hideTip);
+  node.append("circle").attr("r",d=>d.r).attr("fill","rgba(79,212,154,.08)").attr("stroke","var(--acc)").attr("stroke-width",1.2);
+  node.append("circle").attr("r",d=>d.r*0.94).attr("fill","none").attr("stroke","rgba(79,212,154,.35)").attr("stroke-dasharray","1 3");
+  node.append("circle").attr("r",d=>Math.max(1.5, d.r*0.9*Math.sqrt(d.data.n/maxN))).attr("fill","var(--gold)").attr("opacity",.85);
+  node.filter(d=>d.r>34).append("text").attr("text-anchor","middle").attr("y",d=>d.r*0.55).attr("font-size",d=>Math.min(13,d.r/4.2)).attr("fill","var(--ink)")
+    .text(d=>d.data.nombre.replace(/MINISTERIO DE /,"MIN. ").replace(/INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL/,"IGSS").replace(/ -IGSS-/,"").slice(0,26));
+  charts.compradores = k => {
+    const re = {igss:/SEGURIDAD SOCIAL/, micivi:/COMUNICACIONES/, mspas:/SALUD P/}[k];
+    node.classed("dim", d => re ? !re.test(d.data.nombre) : false);
+  };
+  const ig = byName(data,/SEGURIDAD SOCIAL/), mc = byName(data,/COMUNICACIONES/), ms = byName(data,/SALUD P/);
+  document.getElementById("s-igss").textContent = pct(ig.n/G.procesos)+" de los procesos";
+  document.getElementById("s-igss-t").textContent = `El Instituto Guatemalteco de Seguridad Social adjudicó ${QQ(ig.Q)} (${pct(ig.Q/G.total)} del total) en ${nf.format(ig.n)} procesos: medicamentos, insumos y servicios que compra todos los días. Su núcleo es casi del tamaño de su anillo.`;
+  document.getElementById("s-micivi").textContent = M(mc.Q/mc.n)+" por proceso";
+  document.getElementById("s-micivi-t").textContent = `El Ministerio de Comunicaciones adjudicó ${QQ(mc.Q)} en solo ${nf.format(mc.n)} procesos. Carreteras y obra pesada: pocos contratos, montos enormes. Su núcleo apenas se ve.`;
+  document.getElementById("s-mspas").textContent = QQ(ms.Q);
+  document.getElementById("s-mspas-t").textContent = `El Ministerio de Salud Pública suma ${nf.format(ms.n)} procesos adjudicados en ${D.anio}. Lo vemos en detalle en el capítulo 5.`;
+})();
+
+/* ---------- 2. Semillas (phyllotaxis) ---------- */
+(function(){
+  const svg = d3.select("#g-semillas"), mods = G.modalidades.slice(0,4);
+  const totN = d3.sum(G.modalidades,d=>d.n);
+  const cols = [[190,165],[530,165],[190,480],[530,480]];
+  const golden = Math.PI*(3-Math.sqrt(5)), colors=["var(--acc)","var(--gold)","var(--rose)","var(--ink)"];
+  // ordenar: compra directa primero, luego licitación
+  const ord = [...mods].sort((a,b)=> (/Directa/.test(b.nombre)-/Directa/.test(a.nombre)) || (/Licitaci/.test(b.nombre)-/Licitaci/.test(a.nombre)));
+  const seeds = svg.selectAll("g.seed").data(ord).join("g").attr("class","seed").attr("transform",(d,i)=>`translate(${cols[i][0]},${cols[i][1]})`);
+  seeds.each(function(d,i){
+    const g = d3.select(this), n = Math.max(1, Math.round(d.n/500)), sp = 4.3;
+    const pts = d3.range(n).map(k=>({x:sp*Math.sqrt(k)*Math.cos(k*golden), y:sp*Math.sqrt(k)*Math.sin(k*golden)}));
+    g.selectAll("circle.p").data(pts).join("circle").attr("class","p").attr("cx",p=>p.x).attr("cy",p=>p.y).attr("r",1.7).attr("fill",colors[i]);
+    const share = d.Q/G.total, arc = d3.arc().innerRadius(102).outerRadius(108).startAngle(0).endAngle(2*Math.PI*share);
+    g.append("circle").attr("r",105).attr("fill","none").attr("stroke","rgba(245,242,236,.12)").attr("stroke-width",6);
+    g.append("path").attr("d",arc).attr("fill",colors[i]);
+    g.append("text").attr("class","num").attr("text-anchor","middle").attr("y",-118).attr("font-size",18).attr("fill",colors[i]).text(pct(share)+" del dinero");
+    g.append("text").attr("class","lbl").attr("text-anchor","middle").attr("y",128).text(d.nombre.toUpperCase().slice(0,50));
+    g.append("text").attr("class","lbl").attr("text-anchor","middle").attr("y",143).text(nf.format(d.n)+" adjudicaciones · "+pct(d.n/totN));
+  });
+  charts.semillas = k => seeds.classed("dim",(d,i)=> k==="all"||k==null ? false : String(i)!==k);
+  const cd = ord[0], li = ord[1];
+  document.getElementById("s-cd").textContent = pct(cd.n/totN)+" de las adjudicaciones";
+  document.getElementById("s-cd-t").textContent = `Pero solo ${pct(cd.Q/G.total)} del dinero (${QQ(cd.Q)}). Son compras de hasta Q90,000 que se ofertan en línea y se resuelven en días: la espiral más densa.`;
+  document.getElementById("s-lic").textContent = pct(li.Q/G.total)+" del dinero";
+  document.getElementById("s-lic-t").textContent = `Con apenas ${nf.format(li.n)} adjudicaciones (${pct(li.n/totN)}), la licitación pública concentra ${QQ(li.Q)}. Una semilla casi vacía con el arco más largo.`;
+})();
+
+/* ---------- 3. Herbario ---------- */
+(function(){
+  const svg = d3.select("#g-herbario"), fam = G.familias_top.slice(0,14);
+  const L = d3.scaleSqrt().domain([0,d3.max(fam,d=>d.Q)]).range([24,175]);
+  const Wd = d3.scaleSqrt().domain([0,d3.max(fam,d=>d.n)]).range([5,30]);
+  const x0 = 360, y0 = 40, step = 42;
+  svg.append("path").attr("d",`M${x0},${y0-10} C${x0+8},${y0+200} ${x0-8},${y0+400} ${x0},${y0+fam.length*step+20}`).attr("stroke","var(--acc)").attr("stroke-width",1.5).attr("fill","none").attr("opacity",.7);
+  const isObra = d => /^(72|81|30|22)/.test(d.codigo), isMed = d => /^51/.test(d.codigo);
+  const leaf = svg.selectAll("g.leaf").data(fam).join("g").attr("class","leaf")
+    .attr("transform",(d,i)=>`translate(${x0},${y0+i*step+10}) scale(${i%2?-1:1},1)`)
+    .on("mousemove",(e,d)=>showTip(e,`<b>${d.nombre}</b><br>${M(d.Q)} (estimado)<br>${nf.format(d.n)} procesos · UNSPSC ${d.codigo}`)).on("mouseleave",hideTip);
+  leaf.append("path").attr("d",d=>{const l=L(d.Q),w=Wd(d.n);return `M0,0 C${l*0.3},${-w*1.2} ${l*0.7},${-w} ${l},-6 C${l*0.7},${w*0.6} ${l*0.3},${w*0.8} 0,0Z`;})
+    .attr("fill",d=>isMed(d)?"rgba(232,166,143,.35)":isObra(d)?"rgba(217,194,126,.32)":"rgba(79,212,154,.25)")
+    .attr("stroke",d=>isMed(d)?"var(--rose)":isObra(d)?"var(--gold)":"var(--acc)");
+  leaf.append("path").attr("d",d=>`M0,0 Q${L(d.Q)*0.5},-4 ${L(d.Q)-4},-6`).attr("stroke","rgba(245,242,236,.4)").attr("fill","none").attr("stroke-width",.6);
+  svg.selectAll("text.fl").data(fam).join("text").attr("class","lbl fl")
+    .attr("x",(d,i)=> i%2 ? x0-L(d.Q)-8 : x0+L(d.Q)+8).attr("y",(d,i)=>y0+i*step+8).attr("text-anchor",(d,i)=>i%2?"end":"start")
+    .each(function(d){ const t=d3.select(this); t.append("tspan").attr("fill","var(--ink)").text(d.nombre.length>26?d.nombre.slice(0,25)+"…":d.nombre); t.append("tspan").attr("x",t.attr("x")).attr("dy",13).text(M(d.Q)); });
+  charts.herbario = k => { leaf.classed("dim", d => k==="obra" ? !isObra(d) : k==="med" ? !isMed(d) : false); svg.selectAll("text.fl").classed("dim", d => k==="obra" ? !isObra(d) : k==="med" ? !isMed(d) : false); };
+  const ob = fam.filter(isObra).slice(0,2);
+  document.getElementById("s-obra-t").textContent = `${ob.map(d=>`${d.nombre} (${M(d.Q)})`).join(" y ")} encabezan la lista. Obra pesada y servicios técnicos se adjudican en pocos procesos de alto valor.`;
+})();
+
+/* ---------- 4. Constelación ---------- */
+(function(){
+  const svg = d3.select("#g-constelacion"), C = D.constelacion, cx=360, cy=360;
+  const comp = C.compradores, prov = C.proveedores, ar = C.aristas;
+  const main = {}; ar.forEach(a=>{ if(!main[a.t]||a.Q>main[a.t].Q) main[a.t]=a; });
+  const ci = new Map(comp.map((c,i)=>[c.id,i]));
+  const ang = new Map(comp.map((c,i)=>[c.id, i/comp.length*2*Math.PI - Math.PI/2]));
+  const provS = [...prov].sort((a,b)=> (ci.get(main[a.id].s)-ci.get(main[b.id].s)) || b.Q-a.Q);
+  const pang = new Map(provS.map((p,i)=>[p.id, i/provS.length*2*Math.PI - Math.PI/2 + 0.04]));
+  const rc = 120, rp = 285;
+  const posC = id => [cx+rc*Math.cos(ang.get(id)), cy+rc*Math.sin(ang.get(id))];
+  const posP = id => [cx+rp*Math.cos(pang.get(id)), cy+rp*Math.sin(pang.get(id))];
+  const Wq = d3.scaleSqrt().domain([0,d3.max(ar,d=>d.Q)]).range([.4,7]);
+  const Sp = d3.scaleSqrt().domain([0,d3.max(prov,d=>d.Q)]).range([2,13]);
+  const Sc = d3.scaleSqrt().domain([0,d3.max(comp,d=>d.Q)]).range([4,22]);
+  [rc,rp].forEach(r=>svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",r).attr("fill","none").attr("stroke","rgba(245,242,236,.07)"));
+  const links = svg.append("g").selectAll("path").data(ar).join("path")
+    .attr("d",a=>{const [x1,y1]=posC(a.s),[x2,y2]=posP(a.t);return `M${x1},${y1} Q${cx+(x1+x2-2*cx)*0.15},${cy+(y1+y2-2*cy)*0.15} ${x2},${y2}`;})
+    .attr("fill","none").attr("stroke","var(--acc)").attr("stroke-width",a=>Wq(a.Q)).attr("opacity",.32);
+  const isFarma = p => /FARMAC|PHARMA|DROGUER|MEDIC|LAB|COHEN|ROCHE|ABBOTT|NIPRO|QUIRURG|NUTRICION/i.test(p.nombre);
+  const stars = svg.append("g").selectAll("g").data(prov).join("g").attr("transform",p=>`translate(${posP(p.id)})`)
+    .on("mousemove",(e,p)=>{ showTip(e,`<b>${p.persona?"Persona individual":p.nombre}</b><br>${M(p.Q)} con estas instituciones`); links.attr("opacity",a=>a.t===p.id?.9:.06); })
+    .on("mouseleave",()=>{hideTip(); links.attr("opacity",.32);});
+  stars.append("path").attr("d",p=>{const r=Sp(p.Q);return d3.range(8).map(k=>{const a=k*Math.PI/4, rr=k%2?r*0.4:r;return (k?"L":"M")+(rr*Math.cos(a))+","+(rr*Math.sin(a));}).join("")+"Z";})
+    .attr("fill",p=>isFarma(p)?"var(--rose)":"var(--gold)");
+  const topP = [...prov].sort((a,b)=>b.Q-a.Q).slice(0,8).sort((a,b)=>pang.get(a.id)-pang.get(b.id));
+  svg.append("g").selectAll("text").data(topP).join("text").attr("class","lbl")
+    .attr("x",(p,i)=>{const a=pang.get(p.id),r=rp+18+(i%2)*26;return cx+r*Math.cos(a);}).attr("y",(p,i)=>{const a=pang.get(p.id),r=rp+18+(i%2)*26;return cy+r*Math.sin(a)+3;})
+    .attr("text-anchor",p=>Math.cos(pang.get(p.id))<0?"end":"start").attr("fill","var(--ink)")
+    .text(p=>p.persona?"Persona individual":p.nombre.replace(/, S\.A\.|SOCIEDAD AN[OÓ]NIMA/,"").slice(0,24));
+  const bn = svg.append("g").selectAll("g").data(comp).join("g").attr("transform",c=>`translate(${posC(c.id)})`)
+    .on("mousemove",(e,c)=>{ showTip(e,`<b>${c.nombre}</b><br>${M(c.Q)} en total`); links.attr("opacity",a=>a.s===c.id?.9:.06); })
+    .on("mouseleave",()=>{hideTip(); links.attr("opacity",.32);});
+  bn.append("circle").attr("r",c=>Sc(c.Q)).attr("fill","var(--bg)").attr("stroke","var(--acc)").attr("stroke-width",1.5);
+  bn.append("circle").attr("r",2).attr("fill","var(--acc)");
+  svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",52).attr("fill","var(--bg)").attr("stroke","rgba(245,242,236,.12)");
+  svg.append("text").attr("x",cx).attr("y",cy-2).attr("text-anchor","middle").attr("class","num").attr("font-size",15).text("14 compradores");
+  svg.append("text").attr("x",cx).attr("y",cy+14).attr("text-anchor","middle").attr("class","lbl").text("60 PROVEEDORES");
+  charts.constelacion = k => {
+    const top = topP[0];
+    stars.classed("dim", p => k==="top" ? p.id!==top.id : k==="farma" ? !isFarma(p) : false);
+    links.attr("opacity", a => k==="top" ? (a.t===top.id?.9:.05) : k==="farma" ? (isFarma(prov.find(p=>p.id===a.t))?.6:.04) : .32);
+  };
+  const t1 = G.proveedores_top[0];
+  document.getElementById("s-top1").textContent = QQ(t1.Q);
+  document.getElementById("s-top1-h").textContent = t1.persona ? "Proveedor con más dinero adjudicado" : t1.nombre;
+  document.getElementById("s-top1-t").textContent = `Es el proveedor con más dinero adjudicado del año: ${nf.format(t1.n)} procesos. La mayor parte de esos contratos los ganó con el IGSS.`;
+  const farma = G.proveedores_top.filter(isFarma).slice(0,4);
+  document.getElementById("s-farma-t").textContent = `Las estrellas rosadas son droguerías, farmacéuticas y empresas de insumos médicos. Entre las de mayor monto: ${farma.map(p=>p.nombre.replace(/, S\.A\./,"")).join(", ")}. Orbitan sobre todo alrededor del IGSS y del Ministerio de Salud.`;
+})();
+
+/* ---------- 5. Salud ---------- */
+(function(){
+  const svg = d3.select("#g-salud"), S = D.mspas, cx=210, cy=320;
+  const seg = S.segmentos.slice(0,7), R = d3.scaleSqrt().domain([0,d3.max(seg,d=>d.pct)]).range([30,150]);
+  const n = seg.length, cols=["var(--rose)","var(--acc)","var(--gold)","var(--ink)","var(--acc)","var(--gold)","var(--ink)"];
+  const rose = svg.append("g").attr("transform",`translate(${cx},${cy})`);
+  [80,140,200].forEach(r=>rose.append("circle").attr("r",r).attr("fill","none").attr("stroke","rgba(245,242,236,.07)").attr("stroke-dasharray","2 4"));
+  const arcs = rose.selectAll("path").data(seg).join("path")
+    .attr("d",(d,i)=>d3.arc().innerRadius(24).outerRadius(R(d.pct)).startAngle(i*2*Math.PI/n+0.04).endAngle((i+1)*2*Math.PI/n-0.04).cornerRadius(6)())
+    .attr("fill",(d,i)=>cols[i]).attr("fill-opacity",(d,i)=>i<3?.55:.18).attr("stroke",(d,i)=>cols[i])
+    .on("mousemove",(e,d)=>showTip(e,`<b>${d.nombre}</b><br>${pct(d.pct)} · ${M(d.Q)}`)).on("mouseleave",hideTip);
+  rose.selectAll("text").data(seg).join("text").attr("class","lbl")
+    .attr("transform",(d,i)=>{const a=(i+.5)*2*Math.PI/n-Math.PI/2, r=Math.max(R(d.pct)+14,70);return `translate(${r*Math.cos(a)},${r*Math.sin(a)})`;})
+    .attr("text-anchor",(d,i)=>Math.cos((i+.5)*2*Math.PI/n-Math.PI/2)<-.1?"end":Math.cos((i+.5)*2*Math.PI/n-Math.PI/2)>.1?"start":"middle")
+    .attr("fill",(d,i)=>i<3?"var(--ink)":"var(--muted)").text(d=>`${d.nombre.replace("Construcción y mantenimiento","Obra y mant.").replace("Equipo e insumos médicos","Insumos médicos")} ${pct(d.pct)}`);
+  rose.append("text").attr("class","num").attr("text-anchor","middle").attr("y",5).attr("font-size",13).text("MSPAS");
+  // hospitales
+  const U = S.unidades_top.slice(0,8), x0=500, Ux = d3.scaleLinear().domain([0,d3.max(U,d=>d.Q)]).range([0,210]);
+  const hg = svg.append("g").attr("transform",`translate(${x0},90)`);
+  hg.append("text").attr("class","lbl").attr("y",-20).attr("fill","var(--acc)").text("UNIDADES QUE MÁS COMPRAN");
+  const hr = hg.selectAll("g").data(U).join("g").attr("transform",(d,i)=>`translate(0,${i*58})`);
+  hr.append("text").attr("font-size",12).attr("y",0).text(d=>d.nombre.replace(/HOSPITAL /,"H. ").replace(/REGIONAL /,"REG. ").slice(0,28));
+  hr.append("rect").attr("y",8).attr("height",10).attr("width",d=>Ux(d.Q)).attr("fill",(d,i)=>i<2?"var(--acc)":"rgba(79,212,154,.35)");
+  hr.append("text").attr("class","lbl").attr("y",34).text(d=>`${M(d.Q)} · ${nf.format(d.n)} procesos`);
+  charts.salud = k => { arcs.classed("dim", (d,i)=> k==="hosp"||k==="cd" ? true : k==="seg" ? i>2 : false); hr.classed("dim",(d,i)=> k==="hosp" ? i>1 : k==="seg"||k==="cd"); };
+  document.getElementById("s-ms-q").textContent = QQ(S.total);
+  document.getElementById("s-ms-t").textContent = `Hasta el ${fecha(D.corte)}, el Ministerio de Salud Pública y Asistencia Social ha adjudicado ${nf.format(S.procesos)} procesos a ${nf.format(S.proveedores)} proveedores, desde ${nf.format(S.unidades)} unidades compradoras. Los cinco proveedores principales se llevan ${pct(S.top5_proveedores_pct)} del monto.`;
+  document.getElementById("s-ms-seg").textContent = `Medicamentos (${pct(seg[0].pct)}), equipo e insumos médicos (${pct(seg[1].pct)}) y laboratorio (${pct(seg[2].pct)}) suman ${pct(seg[0].pct+seg[1].pct+seg[2].pct)} de lo adjudicado. La familia más grande: ${S.familias_top[0].nombre.toLowerCase()} (${M(S.familias_top[0].Q)}).`;
+  document.getElementById("s-ms-h").textContent = pct(S.top2_unidades_pct);
+  document.getElementById("s-ms-h-t").textContent = `El Hospital General San Juan de Dios (${M(U[0].Q)}) y el Hospital Roosevelt (${M(U[1].Q)}) suman ${pct(S.top2_unidades_pct)} de todo lo que adjudica el ministerio.`;
+  document.getElementById("s-ms-cd").textContent = pct(S.compra_directa_pct_adj);
+  document.getElementById("s-ms-cd-t").textContent = `${pct(S.compra_directa_pct_adj)} de las adjudicaciones del MSPAS fueron por compra directa con oferta electrónica, que representa ${pct(S.compra_directa_pct_Q)} del dinero.`;
+})();
+
+/* ---------- scrollytelling ---------- */
+document.querySelectorAll(".scrolly").forEach(sc=>{
+  const svgId = sc.querySelector(".sticky svg").id.replace("g-",""), fn = () => charts[svgId];
+  const steps = sc.querySelectorAll(".step");
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ steps.forEach(s=>s.classList.remove("on")); e.target.classList.add("on"); fn() && fn()(e.target.dataset.k); } }),{rootMargin:"-45% 0px -45% 0px"});
+  steps.forEach(s=>io.observe(s));
+});
+
+/* ---------- tablero ---------- */
+const TABS = [["general","Todo el Estado"],["salud","Salud"],["mspas","Ministerio de Salud"],["educacion","Educación"],["justicia","Justicia"],["ejecutivo","Ejecutivo"],["municipal","Municipalidades"]];
+function getSec(k){ return k==="general"?G : k==="mspas"?{nombre:"Ministerio de Salud",...D.mspas} : D.sectores[k]; }
+function rows(el, arr, total, label, sub){
+  document.getElementById(el).innerHTML = arr.slice(0,8).map(d=>`<li><span>${label(d)}</span><span class="q">${M(d.Q)}</span><span class="bar"><i style="width:${Math.max(1,d.Q/arr[0].Q*100)}%"></i></span>${sub?`<span class="sub">${sub(d)}</span>`:""}</li>`).join("");
+}
+function render(k){
+  const S = getSec(k);
+  document.querySelectorAll("#tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.k===k));
+  document.getElementById("kpis").innerHTML = [[QQ(S.total),"adjudicado"],[nf.format(S.procesos),"procesos"],[nf.format(S.proveedores),"proveedores"],[nf.format(k==="general"||k==="mspas"?S.unidades:S.compradores),k==="general"||k==="mspas"?"unidades compradoras":"instituciones"],[pct(S.top5_proveedores_pct),"top 5 proveedores"]]
+    .map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
+  const useU = k==="mspas" || (S.compradores_top||[]).length<=1;
+  document.getElementById("l-comp-t").textContent = useU ? "Unidades que más compran" : "Instituciones que más compran";
+  rows("l-comp", useU?S.unidades_top:S.compradores_top, S.total, d=>d.nombre, d=>`${nf.format(d.n)} procesos${useU&&k!=="mspas"?" · "+d.entidad:""}`);
+  rows("l-prov", S.proveedores_top, S.total, d=>d.persona?"Persona individual":d.nombre, d=>`${nf.format(d.n)} procesos · ${pct(d.Q/S.total)}`);
+  rows("l-fam", S.familias_top, S.total, d=>d.nombre, d=>`UNSPSC ${d.codigo} · ${nf.format(d.n)} procesos · monto estimado`);
+  rows("l-mod", S.modalidades, S.total, d=>d.nombre, d=>`${nf.format(d.n)} adjudicaciones · ${pct(d.Q/S.total)} del monto`);
+  // meses
+  const svg = d3.select("#g-meses"); svg.selectAll("*").remove();
+  const ms = S.meses, x = d3.scaleBand().domain(ms.map(d=>d.mes)).range([40,630]).padding(.28), y = d3.scaleLinear().domain([0,d3.max(ms,d=>d.Q)]).nice().range([200,14]);
+  svg.append("g").selectAll("line").data(y.ticks(4)).join("line").attr("x1",40).attr("x2",630).attr("y1",y).attr("y2",y).attr("stroke","rgba(245,242,236,.08)");
+  svg.append("g").selectAll("text").data(y.ticks(4)).join("text").attr("class","lbl").attr("x",34).attr("y",d=>y(d)+3).attr("text-anchor","end").text(d=>d>=1e9?nf1.format(d/1e9)+"mM":nf.format(d/1e6)+"M");
+  svg.append("g").selectAll("rect").data(ms).join("rect").attr("x",d=>x(d.mes)).attr("width",x.bandwidth()).attr("y",d=>y(d.Q)).attr("height",d=>200-y(d.Q))
+    .attr("fill",(d,i)=>i===ms.length-1?"var(--gold)":"var(--acc)").attr("opacity",.85)
+    .on("mousemove",(e,d)=>showTip(e,`<b>${MESL[+d.mes.slice(5)-1]}</b><br>${M(d.Q)} · ${nf.format(d.n)} procesos`)).on("mouseleave",hideTip);
+  svg.append("g").selectAll("text").data(ms).join("text").attr("class","lbl").attr("x",d=>x(d.mes)+x.bandwidth()/2).attr("y",218).attr("text-anchor","middle").text(d=>MES[+d.mes.slice(5)-1]);
+  document.getElementById("m-title").textContent = `Monto adjudicado por mes · ${S.nombre||"Todo el Estado"}`;
+  document.getElementById("t-note").textContent = `Montos en quetzales, ${D.anio}, con corte al ${fecha(D.corte)}. Noviembre (en dorado) está incompleto. "Qué se compra" reparte el monto de cada proceso entre sus familias de producto: es una estimación.`;
+  try{ localStorage.setItem("fyd-tab",k); }catch(e){}
+}
+document.getElementById("tabs").innerHTML = TABS.map(([k,l])=>`<button role="tab" id="tab-${k}" data-k="${k}">${l}</button>`).join("");
+document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>render(b.dataset.k)));
+let first="general"; try{ first = localStorage.getItem("fyd-tab")||"general"; }catch(e){}
+render(TABS.some(t=>t[0]===first)?first:"general");
+
+/* ---------- mini: últimos 60 días ---------- */
+(function(){
+  const svg = d3.select("#g-mini"), ds = D.dias;
+  const x = d3.scalePoint().domain(ds.map(d=>d.fecha)).range([20,500]), y = d3.scaleSqrt().domain([0,d3.max(ds,d=>d.Q)]).range([250,40]);
+  svg.append("line").attr("x1",20).attr("x2",500).attr("y1",250).attr("y2",250).attr("stroke","rgba(245,242,236,.2)");
+  const g = svg.selectAll("g").data(ds).join("g").attr("transform",d=>`translate(${x(d.fecha)},0)`)
+    .on("mousemove",(e,d)=>showTip(e,`<b>${fecha(d.fecha)}</b><br>${M(d.Q)} · ${nf.format(d.n)} adjudicaciones`)).on("mouseleave",hideTip);
+  g.append("line").attr("y1",250).attr("y2",d=>y(d.Q)).attr("stroke",(d,i)=>i===ds.length-1?"var(--gold)":"var(--acc)").attr("opacity",.6);
+  g.append("circle").attr("cy",d=>y(d.Q)).attr("r",(d,i)=>i===ds.length-1?6:2.4).attr("fill",(d,i)=>i===ds.length-1?"var(--gold)":"var(--acc)");
+  const last = ds[ds.length-1];
+  svg.append("text").attr("class","lbl").attr("x",20).attr("y",20).text("ÚLTIMOS 60 DÍAS · QUETZALES ADJUDICADOS POR DÍA");
+  svg.append("text").attr("class","num").attr("x",478).attr("y",y(last.Q)-16).attr("text-anchor","end").attr("font-size",16).attr("fill","var(--gold)").text(M(last.Q));
+  svg.append("text").attr("class","lbl").attr("x",20).attr("y",270).text(fecha(ds[0].fecha));
+  svg.append("text").attr("class","lbl").attr("x",500).attr("y",270).attr("text-anchor","end").text(fecha(last.fecha));
+})();
+</script>
+</body>
+</html>
