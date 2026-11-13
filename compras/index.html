@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitor de Compras Públicas GT</title>
+<meta property="og:title" content="Monitor de Compras Públicas GT · Finanzas&amp;Datos">
+<meta property="og:description" content="Quién compra, qué se compra y quién vende en las compras públicas de Guatemala.">
+<meta name="description" content="Quién compra, qué se compra y quién vende en las compras públicas de Guatemala. Datos OCDS de Guatecompras actualizados a diario. Finanzas&Datos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* Mundo único Finanzas&Datos: verde bosque, crema y menta. Layout: hero con la "flor del año",
+   capítulos de scrollytelling (texto que pasa junto a un gráfico fijo) y un tablero por sector. */
+:root{
+  --bg:#0a3323; --bg2:#0f4a32; --bg3:#13573b;
+  --ink:#f5f2ec; --muted:#a8bcae; --faint:rgba(245,242,236,.10);
+  --acc:#4fd49a; --gold:#d9c27e; --rose:#e8a68f;
+  --display:"Playfair Display",Georgia,"Times New Roman",serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;
+  background-image:linear-gradient(var(--faint) 1px,transparent 1px),linear-gradient(90deg,var(--faint) 1px,transparent 1px);
+  background-size:56px 56px;background-attachment:fixed}
+a{color:var(--acc)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+em,.it{font-family:var(--display);font-style:italic;color:var(--acc);font-weight:400}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--acc);display:flex;gap:12px;align-items:center}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--acc)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(10,51,35,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--faint)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.logo{font-family:var(--display);font-size:20px;color:var(--ink);text-decoration:none}
+.logo i{color:var(--acc)}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+nav ul a{color:var(--ink);text-decoration:none;opacity:.8} nav ul a:hover{opacity:1;color:var(--acc)}
+@media (max-width:760px){nav ul{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding:64px 0 40px}
+.hero h1{font-size:clamp(40px,6vw,76px);line-height:1.02;margin:18px 0 22px}
+.hero p.lead{color:var(--muted);max-width:52ch;font-size:18px}
+.today{margin-top:28px;border:1px solid rgba(79,212,154,.35);background:rgba(15,74,50,.6);padding:18px 20px;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;max-width:520px}
+.today .pulse{width:10px;height:10px;border-radius:50%;background:var(--acc);margin-top:8px;box-shadow:0 0 0 0 rgba(79,212,154,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(79,212,154,0)}100%{box-shadow:0 0 0 0 rgba(79,212,154,0)}}
+.today b{font-family:var(--display);font-weight:400;font-size:26px}
+.today small{grid-column:2;color:var(--muted);font-size:14px}
+.flower-box{position:relative}
+.flower-box svg{width:100%;height:auto;display:block}
+.howto{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
+
+/* kpi strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);margin:24px 0 0}
+.strip div{padding:22px 18px;border-right:1px solid var(--faint)}
+.strip div:last-child{border-right:0}
+.strip b{display:block;font-family:var(--display);font-size:clamp(28px,3.4vw,40px);font-weight:400;line-height:1.1}
+.strip span{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:700px){.strip{grid-template-columns:1fr 1fr}.strip div:nth-child(2){border-right:0}}
+
+/* chapters (scrollytelling) */
+.chapter{padding:90px 0 40px;border-top:1px solid var(--faint)}
+.chapter header{max-width:760px;margin-bottom:36px}
+.chapter h2{font-size:clamp(32px,4.4vw,54px);line-height:1.08;margin-top:14px}
+.scrolly{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:48px;align-items:start}
+.steps{display:flex;flex-direction:column;gap:38vh;padding:6vh 0 20vh}
+.step{background:rgba(15,74,50,.82);border-left:2px solid var(--faint);padding:20px 22px;transition:border-color .3s,background .3s}
+.step.on{border-left-color:var(--acc);background:rgba(19,87,59,.92)}
+.step h3{font-size:24px;margin-bottom:8px}
+.step p{margin:0;color:#dfe7e1}
+.step .big{font-family:var(--display);font-size:36px;color:var(--acc);display:block;line-height:1.1;margin-bottom:6px}
+.sticky{position:sticky;top:80px;height:calc(100vh - 110px);min-height:520px;display:flex;flex-direction:column;justify-content:center}
+.sticky svg{width:100%;height:100%;max-height:720px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-2px;margin-right:6px}
+@media (max-width:860px){
+  .scrolly{grid-template-columns:1fr}
+  .sticky{position:sticky;top:60px;height:58vh;min-height:360px;z-index:1;background:var(--bg)}
+  .steps{gap:50vh;position:relative;z-index:2}
+}
+svg text{fill:var(--ink);font-family:var(--body)}
+svg .lbl{font-family:var(--mono);font-size:10.5px;fill:var(--muted);letter-spacing:.04em}
+svg .num{font-family:var(--display)}
+.dim{opacity:.18;transition:opacity .4s}
+.hl{opacity:1!important}
+.tip{position:fixed;pointer-events:none;z-index:50;background:var(--ink);color:var(--bg);padding:8px 10px;font-size:13px;max-width:280px;line-height:1.35;opacity:0;transition:opacity .15s}
+.tip b{font-family:var(--mono);font-weight:500}
+
+/* dashboard */
+#tablero{padding:90px 0 60px;border-top:1px solid var(--faint)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 22px}
+.tabs button{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--ink);border:1px solid rgba(245,242,236,.25);padding:9px 14px;cursor:pointer}
+.tabs button:hover{border-color:var(--acc)}
+.tabs button[aria-selected="true"]{background:var(--acc);color:var(--bg);border-color:var(--acc)}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--faint);border:1px solid var(--faint)}
+.kpis div{background:var(--bg);padding:18px}
+.kpis b{display:block;font-family:var(--display);font-weight:400;font-size:30px;line-height:1.15}
+.kpis span{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:860px){.kpis{grid-template-columns:1fr 1fr}}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:22px}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;margin-top:22px}
+@media (max-width:980px){.grid3,.grid2{grid-template-columns:1fr}}
+.panel{border:1px solid var(--faint);background:rgba(10,51,35,.92);padding:18px 18px 12px}
+.panel h3{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:12px;font-weight:500}
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-bottom:1px solid var(--faint);font-size:14px;line-height:1.3}
+.rows li:last-child{border-bottom:0}
+.rows .q{font-family:var(--mono);font-size:13px;color:var(--ink);white-space:nowrap}
+.rows .bar{grid-column:1/-1;height:4px;background:var(--faint)}
+.rows .bar i{display:block;height:100%;background:var(--acc)}
+.rows .sub{grid-column:1/-1;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.months svg{width:100%;height:auto}
+.note{font-size:14px;color:var(--muted);max-width:72ch;margin-top:18px}
+
+/* carrusel + método */
+.cta{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:80px 0;border-top:1px solid var(--faint)}
+.cta h2{font-size:clamp(30px,4vw,48px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chips span{font-family:var(--mono);font-size:12px;border:1px solid rgba(79,212,154,.4);padding:6px 10px;color:var(--acc)}
+@media (max-width:860px){.cta{grid-template-columns:1fr}}
+.method{padding:70px 0 90px;border-top:1px solid var(--faint);display:grid;grid-template-columns:1fr 1.4fr;gap:40px}
+.method h2{font-size:36px}
+.method ol{margin:0;padding-left:20px;color:#dfe7e1}
+.method li{margin-bottom:10px}
+@media (max-width:860px){.method{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--faint);padding:26px 0;font-family:var(--mono);font-size:12px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="logo" href="/">Finanzas<i>&amp;</i>Datos</a>
+  <ul>
+    <li><a href="#quien-compra">Quién compra</a></li>
+    <li><a href="#como-compra">Cómo</a></li>
+    <li><a href="#que-se-compra">Qué</a></li>
+    <li><a href="#quien-vende">Quién vende</a></li>
+    <li><a href="#salud">Salud</a></li>
+    <li><a href="#tablero">Tablero</a></li>
+  </ul>
+</div></nav>
+
+<main id="inicio">
+<section class="wrap">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Monitor de compras públicas · Guatemala</div>
+      <h1>Cada quetzal que el Estado compra deja <em>una huella.</em></h1>
+      <p class="lead" id="lead"></p>
+      <div class="today" role="status">
+        <span class="pulse" aria-hidden="true"></span>
+        <div><span class="mono" id="hoy-fecha" style="font-size:12px;letter-spacing:.1em;color:var(--acc)"></span><br><b id="hoy-q"></b></div>
+        <small id="hoy-txt"></small>
+      </div>
+    </div>
+    <div class="flower-box">
+      <svg id="flor" viewBox="0 0 560 560" role="img" aria-labelledby="flor-t"><title id="flor-t">Flor del año: monto adjudicado por mes</title></svg>
+      <p class="howto" id="flor-how">CÓMO LEER · cada pétalo es un mes · largo = quetzales adjudicados · ancho = número de procesos · el hueco es lo que falta del año</p>
+    </div>
+  </div>
+  <div class="strip" id="strip"></div>
+</section>
+
+<!-- Capítulo 1 -->
+<section class="chapter wrap" id="quien-compra">
+  <header><div class="eyebrow">01 · Quién compra</div><h2>Un puñado de instituciones <em>concentra</em> el gasto.</h2></header>
+  <div class="scrolly" data-chart="compradores">
+    <div class="steps">
+      <div class="step" data-k="all"><h3>El mapa de compradores</h3><p>Cada círculo es una institución. El anillo exterior mide los quetzales adjudicados en el año; el núcleo, cuántos procesos ganaron proveedor. Dos instituciones con el mismo dinero pueden comprar de formas muy distintas.</p></div>
+      <div class="step" data-k="igss"><span class="big" id="s-igss"></span><h3>El IGSS es el gran comprador cotidiano</h3><p id="s-igss-t"></p></div>
+      <div class="step" data-k="micivi"><span class="big" id="s-micivi"></span><h3>Comunicaciones compra poco y caro</h3><p id="s-micivi-t"></p></div>
+      <div class="step" data-k="mspas"><span class="big" id="s-mspas"></span><h3>Salud Pública, tercera en monto</h3><p id="s-mspas-t"></p></div>
+    </div>
+    <div class="sticky"><svg id="g-compradores" viewBox="0 0 720 640" role="img" aria-label="Círculos de las 20 instituciones que más adjudican"></svg>
+      <div class="legend"><span><i style="border:1.5px solid var(--acc)"></i>anillo = monto (Q)</span><span><i style="background:var(--gold)"></i>núcleo = procesos</span></div></div>
+  </div>
+</section>
+
+<!-- Capítulo 2 -->
+<section class="chapter wrap" id="como-compra">
+  <header><div class="eyebrow">02 · Cómo compra</div><h2>La compra directa es la regla; la licitación, <em>la excepción</em> que mueve más dinero.</h2></header>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step" data-k="all"><h3>Semillas de cada modalidad</h3><p>Cada punto de la espiral equivale a 500 adjudicaciones. El arco que rodea cada semilla marca su parte del dinero total.</p></div>
+      <div class="step" data-k="0"><span class="big" id="s-cd"></span><h3>Compra directa con oferta electrónica</h3><p id="s-cd-t"></p></div>
+      <div class="step" data-k="1"><span class="big" id="s-lic"></span><h3>Licitación pública</h3><p id="s-lic-t"></p></div>
+    </div>
+    <div class="sticky"><svg id="g-semillas" viewBox="0 0 720 640" role="img" aria-label="Espirales de puntos por modalidad de compra"></svg></div>
+  </div>
+</section>
+
+<!-- Capítulo 3 -->
+<section class="chapter wrap" id="que-se-compra">
+  <header><div class="eyebrow">03 · Qué se compra</div><h2>Un herbario del gasto: <em>carreteras, ingeniería y medicinas.</em></h2></header>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step" data-k="all"><h3>Cómo leer el herbario</h3><p>Cada hoja es una familia de productos o servicios según el catálogo UNSPSC que usa Guatecompras. El largo indica los quetzales; el ancho, en cuántos procesos aparece.</p></div>
+      <div class="step" data-k="obra"><h3>Obra pública arriba</h3><p id="s-obra-t"></p></div>
+      <div class="step" data-k="med"><h3>Medicinas, en muchas hojas pequeñas</h3><p>Los medicamentos se reparten en varias familias (sistema nervioso, oncológicos, antiinfecciosos, hematológicos, hormonas). Son hojas angostas en dinero pero anchas en procesos: se compran todos los días.</p></div>
+    </div>
+    <div class="sticky"><svg id="g-herbario" viewBox="-30 0 790 660" role="img" aria-label="Hojas por familia de productos"></svg></div>
+  </div>
+</section>
+
+<!-- Capítulo 4 -->
+<section class="chapter wrap" id="quien-vende">
+  <header><div class="eyebrow">04 · Quién vende</div><h2>La constelación de <em>proveedores</em>.</h2></header>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step" data-k="all"><h3>Compradores al centro, proveedores en órbita</h3><p>En el anillo interior están las 14 instituciones que más adjudican. Alrededor, los 60 proveedores con más dinero ganado con ellas. Cada hilo es una relación de más de Q5 millones; el grosor indica el monto. Pase el cursor sobre una estrella para aislarla.</p></div>
+      <div class="step" data-k="top"><span class="big" id="s-top1"></span><h3 id="s-top1-h"></h3><p id="s-top1-t"></p></div>
+      <div class="step" data-k="farma"><h3>La órbita farmacéutica</h3><p id="s-farma-t"></p></div>
+    </div>
+    <div class="sticky"><svg id="g-constelacion" viewBox="-175 -30 1070 780" role="img" aria-label="Red radial entre compradores y proveedores"></svg></div>
+  </div>
+</section>
+
+<!-- Capítulo 5 -->
+<section class="chapter wrap" id="salud">
+  <header><div class="eyebrow">05 · Salud bajo la lupa</div><h2>¿Qué compra el <em>Ministerio de Salud</em>?</h2></header>
+  <div class="scrolly">
+    <div class="steps">
+      <div class="step" data-k="all"><span class="big" id="s-ms-q"></span><h3>El año del MSPAS</h3><p id="s-ms-t"></p></div>
+      <div class="step" data-k="seg"><h3>La rosa de lo que se compra</h3><p id="s-ms-seg"></p></div>
+      <div class="step" data-k="hosp"><span class="big" id="s-ms-h"></span><h3>Dos hospitales, casi la mitad</h3><p id="s-ms-h-t"></p></div>
+      <div class="step" data-k="cd"><span class="big" id="s-ms-cd"></span><h3>Casi todo por compra directa</h3><p id="s-ms-cd-t"></p></div>
+    </div>
+    <div class="sticky"><svg id="g-salud" viewBox="0 0 720 660" role="img" aria-label="Rosa de categorías y hospitales del MSPAS"></svg></div>
+  </div>
+</section>
+
+<!-- Tablero -->
+<section id="tablero" class="wrap">
+  <div class="eyebrow">06 · Tablero</div>
+  <h2 style="font-size:clamp(32px,4.4vw,54px);margin-top:14px">Explora por <em>sector</em>.</h2>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="grid2">
+    <div class="panel months"><h3 id="m-title">Monto adjudicado por mes</h3><svg id="g-meses" viewBox="0 0 640 230"></svg></div>
+    <div class="panel"><h3>Cómo se compra</h3><ul class="rows" id="l-mod"></ul></div>
+  </div>
+  <div class="grid3">
+    <div class="panel"><h3 id="l-comp-t">Quién compra</h3><ul class="rows" id="l-comp"></ul></div>
+    <div class="panel"><h3>Quién vende</h3><ul class="rows" id="l-prov"></ul></div>
+    <div class="panel"><h3>Qué se compra</h3><ul class="rows" id="l-fam"></ul></div>
+  </div>
+  <p class="note" id="t-note"></p>
+</section>
+
+<section class="wrap cta">
+  <div>
+    <div class="eyebrow">En redes</div>
+    <h2>5 cosas sobre compras públicas <em>HOY!!</em></h2>
+    <p style="color:var(--muted)">Cada edición del carrusel toma un enfoque (salud, educación, justicia, ejecutivo) y lo cuenta en cinco datos verificables con la misma fuente de este monitor.</p>
+    <div class="chips"><span>Salud</span><span>Educación</span><span>Justicia</span><span>Ejecutivo</span><span>Municipalidades</span></div>
+  </div>
+  <svg id="g-mini" viewBox="0 0 520 300" role="img" aria-label="Últimos 60 días de adjudicaciones"></svg>
+</section>
+
+<section class="wrap method" id="metodo">
+  <div><div class="eyebrow">Metodología</div><h2>De dónde salen <em>los datos</em></h2></div>
+  <div>
+    <ol>
+      <li>Fuente: archivos mensuales del Estándar de Datos para las Contrataciones Abiertas (OCDS) publicados por el Ministerio de Finanzas Públicas en <a href="https://ocds.guatecompras.gt/descarga-datos">ocds.guatecompras.gt</a>, licencia CC BY 4.0. Se actualizan a diario.</li>
+      <li>Se cuentan las adjudicaciones con estado activo cuya fecha cae en el año analizado. Se descargan los procesos publicados desde septiembre del año anterior para no perder adjudicaciones de concursos antiguos.</li>
+      <li>El comprador es la institución (registro GT-CISP); la unidad compradora es la dependencia que ejecutó el proceso (por ejemplo, un hospital).</li>
+      <li>"Qué se compra" usa la familia UNSPSC (4 dígitos) de los ítems del concurso. Como Guatecompras no publica el monto por ítem adjudicado, el monto de cada proceso se reparte por igual entre sus familias: es una aproximación.</li>
+      <li>Los montos están en quetzales corrientes. El Ministerio de Educación transfiere buena parte de su gasto a organizaciones de padres de familia, que no aparece como compra en Guatecompras.</li>
+    </ol>
+    <p class="note" id="m-corte"></p>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><span>Finanzas&amp;Datos · Civic Data Lab · América Latina</span><span id="f-src"></span></div></footer>
+<div class="tip" id="tip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+const D = {"corte":"2026-11-12","anio":"2026","fuente":"Guatecompras OCDS (ocds.guatecompras.gt), Minfin — CC BY 4.0","general":{"total":47762786858.03,"procesos":247275,"adjudicaciones":259987,"proveedores":9590,"compradores":492,"unidades":851,"top5_proveedores_pct":0.10609840488041017,"compradores_top":[{"nombre":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","Q":9936844327.93,"n":160683},{"nombre":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","Q":6685640216.9800005,"n":1328},{"nombre":"MINISTERIO DE SALUD PÚBLICA","Q":2953696725.25,"n":35956},{"nombre":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE","Q":2209576719.94,"n":7609},{"nombre":"MINISTERIO DE LA DEFENSA NACIONAL","Q":2095836790.0,"n":1669},{"nombre":"MINISTERIO DE DESARROLLO SOCIAL","Q":1427466477.08,"n":786},{"nombre":"EMPRESA PORTUARIA QUETZAL -EPQ-","Q":1373017914.28,"n":570},{"nombre":"MINISTERIO DE GOBERNACIÓN","Q":1014288494.59,"n":4365},{"nombre":"MUNICIPALIDAD DE GUATEMALA, GUATEMALA","Q":912276623.6800001,"n":445},{"nombre":"MINISTERIO DE FINANZAS PÚBLICAS","Q":670714264.55,"n":421},{"nombre":"INSTITUTO TÉCNICO DE CAPACITACIÓN Y PRODUCTIVIDAD -INTECAP-","Q":534725194.75,"n":288},{"nombre":"MUNICIPALIDAD DE QUETZALTENANGO, QUETZALTENANGO","Q":408389157.6,"n":151},{"nombre":"MINISTERIO DE EDUCACIÓN","Q":322722820.25,"n":2338},{"nombre":"EMPRESA PORTUARIA NACIONAL SANTO TOMÁS DE CASTILLA -EMPORNA…","Q":317020796.11,"n":131},{"nombre":"MINISTERIO DE CULTURA Y DEPORTES","Q":312083061.90999997,"n":567},{"nombre":"REGISTRO NACIONAL DE LAS PERSONAS -RENAP-","Q":257739389.59,"n":257},{"nombre":"FIDEICOMISO PARA LA PLANIFICACION Y DESARROLLO DEL MUNICIPI…","Q":239228269.02,"n":52},{"nombre":"SUPERINTENDENCIA DE ADMINISTRACION TRIBUTARIA -SAT-","Q":233624821.54999998,"n":793},{"nombre":"EMPRESA ELÉCTRICA MUNICIPAL DE JALAPA","Q":211759225.93,"n":15},{"nombre":"EMPRESA MUNICIPAL DE AGUA -EMPAGUA-","Q":190650829.22,"n":352}],"unidades_top":[{"nombre":"COMPRAS DGC","entidad":"MINISTERIO DE COMUNICACIONES, INFRAESTR…","Q":3394082610.62,"n":273},{"nombre":"UNIDAD DE CONSULTA EXTERNA DE ENFERMEDADES","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":2814579087.97,"n":38992},{"nombre":"UNIDAD EJECUTORA DE CONSERVACION VIAL","entidad":"MINISTERIO DE COMUNICACIONES, INFRAESTR…","Q":2478911294.5,"n":206},{"nombre":"DEPARTAMENTO DE COMPRAS","entidad":"EMPRESA PORTUARIA QUETZAL -EPQ-","Q":1373017914.28,"n":570},{"nombre":"GERENCIA COMERCIALIZACIÓN DE ENERGIA ELÉCTRICA","entidad":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -…","Q":1346494179.03,"n":306},{"nombre":"SUBGERENCIA ADMINISTRATIVA","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":1045542851.09,"n":77},{"nombre":"CUERPO DE INGENIEROS DEL EJERCITO DE GUATEMALA TCIFVA","entidad":"MINISTERIO DE LA DEFENSA NACIONAL","Q":933056101.9799999,"n":56},{"nombre":"DIRECCION DE ADQUISICIONES","entidad":"MUNICIPALIDAD DE GUATEMALA, GUATEMALA","Q":872559866.88,"n":69},{"nombre":"FONDO DE DESARROLLO SOCIAL","entidad":"MINISTERIO DE DESARROLLO SOCIAL","Q":784864713.53,"n":82},{"nombre":"HOSPITAL GENERAL SAN JUAN DE DIOS","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":649561875.8,"n":6542},{"nombre":"FONDO DE PROTECCION SOCIAL","entidad":"MINISTERIO DE DESARROLLO SOCIAL","Q":628922475.73,"n":602},{"nombre":"HOSPITAL GENERAL DE ENFERMEDADES","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":608220911.96,"n":10561},{"nombre":"DIRECCION GENERAL DE ADQUISICIONES DEL ESTADO","entidad":"MINISTERIO DE FINANZAS PÚBLICAS","Q":563429075.03,"n":4},{"nombre":"FONDO SOCIAL DE SOLIDARIDAD","entidad":"MINISTERIO DE COMUNICACIONES, INFRAESTR…","Q":545244903.32,"n":55},{"nombre":"HOSPITAL ROOSEVELT","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":532289267.83,"n":5872},{"nombre":"COMANDANCIA DE LA MARINA DE LA DEFENSA NACIONAL","entidad":"MINISTERIO DE LA DEFENSA NACIONAL","Q":524100758.57,"n":249},{"nombre":"INTECAP","entidad":"INSTITUTO TÉCNICO DE CAPACITACIÓN Y PRO…","Q":523437546.19,"n":112},{"nombre":"Dirección General de la Policía Nacional Civil -PNC-","entidad":"MINISTERIO DE GOBERNACIÓN","Q":478986029.15999997,"n":755},{"nombre":"COORDINADOR DE PUBLICACIONES","entidad":"MUNICIPALIDAD DE QUETZALTENANGO, QUETZA…","Q":408389157.6,"n":151},{"nombre":"HOSPITAL DE QUETZALTENANGO","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":399807986.74,"n":7018}],"proveedores_top":[{"nombre":"J.I. COHEN, S.A.","persona":false,"Q":1436890272.09,"n":15269},{"nombre":"CONSORCIO VÍAS TERRESTRES DEL ATLÁNTICO - (VIATLA).","persona":false,"Q":990553882.1,"n":1},{"nombre":"COMPAÑIA FARMACEUTICA LANQUETIN, S.A.","persona":false,"Q":912724229.61,"n":4059},{"nombre":"GOBIERNO DE LOS ESTADOS UNIDOS DE AMERICA","persona":false,"Q":906920308.48,"n":4},{"nombre":"APM TERMINALS QUETZAL, S.A.","persona":false,"Q":820466806.0,"n":1},{"nombre":"CONSTRUCCIONES INTEGRALES AVANZADAS, S.A.","persona":false,"Q":756175329.4,"n":2},{"nombre":"ENERGICA, S.A.","persona":false,"Q":685710868.9799999,"n":26},{"nombre":"AGENCIA FARMACEUTICA INTERNACIONAL, S.A.","persona":false,"Q":539418928.17,"n":6788},{"nombre":"REUS PHARMA, S.A.","persona":false,"Q":526299650.65,"n":6951},{"nombre":"LUCERO,MARROQUÍN,,ALEJANDRO,JOSÉ","persona":true,"Q":518577210.31,"n":16},{"nombre":"DISTRIBUIDORA DE ELECTRICIDAD DE OCCIDENTE, S.A.","persona":false,"Q":501637482.13,"n":38},{"nombre":"SISTEMAS NUTRICIONALES, S.A.","persona":false,"Q":469390837.04,"n":1023},{"nombre":"ARREAGA,CARDENAS,,BILLY,GUBERT'S","persona":true,"Q":397289069.11,"n":11},{"nombre":"MAYA PAV, S.A.","persona":false,"Q":376519999.76,"n":6},{"nombre":"NIPRO MEDICAL CORPORATION - SUCURSAL DE GUATEMALA","persona":false,"Q":373311537.13,"n":2792},{"nombre":"CONSTRUCTORA CACERES & MAZARIEGOS, S.A.","persona":false,"Q":349373441.14,"n":2},{"nombre":"CENTRO DISTRIBUIDOR, S.A.","persona":false,"Q":340096173.06,"n":4496},{"nombre":"LABYMED, S.A.","persona":false,"Q":328889038.36,"n":4957},{"nombre":"SERVICIOS QUIRURGICOS, S.A.","persona":false,"Q":315911927.77,"n":5499},{"nombre":"COFIÑO STAHL Y COMPAÑIA, S.A.","persona":false,"Q":310716234.43,"n":635}],"familias_top":[{"codigo":"7214","nombre":"Construcción pesada (carreteras y puentes)","Q":6704587748.873302,"n":4426},{"codigo":"8110","nombre":"Servicios de ingeniería","Q":4779046439.279195,"n":1053},{"codigo":"8310","nombre":"Servicios públicos (energía, agua)","Q":2329220622.4947977,"n":1240},{"codigo":"5114","nombre":"Medicamentos del sistema nervioso","Q":1354005453.2758505,"n":19198},{"codigo":"8512","nombre":"Servicios médicos especializados","Q":1335868999.2159524,"n":19772},{"codigo":"4111","nombre":"Reactivos e instrumentos de laboratorio","Q":1104073668.110302,"n":17949},{"codigo":"3011","nombre":"Concreto y cemento","Q":1019314163.4498659,"n":2108},{"codigo":"8010","nombre":"Asesoría y consultoría","Q":971892798.5569048,"n":342},{"codigo":"3012","nombre":"Materiales viales","Q":970920388.3337655,"n":1288},{"codigo":"7810","nombre":"Transporte y mensajería","Q":881951482.3573968,"n":810},{"codigo":"5019","nombre":"Alimentos preparados","Q":873467367.2052958,"n":3519},{"codigo":"2510","nombre":"Vehículos","Q":863415904.5744579,"n":926},{"codigo":"7315","nombre":"Mantenimiento e impresión industrial","Q":860905004.2288736,"n":547},{"codigo":"5111","nombre":"Medicamentos oncológicos","Q":858171308.0813888,"n":11403},{"codigo":"5112","nombre":"Medicamentos cardiovasculares","Q":778556246.3985016,"n":6577},{"codigo":"1510","nombre":"Combustibles","Q":751332190.2117921,"n":1966},{"codigo":"5110","nombre":"Medicamentos antiinfecciosos","Q":745138265.7458571,"n":11013},{"codigo":"5113","nombre":"Medicamentos hematológicos","Q":725033861.3248898,"n":7292},{"codigo":"5118","nombre":"Hormonas e insulinas","Q":616346968.5294458,"n":9622},{"codigo":"4323","nombre":"Software y licencias","Q":553728497.9855357,"n":1372}],"segmentos":[{"codigo":"72","nombre":"Construcción y mantenimiento","Q":7648916270.739807,"pct":0.16014384364705161},{"codigo":"51","nombre":"Medicamentos","Q":6356774760.550652,"pct":0.13309053300104776},{"codigo":"81","nombre":"Ingeniería","Q":5213793459.511513,"pct":0.10916016008464877},{"codigo":"30","nombre":"Materiales de construcción","Q":2690737132.4342275,"pct":0.05633542993276688},{"codigo":"83","nombre":"Servicios públicos","Q":2472734072.8272977,"pct":0.0517711430904827},{"codigo":"42","nombre":"Equipo e insumos médicos","Q":1972549184.4026432,"pct":0.04129887123768226},{"codigo":"85","nombre":"Salud (servicios)","Q":1955244034.009283,"pct":0.04093655673445199},{"codigo":"80","nombre":"Gestión","Q":1918303043.889348,"pct":0.04016313054745544},{"codigo":"50","nombre":"Alimentos","Q":1600673003.764719,"pct":0.03351297336402408},{"codigo":"43","nombre":"Tecnología","Q":1350337310.486525,"pct":0.02827174458015326}],"modalidades":[{"nombre":"Licitación Pública","Q":20959046195.94,"n":3814},{"nombre":"Compra Directa con Oferta Electrónica","Q":12556477993.59,"n":236557},{"nombre":"Procedimientos regulados por el artículo 54 LCE","Q":5309042974.6,"n":9207},{"nombre":"Cotización","Q":3553089875.01,"n":6266},{"nombre":"Convenios y Tratados Internacionales","Q":2615039933.92,"n":145},{"nombre":"Negociaciones entre Entidades Públicas","Q":658379895.53,"n":616},{"nombre":"Procedimientos Regulados por el artículo 44 LCE","Q":640523360.37,"n":920},{"nombre":"Contrato Abierto","Q":563429075.03,"n":19}],"meses":[{"mes":"2026-01","Q":3523410191.68,"n":17417},{"mes":"2026-02","Q":3209213385.12,"n":26049},{"mes":"2026-03","Q":4583622535.35,"n":23998},{"mes":"2026-04","Q":3832220300.4700003,"n":19132},{"mes":"2026-05","Q":5015717209.03,"n":25123},{"mes":"2026-06","Q":4634694977.19,"n":26804},{"mes":"2026-07","Q":3727888026.25,"n":23474},{"mes":"2026-08","Q":3920197982.7,"n":23554},{"mes":"2026-09","Q":6845864070.38,"n":24330},{"mes":"2026-10","Q":5956410910.53,"n":26889},{"mes":"2026-11","Q":2513547269.33,"n":10505}],"tipos_entidad":[{"nombre":"Administración Central","Q":16699234845.95,"n":54194},{"nombre":"Gobiernos Locales (Municipalidades, Mancomunidades, etc.)","Q":12988785316.94,"n":15345},{"nombre":"Entidades Descentralizadas, Autónomas y de Seguridad Social","Q":11793915540.62,"n":166049},{"nombre":"Empresas Públicas (Nacionales y Municipales)","Q":4762196691.13,"n":9855},{"nombre":"Fideicomisos con fondos públicos","Q":449123010.67,"n":73},{"nombre":"Otro tipo","Q":12308401.7,"n":176}]},"sectores":{"salud":{"nombre":"Salud","total":12890541053.179998,"procesos":196639,"adjudicaciones":207330,"proveedores":2603,"compradores":2,"unidades":189,"top5_proveedores_pct":0.2812844502865546,"compradores_top":[{"nombre":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","Q":9936844327.93,"n":160683},{"nombre":"MINISTERIO DE SALUD PÚBLICA","Q":2953696725.25,"n":35956}],"unidades_top":[{"nombre":"UNIDAD DE CONSULTA EXTERNA DE ENFERMEDADES","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":2814579087.97,"n":38992},{"nombre":"SUBGERENCIA ADMINISTRATIVA","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":1045542851.09,"n":77},{"nombre":"HOSPITAL GENERAL SAN JUAN DE DIOS","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":649561875.8,"n":6542},{"nombre":"HOSPITAL GENERAL DE ENFERMEDADES","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":608220911.96,"n":10561},{"nombre":"HOSPITAL ROOSEVELT","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":532289267.83,"n":5872},{"nombre":"HOSPITAL DE QUETZALTENANGO","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":399807986.74,"n":7018},{"nombre":"CENTRO DE ATENCION MEDICA INTEGRAL PARA PENSIONADOS, CAMIP …","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":363966147.75,"n":5252},{"nombre":"HOSPITAL GENERAL DE ACCIDENTES CEIBAL","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":355413176.37,"n":14236},{"nombre":"CENTRO DE ATENCION MEDICA INTEGRAL PARA PENSIONADOS (CAMIP)","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":340481084.1,"n":5740},{"nombre":"UNIDAD DE CONSULTA EXTERNA DE ESPECIALIDADES MEDICO-QUIRURG…","entidad":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":288398338.39,"n":4532}],"proveedores_top":[{"nombre":"J.I. COHEN, S.A.","persona":false,"Q":1332088021.54,"n":15246},{"nombre":"COMPAÑIA FARMACEUTICA LANQUETIN, S.A.","persona":false,"Q":911932471.0,"n":4046},{"nombre":"REUS PHARMA, S.A.","persona":false,"Q":525074253.15,"n":6936},{"nombre":"AGENCIA FARMACEUTICA INTERNACIONAL, S.A.","persona":false,"Q":518420167.35,"n":6771},{"nombre":"CENTRO DISTRIBUIDOR, S.A.","persona":false,"Q":338393841.0,"n":4491},{"nombre":"LABYMED, S.A.","persona":false,"Q":321090683.45,"n":4917},{"nombre":"SERVICIOS QUIRURGICOS, S.A.","persona":false,"Q":283573214.52,"n":5402},{"nombre":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL","persona":false,"Q":259248072.0,"n":1},{"nombre":"AVIV FARMACEUTICA, S.A.","persona":false,"Q":248063969.9,"n":3312},{"nombre":"PRODUCTOS ROCHE GUATEMALA, S.A.","persona":false,"Q":234953223.76,"n":4339}],"familias_top":[{"codigo":"5114","nombre":"Medicamentos del sistema nervioso","Q":1331283408.8224008,"n":19049},{"codigo":"8512","nombre":"Servicios médicos especializados","Q":1311983347.035,"n":19725},{"codigo":"4111","nombre":"Reactivos e instrumentos de laboratorio","Q":964757820.4791967,"n":17133},{"codigo":"5111","nombre":"Medicamentos oncológicos","Q":834238846.7225,"n":11348},{"codigo":"5112","nombre":"Medicamentos cardiovasculares","Q":776276639.5621028,"n":6527},{"codigo":"5110","nombre":"Medicamentos antiinfecciosos","Q":716230948.6474074,"n":10863},{"codigo":"5113","nombre":"Medicamentos hematológicos","Q":703127314.0008409,"n":7253},{"codigo":"5118","nombre":"Hormonas e insulinas","Q":612873342.6613294,"n":9546},{"codigo":"8016","nombre":"Logística y eventos","Q":421366213.17499995,"n":40},{"codigo":"5119","nombre":"Sueros, electrolitos y nutrición","Q":343388311.9101901,"n":5844}],"segmentos":[{"codigo":"51","nombre":"Medicamentos","Q":6206074413.193405,"pct":0.4814440594533783},{"codigo":"85","nombre":"Salud (servicios)","Q":1894841169.4483333,"pct":0.14699469647016022},{"codigo":"42","nombre":"Equipo e insumos médicos","Q":1417387718.9246078,"pct":0.10995564213147974},{"codigo":"41","nombre":"Laboratorio","Q":1080313902.5273998,"pct":0.08380671517747461},{"codigo":"80","nombre":"Gestión","Q":453699565.435,"pct":0.03519631670720879},{"codigo":"12","nombre":"Químicos","Q":325156527.2244942,"pct":0.025224428197626398},{"codigo":"43","nombre":"Tecnología","Q":218683616.89645085,"pct":0.016964657728040303},{"codigo":"81","nombre":"Ingeniería","Q":142571456.75666666,"pct":0.011060160792978923},{"codigo":"50","nombre":"Alimentos","Q":141113794.57664657,"pct":0.010947080808670545},{"codigo":"72","nombre":"Construcción y mantenimiento","Q":119789694.69333333,"pct":0.009292836832770655}],"modalidades":[{"nombre":"Compra Directa con Oferta Electrónica","Q":10452006192.06,"n":205428},{"nombre":"Licitación Pública","Q":1443908266.82,"n":194},{"nombre":"Cotización","Q":355588920.72,"n":731},{"nombre":"Negociaciones entre Entidades Públicas","Q":307778322.95,"n":257},{"nombre":"Procedimientos Regulados por el artículo 44 LCE","Q":224374306.3,"n":251},{"nombre":"Convenios y Tratados Internacionales","Q":54786503.88,"n":63},{"nombre":"Adquisición Directa por Ausencia de Oferta","Q":17214734.19,"n":237},{"nombre":"Arrendamientos por Licitación Pública","Q":16325234.4,"n":7}],"meses":[{"mes":"2026-01","Q":1052865542.04,"n":14936},{"mes":"2026-02","Q":1165100210.24,"n":21882},{"mes":"2026-03","Q":1144511434.25,"n":19155},{"mes":"2026-04","Q":976779668.03,"n":14666},{"mes":"2026-05","Q":1405861378.06,"n":20209},{"mes":"2026-06","Q":1780011239.25,"n":21680},{"mes":"2026-07","Q":1249933932.81,"n":18177},{"mes":"2026-08","Q":1144932847.91,"n":18280},{"mes":"2026-09","Q":1074664114.85,"n":18849},{"mes":"2026-10","Q":1399834951.27,"n":20874},{"mes":"2026-11","Q":496045734.47,"n":7931}]},"educacion":{"nombre":"Educación","total":401432541.52,"procesos":3332,"adjudicaciones":3420,"proveedores":786,"compradores":2,"unidades":114,"top5_proveedores_pct":0.3253328313780794,"compradores_top":[{"nombre":"MINISTERIO DE EDUCACIÓN","Q":322722820.25,"n":2338},{"nombre":"UNIVERSIDAD DE SAN CARLOS DE GUATEMALA -USAC-","Q":78709721.27,"n":994}],"unidades_top":[{"nombre":"DIRECCIÓN DE ADQUISICIONES Y CONTRATACIONES -DIDECO-","entidad":"MINISTERIO DE EDUCACIÓN","Q":197316391.78,"n":49},{"nombre":"DIRECCION GENERAL DE EDUCACION FISICA -DIGEF-","entidad":"MINISTERIO DE EDUCACIÓN","Q":22618997.88,"n":573},{"nombre":"DIVISION DE SERVICIOS GENERALES","entidad":"UNIVERSIDAD DE SAN CARLOS DE GUATEMALA …","Q":19708897.95,"n":197},{"nombre":"DIRECCIÓN DEPARTAMENTAL DE EDUCACIÓN DE GUATEMALA NORTE","entidad":"MINISTERIO DE EDUCACIÓN","Q":10340747.41,"n":162},{"nombre":"PROGRAMA DE EXPERIENCIAS DOCENTES CON LA COMUNIDAD - EDC -","entidad":"UNIVERSIDAD DE SAN CARLOS DE GUATEMALA …","Q":8862968.76,"n":116},{"nombre":"DIRECCIÓN DE PLANIFICACIÓN EDUCATIVA -DIPLAN-","entidad":"MINISTERIO DE EDUCACIÓN","Q":7730608.0,"n":29},{"nombre":"DIRECCIÓN GENERAL DE EDUCACIÓN EXTRAESCOLAR -DIGEEX-","entidad":"MINISTERIO DE EDUCACIÓN","Q":6540194.45,"n":102},{"nombre":"CUNOC","entidad":"UNIVERSIDAD DE SAN CARLOS DE GUATEMALA …","Q":6124503.08,"n":69},{"nombre":"DIRECCIÓN GENERAL DE EDUCACIÓN BILINGUE INTERCULTURAL -DIGE…","entidad":"MINISTERIO DE EDUCACIÓN","Q":5076401.94,"n":70},{"nombre":"DIRECCION GENERAL DE ADMINISTRACION","entidad":"UNIVERSIDAD DE SAN CARLOS DE GUATEMALA …","Q":4963831.04,"n":24}],"proveedores_top":[{"nombre":"EDICIONES DON QUIJOTE, S.A.","persona":false,"Q":50512313.379999995,"n":4},{"nombre":"EDITORIAL SUR, S.A.","persona":false,"Q":49161673.68,"n":5},{"nombre":"QUALITY GROUP, S.A.","persona":false,"Q":12226676.28,"n":2},{"nombre":"IQTEK, S.A.","persona":false,"Q":11840000.0,"n":1},{"nombre":"GRUPO CONECTATE, S.A.","persona":false,"Q":6858522.0,"n":3},{"nombre":"PAPELES COMERCIALES, S.A.","persona":false,"Q":6238085.74,"n":15},{"nombre":"ABBOTT LABORATORIOS, LIMITADA","persona":false,"Q":6087038.52,"n":73},{"nombre":"UNO GUATEMALA, S.A.","persona":false,"Q":6025200.0,"n":63},{"nombre":"CLEANOMATIC DE GUATEMALA, S.A.","persona":false,"Q":5520420.52,"n":10},{"nombre":"MOVILMAX GUATEMALA, S.A.","persona":false,"Q":5252400.0,"n":9}],"familias_top":[{"codigo":"7315","nombre":"Mantenimiento e impresión industrial","Q":118346500.08,"n":23},{"codigo":"4323","nombre":"Software y licencias","Q":31570128.570952382,"n":98},{"codigo":"4321","nombre":"Computadoras","Q":17874880.124285713,"n":287},{"codigo":"8610","nombre":"Capacitación","Q":17761445.73,"n":173},{"codigo":"5612","nombre":"Mobiliario escolar","Q":12477976.35,"n":182},{"codigo":"4111","nombre":"Reactivos e instrumentos de laboratorio","Q":12274827.802316045,"n":204},{"codigo":"2510","nombre":"Vehículos","Q":11650780.0,"n":16},{"codigo":"7210","nombre":"Mantenimiento de edificios","Q":9292924.31,"n":112},{"codigo":"5610","nombre":"Mobiliario","Q":8975812.530555556,"n":119},{"codigo":"6010","nombre":"Material didáctico","Q":6687703.385480769,"n":62}],"segmentos":[{"codigo":"73","nombre":"Producción industrial","Q":118366900.08,"pct":0.2948612477498982},{"codigo":"43","nombre":"Tecnología","Q":54939984.279802196,"pct":0.13685981727284807},{"codigo":"50","nombre":"Alimentos","Q":23715881.512142856,"pct":0.05907812411605723},{"codigo":"56","nombre":"Mobiliario","Q":22045431.10277778,"pct":0.054916900905203375},{"codigo":"86","nombre":"Educación (servicios)","Q":18404908.875454545,"pct":0.045848074014541704},{"codigo":"41","nombre":"Laboratorio","Q":13826858.645966839,"pct":0.03444379121237226},{"codigo":"25","nombre":"Vehículos","Q":12444293.448397435,"pct":0.030999712682180356},{"codigo":"44","nombre":"Oficina","Q":11110292.085033577,"pct":0.027676610478475736},{"codigo":"60","nombre":"Material educativo","Q":10140575.844468866,"pct":0.025260971136201838},{"codigo":"72","nombre":"Construcción y mantenimiento","Q":10134221.174285714,"pct":0.025245141153512618}],"modalidades":[{"nombre":"Licitación Pública","Q":186334990.81,"n":35},{"nombre":"Compra Directa con Oferta Electrónica","Q":184632792.73,"n":3303},{"nombre":"Cotización","Q":22634758.18,"n":37},{"nombre":"Convenios y Tratados Internacionales","Q":5539750.0,"n":3},{"nombre":"Arrendamiento o Adquisición de Bienes Inmuebles","Q":1232460.0,"n":22},{"nombre":"Adquisición Directa por Ausencia de Oferta","Q":1001128.8,"n":19},{"nombre":"Negociaciones entre Entidades Públicas","Q":56661.0,"n":1}],"meses":[{"mes":"2026-01","Q":10204847.02,"n":88},{"mes":"2026-02","Q":11653794.28,"n":162},{"mes":"2026-03","Q":23109238.08,"n":232},{"mes":"2026-04","Q":30711086.4,"n":361},{"mes":"2026-05","Q":35134530.03,"n":373},{"mes":"2026-06","Q":60529689.48,"n":386},{"mes":"2026-07","Q":35005813.46,"n":385},{"mes":"2026-08","Q":100996703.3,"n":358},{"mes":"2026-09","Q":46616907.769999996,"n":360},{"mes":"2026-10","Q":32125259.46,"n":423},{"mes":"2026-11","Q":15344672.24,"n":204}]},"justicia":{"nombre":"Justicia","total":376478975.65,"procesos":1437,"adjudicaciones":1447,"proveedores":599,"compradores":5,"unidades":10,"top5_proveedores_pct":0.40544190234385014,"compradores_top":[{"nombre":"MINISTERIO PÚBLICO","Q":114854784.44,"n":409},{"nombre":"ORGANISMO JUDICIAL","Q":114078483.59,"n":693},{"nombre":"INSTITUTO NACIONAL DE CIENCIAS FORENSES DE GUATEMALA","Q":93889468.25,"n":196},{"nombre":"INSTITUTO DE LA DEFENSA PÚBLICA PENAL","Q":46810951.38,"n":66},{"nombre":"CORTE DE CONSTITUCIONALIDAD","Q":6845287.99,"n":73}],"unidades_top":[{"nombre":"DEPARTAMENTO DE ADQUISICIONES DE BIENES Y SERVICIOS","entidad":"ORGANISMO JUDICIAL","Q":95037271.53999999,"n":633},{"nombre":"SECCION DE ADQUISICIONES","entidad":"INSTITUTO NACIONAL DE CIENCIAS FORENSES…","Q":93889468.25,"n":196},{"nombre":"DEPARTAMENTO DE EVENTOS DE COTIZACIÓN Y LICITACIÓN","entidad":"MINISTERIO PÚBLICO","Q":63977474.55,"n":18},{"nombre":"SECCION DE COMPRAS","entidad":"MINISTERIO PÚBLICO","Q":48928889.57,"n":384},{"nombre":"UNIDAD COMPRADORA PARA PROYECTOS DE COOPERACIÓN EXTERNA","entidad":"INSTITUTO DE LA DEFENSA PÚBLICA PENAL","Q":24609447.58,"n":5},{"nombre":"SECCION DE COMPRAS","entidad":"INSTITUTO DE LA DEFENSA PÚBLICA PENAL","Q":22201503.8,"n":61},{"nombre":"UNIDAD EJECUTORA PRESTAMO BCIE 2181 \"PROGRAMA DE INVERSIÓN …","entidad":"ORGANISMO JUDICIAL","Q":16455533.0,"n":2},{"nombre":"DEPARTAMENTO DE COMPRAS","entidad":"CORTE DE CONSTITUCIONALIDAD","Q":6845287.99,"n":73},{"nombre":"UNIDAD DE COMPRAS REGIONAL DE QUETZALTENANGO","entidad":"ORGANISMO JUDICIAL","Q":2541723.05,"n":57},{"nombre":"SECRETARIA DE ASUNTOS INTERNACIONALES Y COOPERACION","entidad":"MINISTERIO PÚBLICO","Q":1948420.3199999998,"n":7}],"proveedores_top":[{"nombre":"VIGILANCIA Y SEGURIDAD EMPRESARIAL DE GUATEMALA, S.A.","persona":false,"Q":44248800.0,"n":1},{"nombre":"COMPAÑIA INTERNACIONAL DE PRODUCTOS Y SERVICIOS, S.A.","persona":false,"Q":40676819.0,"n":9},{"nombre":"UNO GUATEMALA, S.A.","persona":false,"Q":36850000.0,"n":9},{"nombre":"EQUIPOS Y PRODUCTOS DE LABORATORIO, S.A.","persona":false,"Q":15761351.08,"n":16},{"nombre":"SERVICIOS GENERALES INDUSTRIALES, S.A.","persona":false,"Q":15103382.0,"n":1},{"nombre":"FAREI, S.A.","persona":false,"Q":12955630.0,"n":1},{"nombre":"IMPORTADORA Y EXPORTADORA MARTIN, S.A.","persona":false,"Q":10014320.0,"n":8},{"nombre":"AGROINDUSTRIAS LUCIA, S.A.","persona":false,"Q":9292916.25,"n":2},{"nombre":"COFIÑO STAHL Y COMPAÑIA, S.A.","persona":false,"Q":8696475.0,"n":5},{"nombre":"COMUNICACIONES CELULARES, S.A.","persona":false,"Q":8494776.0,"n":6}],"familias_top":[{"codigo":"9212","nombre":"Defensa (9212)","Q":44248800.0,"n":1},{"codigo":"8013","nombre":"Arrendamiento de inmuebles","Q":39318887.61,"n":157},{"codigo":"1510","nombre":"Combustibles","Q":36850000.0,"n":9},{"codigo":"8110","nombre":"Servicios de ingeniería","Q":25596971.25,"n":17},{"codigo":"4511","nombre":"Equipo audiovisual","Q":17062208.0,"n":10},{"codigo":"4111","nombre":"Reactivos e instrumentos de laboratorio","Q":17056721.18,"n":27},{"codigo":"4321","nombre":"Computadoras","Q":15193455.21,"n":55},{"codigo":"4410","nombre":"Equipo y licencias de oficina","Q":14649751.5,"n":34},{"codigo":"7314","nombre":"Producción gráfica","Q":14536980.0,"n":2},{"codigo":"4323","nombre":"Software y licencias","Q":13580479.36,"n":81}],"segmentos":[{"codigo":"92","nombre":"Defensa","Q":44461659.0,"pct":0.11809865059060969},{"codigo":"80","nombre":"Gestión","Q":40873047.33,"pct":0.10856661320710327},{"codigo":"15","nombre":"Combustibles","Q":36955989.5,"pct":0.09816216014770705},{"codigo":"43","nombre":"Tecnología","Q":32613752.25,"pct":0.08662834941497484},{"codigo":"81","nombre":"Ingeniería","Q":27987276.0,"pct":0.07433954565903526},{"codigo":"41","nombre":"Laboratorio","Q":22251684.873333335,"pct":0.05910472114655345},{"codigo":"73","nombre":"Producción industrial","Q":21802972.28,"pct":0.057912854874184266},{"codigo":"25","nombre":"Vehículos","Q":20235361.25,"pct":0.053748980842989076},{"codigo":"45","nombre":"Audiovisual","Q":17422686.759999998,"pct":0.0462779806758646},{"codigo":"44","nombre":"Oficina","Q":16095491.39,"pct":0.042752696514355815}],"modalidades":[{"nombre":"Licitación Pública","Q":175713848.44,"n":31},{"nombre":"Compra Directa con Oferta Electrónica","Q":70370637.67,"n":1160},{"nombre":"Convenios y Tratados Internacionales","Q":43177268.03,"n":19},{"nombre":"Arrendamiento o Adquisición de Bienes Inmuebles","Q":39230159.99,"n":156},{"nombre":"Arrendamientos por Licitación Pública","Q":25779888.0,"n":1},{"nombre":"Cotización","Q":19562343.09,"n":40},{"nombre":"Adquisición Directa por Ausencia de Oferta","Q":1877837.3199999998,"n":11},{"nombre":"Negociaciones entre Entidades Públicas","Q":766993.11,"n":29}],"meses":[{"mes":"2026-01","Q":45924625.22,"n":31},{"mes":"2026-02","Q":58288131.21,"n":134},{"mes":"2026-03","Q":39774496.480000004,"n":134},{"mes":"2026-04","Q":15208601.51,"n":136},{"mes":"2026-05","Q":26681366.46,"n":148},{"mes":"2026-06","Q":26111427.13,"n":139},{"mes":"2026-07","Q":67027676.26,"n":156},{"mes":"2026-08","Q":20722759.49,"n":134},{"mes":"2026-09","Q":30911903.6,"n":133},{"mes":"2026-10","Q":38244413.85,"n":213},{"mes":"2026-11","Q":7583574.44,"n":79}]},"ejecutivo":{"nombre":"Ejecutivo (Adm. Central)","total":16699234845.95,"procesos":54194,"adjudicaciones":65068,"proveedores":4095,"compradores":55,"unidades":296,"top5_proveedores_pct":0.21566594129810965,"compradores_top":[{"nombre":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","Q":6685640216.9800005,"n":1328},{"nombre":"MINISTERIO DE SALUD PÚBLICA","Q":2953696725.25,"n":35956},{"nombre":"MINISTERIO DE LA DEFENSA NACIONAL","Q":2095836790.0,"n":1669},{"nombre":"MINISTERIO DE DESARROLLO SOCIAL","Q":1427466477.08,"n":786},{"nombre":"MINISTERIO DE GOBERNACIÓN","Q":1014288494.59,"n":4365},{"nombre":"MINISTERIO DE FINANZAS PÚBLICAS","Q":670714264.55,"n":421},{"nombre":"MINISTERIO DE EDUCACIÓN","Q":322722820.25,"n":2338},{"nombre":"MINISTERIO DE CULTURA Y DEPORTES","Q":312083061.90999997,"n":567},{"nombre":"MINISTERIO DE AGRICULTURA, GANADERIA Y ALIMENTACIÓN","Q":127649171.22,"n":564},{"nombre":"MINISTERIO PÚBLICO","Q":114854784.44,"n":409}],"unidades_top":[{"nombre":"COMPRAS DGC","entidad":"MINISTERIO DE COMUNICACIONES, INFRAESTR…","Q":3394082610.62,"n":273},{"nombre":"UNIDAD EJECUTORA DE CONSERVACION VIAL","entidad":"MINISTERIO DE COMUNICACIONES, INFRAESTR…","Q":2478911294.5,"n":206},{"nombre":"CUERPO DE INGENIEROS DEL EJERCITO DE GUATEMALA TCIFVA","entidad":"MINISTERIO DE LA DEFENSA NACIONAL","Q":933056101.9799999,"n":56},{"nombre":"FONDO DE DESARROLLO SOCIAL","entidad":"MINISTERIO DE DESARROLLO SOCIAL","Q":784864713.53,"n":82},{"nombre":"HOSPITAL GENERAL SAN JUAN DE DIOS","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":649561875.8,"n":6542},{"nombre":"FONDO DE PROTECCION SOCIAL","entidad":"MINISTERIO DE DESARROLLO SOCIAL","Q":628922475.73,"n":602},{"nombre":"DIRECCION GENERAL DE ADQUISICIONES DEL ESTADO","entidad":"MINISTERIO DE FINANZAS PÚBLICAS","Q":563429075.03,"n":4},{"nombre":"FONDO SOCIAL DE SOLIDARIDAD","entidad":"MINISTERIO DE COMUNICACIONES, INFRAESTR…","Q":545244903.32,"n":55},{"nombre":"HOSPITAL ROOSEVELT","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":532289267.83,"n":5872},{"nombre":"COMANDANCIA DE LA MARINA DE LA DEFENSA NACIONAL","entidad":"MINISTERIO DE LA DEFENSA NACIONAL","Q":524100758.57,"n":249}],"proveedores_top":[{"nombre":"CONSORCIO VÍAS TERRESTRES DEL ATLÁNTICO - (VIATLA).","persona":false,"Q":990553882.1,"n":1},{"nombre":"GOBIERNO DE LOS ESTADOS UNIDOS DE AMERICA","persona":false,"Q":906920308.48,"n":4},{"nombre":"CONSTRUCCIONES INTEGRALES AVANZADAS, S.A.","persona":false,"Q":756175329.4,"n":2},{"nombre":"LUCERO,MARROQUÍN,,ALEJANDRO,JOSÉ","persona":true,"Q":479266465.14,"n":3},{"nombre":"SISTEMAS NUTRICIONALES, S.A.","persona":false,"Q":468540216.89,"n":990},{"nombre":"ARREAGA,CARDENAS,,BILLY,GUBERT'S","persona":true,"Q":391364094.36,"n":4},{"nombre":"MAYA PAV, S.A.","persona":false,"Q":305002264.75,"n":1},{"nombre":"COFIÑO STAHL Y COMPAÑIA, S.A.","persona":false,"Q":269855960.37,"n":48},{"nombre":"J.I. COHEN, S.A.","persona":false,"Q":266718005.19,"n":874},{"nombre":"GRUPO INTERNACIONAL DE PROYECTOS, S.A.","persona":false,"Q":257380096.0,"n":2}],"familias_top":[{"codigo":"7214","nombre":"Construcción pesada (carreteras y puentes)","Q":3318899687.37,"n":946},{"codigo":"8110","nombre":"Servicios de ingeniería","Q":3129310402.3166666,"n":147},{"codigo":"5019","nombre":"Alimentos preparados","Q":834001114.4668274,"n":2878},{"codigo":"8010","nombre":"Asesoría y consultoría","Q":780524052.92,"n":87},{"codigo":"2510","nombre":"Vehículos","Q":564088531.4742006,"n":237},{"codigo":"3011","nombre":"Concreto y cemento","Q":561606227.7717425,"n":189},{"codigo":"4111","nombre":"Reactivos e instrumentos de laboratorio","Q":523682491.1251573,"n":6264},{"codigo":"4321","nombre":"Computadoras","Q":350732553.01058066,"n":1075},{"codigo":"1510","nombre":"Combustibles","Q":241578963.76285714,"n":731},{"codigo":"9412","nombre":"Obras comunitarias","Q":239820318.5,"n":3}],"segmentos":[{"codigo":"72","nombre":"Construcción y mantenimiento","Q":3519119609.6902504,"pct":0.21073538052216378},{"codigo":"81","nombre":"Ingeniería","Q":3254179248.4466667,"pct":0.19486996131657433},{"codigo":"80","nombre":"Gestión","Q":1091165680.6,"pct":0.06534225613724068},{"codigo":"50","nombre":"Alimentos","Q":1072444376.8160704,"pct":0.06422116861696607},{"codigo":"51","nombre":"Medicamentos","Q":1026188355.7180845,"pct":0.06145122008191662},{"codigo":"42","nombre":"Equipo e insumos médicos","Q":753427490.4868664,"pct":0.04511748576729503},{"codigo":"25","nombre":"Vehículos","Q":703976147.7726545,"pct":0.04215619184153142},{"codigo":"30","nombre":"Materiales de construcción","Q":656695375.0327759,"pct":0.039324878121109935},{"codigo":"43","nombre":"Tecnología","Q":639045831.2964115,"pct":0.038267970789775244},{"codigo":"41","nombre":"Laboratorio","Q":588164318.838535,"pct":0.03522103403325573}],"modalidades":[{"nombre":"Licitación Pública","Q":7710191849.54,"n":718},{"nombre":"Compra Directa con Oferta Electrónica","Q":3059566692.04,"n":60822},{"nombre":"Convenios y Tratados Internacionales","Q":2042355579.13,"n":128},{"nombre":"Procedimientos regulados por el artículo 54 LCE","Q":1862446453.6,"n":72},{"nombre":"Cotización","Q":691116595.03,"n":1300},{"nombre":"Contrato Abierto","Q":563429075.03,"n":19},{"nombre":"Arrendamiento o Adquisición de Bienes Inmuebles","Q":299316404.82,"n":1164},{"nombre":"Arrendamientos por Licitación Pública","Q":141599226.4,"n":11}],"meses":[{"mes":"2026-01","Q":615435554.8,"n":2826},{"mes":"2026-02","Q":718791945.23,"n":5226},{"mes":"2026-03","Q":2103955804.97,"n":5303},{"mes":"2026-04","Q":1628144346.58,"n":4140},{"mes":"2026-05","Q":2472317229.41,"n":4774},{"mes":"2026-06","Q":1390363113.96,"n":5625},{"mes":"2026-07","Q":1064431960.2,"n":5658},{"mes":"2026-08","Q":1007959396.54,"n":5754},{"mes":"2026-09","Q":2568328548.73,"n":4982},{"mes":"2026-10","Q":2122724980.1399999,"n":6852},{"mes":"2026-11","Q":1006781965.39,"n":3054}]},"municipal":{"nombre":"Municipalidades","total":12988785316.94,"procesos":15345,"adjudicaciones":15352,"proveedores":2755,"compradores":345,"unidades":270,"top5_proveedores_pct":0.09788678052148554,"compradores_top":[{"nombre":"MUNICIPALIDAD DE GUATEMALA, GUATEMALA","Q":912276623.6800001,"n":445},{"nombre":"MUNICIPALIDAD DE QUETZALTENANGO, QUETZALTENANGO","Q":408389157.6,"n":151},{"nombre":"MUNICIPALIDAD DE SAN JUAN SACATEPEQUEZ, GUATEMALA","Q":161464097.99,"n":76},{"nombre":"MUNICIPALIDAD DE SAN MIGUEL PETAPA, GUATEMALA","Q":145049962.77,"n":117},{"nombre":"MUNICIPALIDAD DE SAN JOSÉ ACATEMPA, JUTIAPA","Q":143306710.98,"n":29},{"nombre":"MUNICIPALIDAD DE COBÁN, ALTA VERAPAZ","Q":141655356.43,"n":63},{"nombre":"MUNICIPALIDAD DE SAN PEDRO CARCHA, ALTA VERAPAZ","Q":111863474.58,"n":76},{"nombre":"MUNICIPALIDAD DE SAN MARCOS, SAN MARCOS","Q":107892159.5,"n":160},{"nombre":"MUNICIPALIDAD DE PALENCIA, GUATEMALA","Q":105253623.97,"n":44},{"nombre":"MUNICIPALIDAD DE ESCUINTLA, ESCUINTLA","Q":101773469.54,"n":78}],"unidades_top":[{"nombre":"DIRECCION DE ADQUISICIONES","entidad":"MUNICIPALIDAD DE GUATEMALA, GUATEMALA","Q":872559866.88,"n":69},{"nombre":"COORDINADOR DE PUBLICACIONES","entidad":"MUNICIPALIDAD DE QUETZALTENANGO, QUETZA…","Q":408389157.6,"n":151},{"nombre":"DIRECCION MUNICIPAL DE PLANIFICACION","entidad":"MUNICIPALIDAD DE SAN JUAN SACATEPEQUEZ,…","Q":160495426.29,"n":64},{"nombre":"DEPARTAMENTO DE COMPRAS","entidad":"MUNICIPALIDAD DE SAN MIGUEL PETAPA, GUA…","Q":145049962.77,"n":117},{"nombre":"DIRECCION MUNICIPAL DE PLANIFICACION. DMP.","entidad":"MUNICIPALIDAD DE SAN JOSÉ ACATEMPA, JUT…","Q":143306710.98,"n":29},{"nombre":"UNIDAD DE COMPRAS","entidad":"MUNICIPALIDAD DE COBÁN, ALTA VERAPAZ","Q":141655356.43,"n":63},{"nombre":"UNIDAD DE COMPRAS","entidad":"MUNICIPALIDAD DE SAN PEDRO CARCHA, ALTA…","Q":111863474.58,"n":76},{"nombre":"DIRECCION DE COMPRAS","entidad":"MUNICIPALIDAD DE PALENCIA, GUATEMALA","Q":105253623.97,"n":44},{"nombre":"DEPARTAMENTO DE COMPRAS","entidad":"MUNICIPALIDAD DE ESCUINTLA, ESCUINTLA","Q":101773469.54,"n":78},{"nombre":"UNIDAD DE COMPRAS","entidad":"MUNICIPALIDAD DE MIXCO, GUATEMALA","Q":100391738.26,"n":89}],"proveedores_top":[{"nombre":"ENERGICA, S.A.","persona":false,"Q":684117810.0,"n":1},{"nombre":"ROLDAN,SOSA,,LUIS,CARLOS","persona":true,"Q":259466080.65,"n":30},{"nombre":"BERREONDO,MOLINA,,JORGE,ORLANDO","persona":true,"Q":116575060.82,"n":36},{"nombre":"ALDANA,PAIZ,,JOSÉ,GUILLERMO","persona":true,"Q":112422193.53,"n":34},{"nombre":"MOLINA,RODRIGUEZ,,QUITZE,FERNANDA","persona":true,"Q":98849232.56,"n":62},{"nombre":"PORTILLO,LIMA,,EDDIE,ERLY DANNIERY","persona":true,"Q":97290645.96000001,"n":29},{"nombre":"ARCHILA,OCHOA,,MARIO,DAVID","persona":true,"Q":95737320.67,"n":29},{"nombre":"EXCELENCIA EN MULTISERVICIOS EN OUTSOURCING, S.A.","persona":false,"Q":94471586.04,"n":34},{"nombre":"SOLARES,ORELLANA,,KELIAN,GUILLERMO","persona":true,"Q":91549340.73,"n":25},{"nombre":"ARÉVALO,VÁSQUEZ,,HAINZ,NOÉ","persona":true,"Q":89983679.0,"n":36}],"familias_top":[{"codigo":"7214","nombre":"Construcción pesada (carreteras y puentes)","Q":3335666019.675684,"n":3394},{"codigo":"8110","nombre":"Servicios de ingeniería","Q":1237574362.01321,"n":666},{"codigo":"3012","nombre":"Materiales viales","Q":930476258.7736232,"n":1148},{"codigo":"7315","nombre":"Mantenimiento e impresión industrial","Q":692633128.1733968,"n":35},{"codigo":"3011","nombre":"Concreto y cemento","Q":449927948.12066966,"n":1692},{"codigo":"2210","nombre":"Maquinaria pesada","Q":411581066.6591082,"n":619},{"codigo":"3017","nombre":"Puertas y ventanas","Q":408120211.410887,"n":772},{"codigo":"8612","nombre":"Obras y servicios educativos","Q":373086334.2438095,"n":306},{"codigo":"5020","nombre":"Agua y bebidas","Q":345834295.6778166,"n":304},{"codigo":"8310","nombre":"Servicios públicos (energía, agua)","Q":267167105.34336916,"n":235}],"segmentos":[{"codigo":"72","nombre":"Construcción y mantenimiento","Q":3693996751.4359846,"pct":0.28439893810688105},{"codigo":"30","nombre":"Materiales de construcción","Q":1983138380.9705756,"pct":0.15268081907429498},{"codigo":"81","nombre":"Ingeniería","Q":1353170694.5869243,"pct":0.10417992611072849},{"codigo":"73","nombre":"Producción industrial","Q":717493699.4829059,"pct":0.0552394763617464},{"codigo":"22","nombre":"Maquinaria de construcción","Q":411581066.6591082,"pct":0.031687417769721955},{"codigo":"86","nombre":"Educación (servicios)","Q":405568503.495358,"pct":0.031224513578372467},{"codigo":"70","nombre":"Servicios agrícolas","Q":386815424.1446198,"pct":0.029780723501537466},{"codigo":"50","nombre":"Alimentos","Q":386416885.99785846,"pct":0.02975004025156169},{"codigo":"83","nombre":"Servicios públicos","Q":271347852.0308692,"pct":0.020890933633107074},{"codigo":"71","nombre":"Minería","Q":260451591.54102498,"pct":0.020052036059241312}],"modalidades":[{"nombre":"Licitación Pública","Q":9763069062.94,"n":2793},{"nombre":"Cotización","Q":2399413037.63,"n":4054},{"nombre":"Compra Directa con Oferta Electrónica","Q":647922127.68,"n":8007},{"nombre":"Adquisición Directa por Ausencia de Oferta","Q":67525310.08,"n":179},{"nombre":"Arrendamiento o Adquisición de Bienes Inmuebles","Q":31767438.97,"n":145},{"nombre":"Arrendamientos por Licitación Pública","Q":24011204.7,"n":8},{"nombre":"Arrendamientos por Cotización","Q":20871715.75,"n":45},{"nombre":"Adquisiciones con proveedor único","Q":17061889.0,"n":6}],"meses":[{"mes":"2026-01","Q":690294756.62,"n":876},{"mes":"2026-02","Q":671096880.98,"n":1411},{"mes":"2026-03","Q":891856322.22,"n":1672},{"mes":"2026-04","Q":763422856.1,"n":1253},{"mes":"2026-05","Q":794602775.62,"n":1414},{"mes":"2026-06","Q":862963071.61,"n":1437},{"mes":"2026-07","Q":1128133554.74,"n":1457},{"mes":"2026-08","Q":1524031510.48,"n":1528},{"mes":"2026-09","Q":2733117281.1,"n":1836},{"mes":"2026-10","Q":2182532043.56,"n":1747},{"mes":"2026-11","Q":746734263.91,"n":714}]}},"mspas":{"total":2953696725.25,"procesos":35956,"adjudicaciones":46467,"proveedores":1484,"compradores":1,"unidades":87,"top5_proveedores_pct":0.24123462896810818,"compradores_top":[{"nombre":"MINISTERIO DE SALUD PÚBLICA","Q":2953696725.25,"n":35956}],"unidades_top":[{"nombre":"HOSPITAL GENERAL SAN JUAN DE DIOS","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":649561875.8,"n":6542},{"nombre":"HOSPITAL ROOSEVELT","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":532289267.83,"n":5872},{"nombre":"HOSPITAL REGIONAL DE OCCIDENTE QUETZALTENANGO","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":128071148.19,"n":1285},{"nombre":"HOSPITAL REGIONAL DE HUEHUETENANGO \"DR. JORGE VIDES MOLINA\"","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":107053281.42,"n":781},{"nombre":"HOSPITAL PEDRO DE BETHANCOURT","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":95946476.51,"n":1091},{"nombre":"HOSPITAL REGIONAL DE CUILAPA ''LICENCIADO GUILLERMO FERNÁND…","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":81357604.39,"n":1004},{"nombre":"HOSPITAL REGIONAL DE ZACAPA","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":61742951.19,"n":767},{"nombre":"HOSPITAL DE ESCUINTLA","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":60907382.95,"n":790},{"nombre":"HOSPITAL NACIONAL DE ESPECIALIDADES QUIRÚRGICAS DE VILLA NU…","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":55922123.09,"n":717},{"nombre":"HOSPITAL DE SAN BENITO","entidad":"MINISTERIO DE SALUD PÚBLICA","Q":53871661.7,"n":789}],"proveedores_top":[{"nombre":"LABYMED, S.A.","persona":false,"Q":207898767.06,"n":2371},{"nombre":"J.I. COHEN, S.A.","persona":false,"Q":166385642.19,"n":870},{"nombre":"SERVICIOS QUIRURGICOS, S.A.","persona":false,"Q":151109211.07,"n":2176},{"nombre":"COMPAÑIA DE EQUIPO MEDICO-HOSPITALARIO, S.A.","persona":false,"Q":96908970.09,"n":1158},{"nombre":"AGENCIA FARMACEUTICA INTERNACIONAL, S.A.","persona":false,"Q":90231343.19,"n":884},{"nombre":"PRODUCTOS ROCHE GUATEMALA, S.A.","persona":false,"Q":82079429.77,"n":996},{"nombre":"DISGUA DISTRIBUIDORA GUATEMALTECA, S.A.","persona":false,"Q":53227170.0,"n":211},{"nombre":"OXI-RENT, S.A.","persona":false,"Q":49481729.15,"n":855},{"nombre":"ABBOTT LABORATORIOS, LIMITADA","persona":false,"Q":47212017.55,"n":664},{"nombre":"CENTRO DISTRIBUIDOR, S.A.","persona":false,"Q":45888097.06,"n":406}],"familias_top":[{"codigo":"4111","nombre":"Reactivos e instrumentos de laboratorio","Q":480355026.4017919,"n":6040},{"codigo":"5110","nombre":"Medicamentos antiinfecciosos","Q":195346660.9012536,"n":3383},{"codigo":"4229","nombre":"Instrumental quirúrgico","Q":158085637.7302179,"n":2891},{"codigo":"5113","nombre":"Medicamentos hematológicos","Q":124593312.83084092,"n":1503},{"codigo":"5114","nombre":"Medicamentos del sistema nervioso","Q":115145777.98240079,"n":2158},{"codigo":"5119","nombre":"Sueros, electrolitos y nutrición","Q":109132876.59019011,"n":2033},{"codigo":"5111","nombre":"Medicamentos oncológicos","Q":88653058.1525,"n":695},{"codigo":"8516","nombre":"Arrendamiento y mantenimiento de equipo médico","Q":88383495.57,"n":780},{"codigo":"5120","nombre":"Inmunoglobulinas y vacunas","Q":84674066.94321428,"n":1069},{"codigo":"4222","nombre":"Insumos intravenosos","Q":79241238.02860029,"n":1310}],"segmentos":[{"codigo":"51","nombre":"Medicamentos","Q":924878105.9572511,"pct":0.3131256157921798},{"codigo":"42","nombre":"Equipo e insumos médicos","Q":653624985.8375429,"pct":0.2212904866806257},{"codigo":"41","nombre":"Laboratorio","Q":538531456.992495,"pct":0.1823245604021563},{"codigo":"85","nombre":"Salud (servicios)","Q":127207190.315,"pct":0.04306711289197547},{"codigo":"50","nombre":"Alimentos","Q":73831570.00281648,"pct":0.024996327270724587},{"codigo":"72","nombre":"Construcción y mantenimiento","Q":71017359.14,"pct":0.02404355143603618},{"codigo":"12","nombre":"Químicos","Q":66550013.18202345,"pct":0.02253109217785068},{"codigo":"15","nombre":"Combustibles","Q":60176459.24333333,"pct":0.02037326944533888},{"codigo":"81","nombre":"Ingeniería","Q":48569920.85666667,"pct":0.016443773811123323},{"codigo":"25","nombre":"Vehículos","Q":35022968.6919697,"pct":0.011857334029107327}],"modalidades":[{"nombre":"Compra Directa con Oferta Electrónica","Q":2099460286.95,"n":45332},{"nombre":"Licitación Pública","Q":407345145.5,"n":158},{"nombre":"Cotización","Q":348680636.84,"n":716},{"nombre":"Convenios y Tratados Internacionales","Q":54786503.88,"n":63},{"nombre":"Arrendamientos por Licitación Pública","Q":16325234.4,"n":7},{"nombre":"Adquisición Directa por Ausencia de Oferta","Q":9324945.77,"n":93},{"nombre":"Arrendamientos por Cotización","Q":8119933.5,"n":13},{"nombre":"Arrendamiento o Adquisición de Bienes Inmuebles","Q":4803402.0,"n":69}],"meses":[{"mes":"2026-01","Q":126933659.0,"n":1861},{"mes":"2026-02","Q":256834698.82,"n":3853},{"mes":"2026-03","Q":299068679.01,"n":3789},{"mes":"2026-04","Q":196540692.2,"n":2537},{"mes":"2026-05","Q":268977529.73,"n":3038},{"mes":"2026-06","Q":286821309.1,"n":3752},{"mes":"2026-07","Q":306722251.47,"n":3660},{"mes":"2026-08","Q":327221542.43,"n":3707},{"mes":"2026-09","Q":260161909.62,"n":3009},{"mes":"2026-10","Q":444416982.59,"n":4697},{"mes":"2026-11","Q":179997471.28,"n":2053}],"compra_directa_pct_adj":0.9755740633137495,"compra_directa_pct_Q":0.7107907419886861,"top2_unidades_pct":0.40012609741779376},"hoy":{"fecha":"2026-11-12","Q":227631992.47999996,"adjudicaciones":1550,"procesos":1448,"top_comprador":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","top_comprador_Q":46407224.4},"dias":[{"fecha":"2026-09-11","Q":279686182.94,"n":1047},{"fecha":"2026-09-12","Q":3245758.21,"n":128},{"fecha":"2026-09-13","Q":3009451.6,"n":21},{"fecha":"2026-09-14","Q":41627230.35,"n":63},{"fecha":"2026-09-15","Q":1010167.0,"n":5},{"fecha":"2026-09-16","Q":123556173.61,"n":1382},{"fecha":"2026-09-17","Q":404655666.72,"n":1491},{"fecha":"2026-09-18","Q":322707745.71999997,"n":1724},{"fecha":"2026-09-19","Q":6450742.92,"n":137},{"fecha":"2026-09-21","Q":203585739.14,"n":1439},{"fecha":"2026-09-22","Q":523497159.44,"n":1581},{"fecha":"2026-09-23","Q":379750952.4,"n":1385},{"fecha":"2026-09-24","Q":426979965.16,"n":1281},{"fecha":"2026-09-25","Q":352687133.31,"n":1164},{"fecha":"2026-09-26","Q":1894018.37,"n":73},{"fecha":"2026-09-28","Q":172637444.75,"n":1314},{"fecha":"2026-09-29","Q":231400727.83,"n":1461},{"fecha":"2026-09-30","Q":187695015.89,"n":1176},{"fecha":"2026-10-01","Q":232652906.65,"n":904},{"fecha":"2026-10-02","Q":282267219.74,"n":1118},{"fecha":"2026-10-03","Q":6502369.75,"n":130},{"fecha":"2026-10-04","Q":3532245.85,"n":60},{"fecha":"2026-10-05","Q":429141786.79,"n":1371},{"fecha":"2026-10-06","Q":181744004.89,"n":1282},{"fecha":"2026-10-07","Q":894717466.2,"n":1313},{"fecha":"2026-10-08","Q":231015047.35999998,"n":1491},{"fecha":"2026-10-09","Q":258880498.48,"n":1461},{"fecha":"2026-10-10","Q":23440582.05,"n":72},{"fecha":"2026-10-11","Q":24270.0,"n":1},{"fecha":"2026-10-12","Q":281611524.37,"n":519},{"fecha":"2026-10-13","Q":196086209.34,"n":1410},{"fecha":"2026-10-14","Q":252979599.16,"n":1630},{"fecha":"2026-10-15","Q":224080746.24,"n":1413},{"fecha":"2026-10-16","Q":235936388.91,"n":1542},{"fecha":"2026-10-17","Q":7144158.9399999995,"n":204},{"fecha":"2026-10-18","Q":53008.68,"n":9},{"fecha":"2026-10-19","Q":85447456.37,"n":922},{"fecha":"2026-10-20","Q":40430373.59,"n":34},{"fecha":"2026-10-21","Q":403818389.15,"n":1732},{"fecha":"2026-10-22","Q":281198691.52,"n":1756},{"fecha":"2026-10-23","Q":226079285.47,"n":1441},{"fecha":"2026-10-24","Q":10119761.12,"n":157},{"fecha":"2026-10-25","Q":5148416.0,"n":20},{"fecha":"2026-10-26","Q":239058671.51,"n":1556},{"fecha":"2026-10-27","Q":282956314.01,"n":1396},{"fecha":"2026-10-28","Q":231963369.96,"n":1467},{"fecha":"2026-10-29","Q":254578007.8,"n":1407},{"fecha":"2026-10-30","Q":149065144.7,"n":558},{"fecha":"2026-10-31","Q":4736995.93,"n":80},{"fecha":"2026-11-01","Q":184782.52000000002,"n":4},{"fecha":"2026-11-02","Q":1738155.25,"n":31},{"fecha":"2026-11-03","Q":545936517.46,"n":1143},{"fecha":"2026-11-04","Q":338237933.15,"n":1419},{"fecha":"2026-11-05","Q":261457497.67000002,"n":1372},{"fecha":"2026-11-06","Q":249202276.15,"n":1379},{"fecha":"2026-11-07","Q":9121216.79,"n":128},{"fecha":"2026-11-09","Q":272829439.84,"n":1238},{"fecha":"2026-11-10","Q":193107014.19,"n":1373},{"fecha":"2026-11-11","Q":414100443.83000004,"n":1543},{"fecha":"2026-11-12","Q":227631992.48,"n":1550}],"constelacion":{"compradores":[{"id":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","nombre":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","Q":9936844327.93},{"id":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","nombre":"MINISTERIO DE COMUNICACIONES, INFRAESTR…","Q":6685640216.9800005},{"id":"MINISTERIO DE SALUD PÚBLICA","nombre":"MINISTERIO DE SALUD PÚBLICA","Q":2953696725.25},{"id":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE","nombre":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -…","Q":2209576719.9399996},{"id":"MINISTERIO DE LA DEFENSA NACIONAL","nombre":"MINISTERIO DE LA DEFENSA NACIONAL","Q":2095836790.0},{"id":"MINISTERIO DE DESARROLLO SOCIAL","nombre":"MINISTERIO DE DESARROLLO SOCIAL","Q":1427466477.08},{"id":"EMPRESA PORTUARIA QUETZAL -EPQ-","nombre":"EMPRESA PORTUARIA QUETZAL -EPQ-","Q":1373017914.28},{"id":"MINISTERIO DE GOBERNACIÓN","nombre":"MINISTERIO DE GOBERNACIÓN","Q":1014288494.59},{"id":"MUNICIPALIDAD DE GUATEMALA, GUATEMALA","nombre":"MUNICIPALIDAD DE GUATEMALA, GUATEMALA","Q":912276623.68},{"id":"MINISTERIO DE FINANZAS PÚBLICAS","nombre":"MINISTERIO DE FINANZAS PÚBLICAS","Q":670714264.55},{"id":"INSTITUTO TÉCNICO DE CAPACITACIÓN Y PRODUCTIVIDAD -INTECAP-","nombre":"INSTITUTO TÉCNICO DE CAPACITACIÓN Y PRO…","Q":534725194.75},{"id":"MUNICIPALIDAD DE QUETZALTENANGO, QUETZALTENANGO","nombre":"MUNICIPALIDAD DE QUETZALTENANGO, QUETZA…","Q":408389157.6},{"id":"MINISTERIO DE EDUCACIÓN","nombre":"MINISTERIO DE EDUCACIÓN","Q":322722820.25},{"id":"EMPRESA PORTUARIA NACIONAL SANTO TOMÁS DE CASTILLA -EMPORNAC-","nombre":"EMPRESA PORTUARIA NACIONAL SANTO TOMÁS …","Q":317020796.11}],"proveedores":[{"id":"GT-GCID-US-2C6C88800861DA1236F33E07611E4052","nombre":"GOBIERNO DE LOS ESTADOS UNIDOS DE AMERI…","persona":false,"Q":906920308.48},{"id":"GT-NIT-107291649","nombre":"PLENITUD 365, S.A.","persona":false,"Q":203132832.71},{"id":"GT-NIT-11846135","nombre":"OFICINA DE SERVICIOS PARA PROYECTOS DE …","persona":false,"Q":202725357.26},{"id":"GT-NIT-12073172","nombre":"IMPORTADORA DE MATERIALES ELECTRICOS, S…","persona":false,"Q":221201713.73000002},{"id":"GT-NIT-121030660","nombre":"CONSORCIO VÍAS TERRESTRES DEL ATLÁNTICO…","persona":false,"Q":990553882.1},{"id":"GT-NIT-12692050","nombre":"PROYECTOS GENERALES Y CONSTRUCCIONES, S…","persona":false,"Q":173449059.0},{"id":"GT-NIT-13937146","nombre":"ALEJANDRO,VALLADARES,,JORGE,FELIX","persona":true,"Q":105260770.0},{"id":"GT-NIT-1403443","nombre":"SISTEMAS NUTRICIONALES, S.A.","persona":false,"Q":468466784.09000003},{"id":"GT-NIT-14946203","nombre":"DISTRIBUIDORA DE ELECTRICIDAD DE ORIENT…","persona":false,"Q":308812175.71},{"id":"GT-NIT-14946211","nombre":"DISTRIBUIDORA DE ELECTRICIDAD DE OCCIDE…","persona":false,"Q":501637482.13},{"id":"GT-NIT-15758036","nombre":"ROLDAN,SOSA,,LUIS,CARLOS","persona":true,"Q":186102000.0},{"id":"GT-NIT-16335058","nombre":"SCHWARTZ,CASTELLANOS,LEÓN,ERICKA,AZUCENA","persona":false,"Q":177369902.0},{"id":"GT-NIT-1700510","nombre":"PRODUCTOS ROCHE GUATEMALA, S.A.","persona":false,"Q":234953223.76},{"id":"GT-NIT-22319700","nombre":"ENERGICA, S.A.","persona":false,"Q":684117810.0},{"id":"GT-NIT-22339655","nombre":"SERVICIO DE COMERCIO INTERNACIONAL, S.A.","persona":false,"Q":104134195.66},{"id":"GT-NIT-22345388","nombre":"J.I. COHEN, S.A.","persona":false,"Q":1432166796.54},{"id":"GT-NIT-2342855","nombre":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…","persona":false,"Q":259248072.0},{"id":"GT-NIT-2386043K","nombre":"CONSTRUCTORA ALIAN, S.A.","persona":false,"Q":104157999.95},{"id":"GT-NIT-24316032","nombre":"TRACSER, S.A.","persona":false,"Q":176368172.8},{"id":"GT-NIT-26016559","nombre":"MUÑOZ,GARCÍA,,CARLOS,RAÚL","persona":true,"Q":127294000.0},{"id":"GT-NIT-2635828K","nombre":"COMERCIALIZADORA ORAZUL ENERGY DE CENTR…","persona":false,"Q":108300000.46},{"id":"GT-NIT-2646814K","nombre":"SUGERENCIAS MEDICAS, S.A.","persona":false,"Q":129596104.0},{"id":"GT-NIT-27772284","nombre":"MANTENIMIENTO VIAL Y CONSTRUCCION, S.A.","persona":false,"Q":105730897.9},{"id":"GT-NIT-28543300","nombre":"ARREAGA,CARDENAS,,BILLY,GUBERT'S","persona":true,"Q":391200009.2},{"id":"GT-NIT-30428378","nombre":"LABYMED, S.A.","persona":false,"Q":321090683.45},{"id":"GT-NIT-30993350","nombre":"CONSTRUCTORA GSED-ALFA, S.A.","persona":false,"Q":104156851.1},{"id":"GT-NIT-320811","nombre":"COMPAÑIA FARMACEUTICA LANQUETIN, S.A.","persona":false,"Q":911932471.0},{"id":"GT-NIT-32374399","nombre":"LUCERO,MARROQUÍN,,ALEJANDRO,JOSÉ","persona":true,"Q":479266465.14},{"id":"GT-NIT-326445","nombre":"EMPRESA ELECTRICA DE GUATEMALA, S.A.","persona":false,"Q":188782521.12},{"id":"GT-NIT-327093","nombre":"MEZCLADORA, S.A.","persona":false,"Q":188546280.0},{"id":"GT-NIT-332917","nombre":"COFIÑO STAHL Y COMPAÑIA, S.A.","persona":false,"Q":250988777.06},{"id":"GT-NIT-40247538","nombre":"HICHOS,POSADAS,,DEYSI,EMILSA","persona":true,"Q":108683736.0},{"id":"GT-NIT-42102731","nombre":"NIPRO MEDICAL CORPORATION - SUCURSAL DE…","persona":false,"Q":223549651.43},{"id":"GT-NIT-44835035","nombre":"RENTAS Y SERVICIOS EMPRESARIALES DE LAS…","persona":false,"Q":127332763.55},{"id":"GT-NIT-4556984","nombre":"COMPAÑIA DE EQUIPO MEDICO-HOSPITALARIO,…","persona":false,"Q":140941148.39},{"id":"GT-NIT-46129359","nombre":"GRUPO FARMACEUTICO CARINSA, S.A.","persona":false,"Q":166232121.0},{"id":"GT-NIT-5592321","nombre":"CONSTRUCTORA CACERES & MAZARIEGOS, S.A.","persona":false,"Q":349373441.14},{"id":"GT-NIT-575461","nombre":"PRODUCTIVE BUSINESS SOLUTIONS (GUATEMAL…","persona":false,"Q":149410264.45000002},{"id":"GT-NIT-5801338","nombre":"SERVICIOS QUIRURGICOS, S.A.","persona":false,"Q":283573214.52},{"id":"GT-NIT-58577246","nombre":"CONSTRUCCIONES INTEGRALES AVANZADAS, S.…","persona":false,"Q":756175329.4},{"id":"GT-NIT-6177999","nombre":"DROGUERIA Y LABORATORIO PHARMALAT, S.A.","persona":false,"Q":156909886.73},{"id":"GT-NIT-62240439","nombre":"DISEÑOS DE POTENCIA, S.A.","persona":false,"Q":126631663.5},{"id":"GT-NIT-63015528","nombre":"MEDICINA CORPORATIVA DE DIALISIS, S.A.","persona":false,"Q":209107721.4},{"id":"GT-NIT-63143992","nombre":"CLASS EQUIPOS Y CONSTRUCCIONES DE GUATE…","persona":false,"Q":207111374.3},{"id":"GT-NIT-64784142","nombre":"MAYA PAV, S.A.","persona":false,"Q":305002264.75},{"id":"GT-NIT-66283051","nombre":"TACTICAL GROUP, S.A.","persona":false,"Q":114967655.0},{"id":"GT-NIT-68208391","nombre":"SEELE, S.A.","persona":false,"Q":132861661.47999999},{"id":"GT-NIT-70703043","nombre":"INGENIERIA Y PROYECTOS ALEISA, S.A.","persona":false,"Q":132997168.2},{"id":"GT-NIT-7168896","nombre":"ORZUNIL I DE ELECTRICIDAD, LIMITADA","persona":false,"Q":126878198.64},{"id":"GT-NIT-735442","nombre":"CENTRO DISTRIBUIDOR, S.A.","persona":false,"Q":338393841.0},{"id":"GT-NIT-7477279","nombre":"AGENCIA FARMACEUTICA INTERNACIONAL, S.A.","persona":false,"Q":537545814.35},{"id":"GT-NIT-78485428","nombre":"APM TERMINALS QUETZAL, S.A.","persona":false,"Q":820466806.0},{"id":"GT-NIT-79005101","nombre":"MULTISERVICIOS EL GRAN JAGUAR, S.A.","persona":false,"Q":114531574.6},{"id":"GT-NIT-80357911","nombre":"GRUPO INTERNACIONAL DE PROYECTOS, S.A.","persona":false,"Q":257380096.0},{"id":"GT-NIT-81778244","nombre":"LA BOTICA, S.A.","persona":false,"Q":229215918.31},{"id":"GT-NIT-8372977","nombre":"PRODUCTOS DEL AIRE DE GUATEMALA, S.A.","persona":false,"Q":142015835.91},{"id":"GT-NIT-86290495","nombre":"INDUSTRIA PORTUARIA, S.A.","persona":false,"Q":152047205.61},{"id":"GT-NIT-89120426","nombre":"AVIV FARMACEUTICA, S.A.","persona":false,"Q":243641793.4},{"id":"GT-NIT-91715385","nombre":"TECNO SUMINISTROS, S.A.","persona":false,"Q":107435413.65},{"id":"GT-NIT-94197016","nombre":"REUS PHARMA, S.A.","persona":false,"Q":525074253.15}],"aristas":[{"s":"EMPRESA PORTUARIA NACIONAL SANTO TOMÁS DE CASTILLA -EMPORNAC-","t":"GT-NIT-86290495","Q":152047205.61},{"s":"EMPRESA PORTUARIA QUETZAL -EPQ-","t":"GT-NIT-2635828K","Q":108300000.46},{"s":"EMPRESA PORTUARIA QUETZAL -EPQ-","t":"GT-NIT-78485428","Q":820466806.0},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-107291649","Q":203132832.71},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-11846135","Q":202725357.26},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-1700510","Q":152873793.99},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-22339655","Q":79194086.57},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-22345388","Q":1165702379.35},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-2342855","Q":259248072.0},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-2646814K","Q":129596104.0},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-30428378","Q":113191916.39},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-320811","Q":867647227.71},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-42102731","Q":215275832.35},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-44835035","Q":119294908.55},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-4556984","Q":44032178.3},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-46129359","Q":159900271.0},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-5801338","Q":132464003.45},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-6177999","Q":150795248.69},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-63015528","Q":209107721.4},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-735442","Q":292505743.94},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-7477279","Q":428188824.16},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-81778244","Q":224214567.31},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-8372977","Q":63412192.43},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-89120426","Q":243641793.4},{"s":"INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-","t":"GT-NIT-94197016","Q":519845554.5},{"s":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE","t":"GT-NIT-12073172","Q":221201713.73000002},{"s":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE","t":"GT-NIT-14946203","Q":308812175.71},{"s":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE","t":"GT-NIT-14946211","Q":501637482.13},{"s":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE","t":"GT-NIT-326445","Q":175782521.12},{"s":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE","t":"GT-NIT-332917","Q":5439200.06},{"s":"INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE","t":"GT-NIT-7168896","Q":126878198.64},{"s":"INSTITUTO TÉCNICO DE CAPACITACIÓN Y PRODUCTIVIDAD -INTECAP-","t":"GT-NIT-332917","Q":6228239.0},{"s":"INSTITUTO TÉCNICO DE CAPACITACIÓN Y PRODUCTIVIDAD -INTECAP-","t":"GT-NIT-5592321","Q":349373441.14},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-121030660","Q":990553882.1},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-12692050","Q":173449059.0},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-13937146","Q":105260770.0},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-16335058","Q":177369902.0},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-24316032","Q":176368172.8},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-27772284","Q":105730897.9},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-28543300","Q":391200009.2},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-30993350","Q":104156851.1},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-32374399","Q":479266465.14},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-40247538","Q":108683736.0},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-58577246","Q":756175329.4},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-63143992","Q":179352500.0},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-64784142","Q":305002264.75},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-68208391","Q":132861661.47999999},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-70703043","Q":132997168.2},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-79005101","Q":114531574.6},{"s":"MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA","t":"GT-NIT-80357911","Q":128880096.0},{"s":"MINISTERIO DE DESARROLLO SOCIAL","t":"GT-NIT-1403443","Q":381447535.0},{"s":"MINISTERIO DE DESARROLLO SOCIAL","t":"GT-NIT-26016559","Q":110905500.0},{"s":"MINISTERIO DE DESARROLLO SOCIAL","t":"GT-NIT-327093","Q":188546280.0},{"s":"MINISTERIO DE DESARROLLO SOCIAL","t":"GT-NIT-91715385","Q":107435413.65},{"s":"MINISTERIO DE FINANZAS PÚBLICAS","t":"GT-NIT-22345388","Q":100078775.0},{"s":"MINISTERIO DE FINANZAS PÚBLICAS","t":"GT-NIT-575461","Q":138429175.45000002},{"s":"MINISTERIO DE FINANZAS PÚBLICAS","t":"GT-NIT-7477279","Q":19125647.0},{"s":"MINISTERIO DE FINANZAS PÚBLICAS","t":"GT-NIT-8372977","Q":78603643.48},{"s":"MINISTERIO DE GOBERNACIÓN","t":"GT-NIT-1403443","Q":87019249.09},{"s":"MINISTERIO DE GOBERNACIÓN","t":"GT-NIT-332917","Q":218523326.0},{"s":"MINISTERIO DE GOBERNACIÓN","t":"GT-NIT-66283051","Q":114967655.0},{"s":"MINISTERIO DE LA DEFENSA NACIONAL","t":"GT-GCID-US-2C6C88800861DA1236F33E07611E4052","Q":906920308.48},{"s":"MINISTERIO DE LA DEFENSA NACIONAL","t":"GT-NIT-2386043K","Q":104157999.95},{"s":"MINISTERIO DE LA DEFENSA NACIONAL","t":"GT-NIT-26016559","Q":16388500.0},{"s":"MINISTERIO DE LA DEFENSA NACIONAL","t":"GT-NIT-332917","Q":14048439.0},{"s":"MINISTERIO DE LA DEFENSA NACIONAL","t":"GT-NIT-62240439","Q":114436724.5},{"s":"MINISTERIO DE LA DEFENSA NACIONAL","t":"GT-NIT-63143992","Q":27758874.3},{"s":"MINISTERIO DE LA DEFENSA NACIONAL","t":"GT-NIT-80357911","Q":128500000.0},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-1700510","Q":82079429.77},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-22339655","Q":24940109.09},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-22345388","Q":166385642.19},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-30428378","Q":207898767.06},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-320811","Q":44285243.29},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-332917","Q":6749573.0},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-42102731","Q":8273819.08},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-44835035","Q":8037855.0},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-4556984","Q":96908970.09},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-46129359","Q":6331850.0},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-5801338","Q":151109211.07},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-6177999","Q":6114638.04},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-735442","Q":45888097.06},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-7477279","Q":90231343.19},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-81778244","Q":5001351.0},{"s":"MINISTERIO DE SALUD PÚBLICA","t":"GT-NIT-94197016","Q":5228698.65},{"s":"MUNICIPALIDAD DE GUATEMALA, GUATEMALA","t":"GT-NIT-22319700","Q":684117810.0},{"s":"MUNICIPALIDAD DE GUATEMALA, GUATEMALA","t":"GT-NIT-326445","Q":13000000.0},{"s":"MUNICIPALIDAD DE GUATEMALA, GUATEMALA","t":"GT-NIT-575461","Q":10981089.0},{"s":"MUNICIPALIDAD DE QUETZALTENANGO, QUETZALTENANGO","t":"GT-NIT-15758036","Q":186102000.0},{"s":"MUNICIPALIDAD DE QUETZALTENANGO, QUETZALTENANGO","t":"GT-NIT-62240439","Q":12194939.0}]}};
+const MES = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"];
+const MESL = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const nf = new Intl.NumberFormat("es-GT");
+const nf1 = new Intl.NumberFormat("es-GT",{maximumFractionDigits:1,minimumFractionDigits:1});
+const M = x => "Q" + nf1.format(x/1e6) + " M";
+const QQ = x => x>=1e9 ? "Q" + nf1.format(x/1e9) + " mil M" : M(x);
+const pct = x => nf.format(Math.round(x*100)) + "%";
+const fecha = s => { const [y,m,d]=s.split("-"); return `${+d} de ${MESL[+m-1]} de ${y}`; };
+const G = D.general, tip = document.getElementById("tip");
+function showTip(e, html){ tip.innerHTML=html; tip.style.opacity=1; const x=Math.min(e.clientX+14, innerWidth-300); tip.style.left=x+"px"; tip.style.top=(e.clientY+14)+"px"; }
+function hideTip(){ tip.style.opacity=0; }
+const byName = (arr, re) => arr.find(d => re.test(d.nombre));
+
+/* ---------- textos ---------- */
+document.getElementById("lead").innerHTML =
+  `En ${D.anio}, el Estado de Guatemala ha adjudicado <b>${QQ(G.total)}</b> en <b>${nf.format(G.procesos)}</b> procesos a <b>${nf.format(G.proveedores)}</b> proveedores. Este monitor lee a diario los datos abiertos de Guatecompras y los convierte en preguntas simples: quién compra, qué compra, cómo y a quién.`;
+document.getElementById("hoy-fecha").textContent = "ÚLTIMO DÍA CON DATOS · " + fecha(D.hoy.fecha).toUpperCase();
+document.getElementById("hoy-q").textContent = M(D.hoy.Q) + " adjudicados";
+document.getElementById("hoy-txt").textContent = `${nf.format(D.hoy.adjudicaciones)} adjudicaciones en un día. El mayor comprador de la jornada: ${D.hoy.top_comprador} (${M(D.hoy.top_comprador_Q)}).`;
+document.getElementById("strip").innerHTML = [
+  [QQ(G.total),"adjudicado en "+D.anio],[nf.format(G.procesos),"procesos adjudicados"],
+  [nf.format(G.proveedores),"proveedores"],[nf.format(G.compradores),"instituciones compradoras"]
+].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
+document.getElementById("m-corte").textContent = `Datos con corte al ${fecha(D.corte)}. Procesado por Finanzas&Datos.`;
+document.getElementById("f-src").textContent = "Fuente: " + D.fuente;
+
+/* ---------- 0. Flor del año ---------- */
+(function(){
+  const svg = d3.select("#flor"), c = 280, r0 = 54;
+  const meses = D.general.meses, maxQ = d3.max(meses,d=>d.Q), maxN = d3.max(meses,d=>d.n);
+  const R = d3.scaleSqrt().domain([0,maxQ]).range([r0+10, 250]);
+  const W = d3.scaleLinear().domain([0,maxN]).range([4, 30]);
+  const g = svg.append("g").attr("transform",`translate(${c},${c})`);
+  [100,160,220].forEach(r=>g.append("circle").attr("r",r).attr("fill","none").attr("stroke","rgba(245,242,236,.08)").attr("stroke-dasharray","2 4"));
+  const petal = (len,w) => `M0,${-r0} C${w},${-r0-len*0.35} ${w*0.9},${-len*0.85} 0,${-len} C${-w*0.9},${-len*0.85} ${-w},${-r0-len*0.35} 0,${-r0}Z`;
+  for(let i=0;i<12;i++){
+    const d = meses.find(x=>+x.mes.slice(5)===i+1), a = i*30;
+    const gg = g.append("g").attr("transform",`rotate(${a})`);
+    if(!d){ gg.append("path").attr("d",petal(150,14)).attr("fill","none").attr("stroke","rgba(245,242,236,.25)").attr("stroke-dasharray","3 4"); }
+    else{
+      const len = R(d.Q), w = W(d.n), last = i === meses.length-1;
+      gg.append("path").attr("d",petal(len,w)).attr("fill", last?"rgba(217,194,126,.35)":"rgba(79,212,154,.28)")
+        .attr("stroke", last?"var(--gold)":"var(--acc)").attr("stroke-width",1.2)
+        .on("mousemove",e=>showTip(e,`<b>${MESL[i]}</b><br>${M(d.Q)} · ${nf.format(d.n)} procesos${last?"<br>(mes en curso)":""}`)).on("mouseleave",hideTip);
+      gg.append("line").attr("y1",-r0).attr("y2",-len+6).attr("stroke", last?"var(--gold)":"var(--acc)").attr("stroke-width",.6).attr("opacity",.7);
+      gg.append("circle").attr("cy",-len).attr("r",2.6).attr("fill",last?"var(--gold)":"var(--acc)");
+    }
+    const lr = 268, la = (a-90)*Math.PI/180;
+    g.append("text").attr("class","lbl").attr("x",lr*Math.cos(la)).attr("y",lr*Math.sin(la)+3).attr("text-anchor","middle").text(MES[i]);
+  }
+  g.append("circle").attr("r",r0-4).attr("fill","var(--bg)").attr("stroke","rgba(79,212,154,.5)");
+  g.append("text").attr("class","num").attr("text-anchor","middle").attr("y",-2).attr("font-size",24).text("Q"+nf1.format(G.total/1e9));
+  g.append("text").attr("class","lbl").attr("text-anchor","middle").attr("y",16).text("MIL MILLONES");
+})();
+
+/* ---------- 1. Compradores (anillo/núcleo) ---------- */
+const charts = {};
+(function(){
+  const svg = d3.select("#g-compradores"), data = G.compradores_top.slice(0,20);
+  const pack = d3.pack().size([700,620]).padding(10);
+  const root = pack(d3.hierarchy({children:data}).sum(d=>d.Q||0));
+  const maxN = d3.max(data,d=>d.n);
+  const g = svg.append("g").attr("transform","translate(10,10)");
+  const node = g.selectAll("g").data(root.leaves()).join("g").attr("transform",d=>`translate(${d.x},${d.y})`)
+    .on("mousemove",(e,d)=>showTip(e,`<b>${d.data.nombre}</b><br>${M(d.data.Q)}<br>${nf.format(d.data.n)} procesos`)).on("mouseleave",hideTip);
+  node.append("circle").attr("r",d=>d.r).attr("fill","rgba(79,212,154,.08)").attr("stroke","var(--acc)").attr("stroke-width",1.2);
+  node.append("circle").attr("r",d=>d.r*0.94).attr("fill","none").attr("stroke","rgba(79,212,154,.35)").attr("stroke-dasharray","1 3");
+  node.append("circle").attr("r",d=>Math.max(1.5, d.r*0.9*Math.sqrt(d.data.n/maxN))).attr("fill","var(--gold)").attr("opacity",.85);
+  node.filter(d=>d.r>34).append("text").attr("text-anchor","middle").attr("y",d=>d.r*0.55).attr("font-size",d=>Math.min(13,d.r/4.2)).attr("fill","var(--ink)")
+    .text(d=>d.data.nombre.replace(/MINISTERIO DE /,"MIN. ").replace(/INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL/,"IGSS").replace(/ -IGSS-/,"").slice(0,26));
+  charts.compradores = k => {
+    const re = {igss:/SEGURIDAD SOCIAL/, micivi:/COMUNICACIONES/, mspas:/SALUD P/}[k];
+    node.classed("dim", d => re ? !re.test(d.data.nombre) : false);
+  };
+  const ig = byName(data,/SEGURIDAD SOCIAL/), mc = byName(data,/COMUNICACIONES/), ms = byName(data,/SALUD P/);
+  document.getElementById("s-igss").textContent = pct(ig.n/G.procesos)+" de los procesos";
+  document.getElementById("s-igss-t").textContent = `El Instituto Guatemalteco de Seguridad Social adjudicó ${QQ(ig.Q)} (${pct(ig.Q/G.total)} del total) en ${nf.format(ig.n)} procesos: medicamentos, insumos y servicios que compra todos los días. Su núcleo es casi del tamaño de su anillo.`;
+  document.getElementById("s-micivi").textContent = M(mc.Q/mc.n)+" por proceso";
+  document.getElementById("s-micivi-t").textContent = `El Ministerio de Comunicaciones adjudicó ${QQ(mc.Q)} en solo ${nf.format(mc.n)} procesos. Carreteras y obra pesada: pocos contratos, montos enormes. Su núcleo apenas se ve.`;
+  document.getElementById("s-mspas").textContent = QQ(ms.Q);
+  document.getElementById("s-mspas-t").textContent = `El Ministerio de Salud Pública suma ${nf.format(ms.n)} procesos adjudicados en ${D.anio}. Lo vemos en detalle en el capítulo 5.`;
+})();
+
+/* ---------- 2. Semillas (phyllotaxis) ---------- */
+(function(){
+  const svg = d3.select("#g-semillas"), mods = G.modalidades.slice(0,4);
+  const totN = d3.sum(G.modalidades,d=>d.n);
+  const cols = [[190,165],[530,165],[190,480],[530,480]];
+  const golden = Math.PI*(3-Math.sqrt(5)), colors=["var(--acc)","var(--gold)","var(--rose)","var(--ink)"];
+  // ordenar: compra directa primero, luego licitación
+  const ord = [...mods].sort((a,b)=> (/Directa/.test(b.nombre)-/Directa/.test(a.nombre)) || (/Licitaci/.test(b.nombre)-/Licitaci/.test(a.nombre)));
+  const seeds = svg.selectAll("g.seed").data(ord).join("g").attr("class","seed").attr("transform",(d,i)=>`translate(${cols[i][0]},${cols[i][1]})`);
+  seeds.each(function(d,i){
+    const g = d3.select(this), n = Math.max(1, Math.round(d.n/500)), sp = 4.3;
+    const pts = d3.range(n).map(k=>({x:sp*Math.sqrt(k)*Math.cos(k*golden), y:sp*Math.sqrt(k)*Math.sin(k*golden)}));
+    g.selectAll("circle.p").data(pts).join("circle").attr("class","p").attr("cx",p=>p.x).attr("cy",p=>p.y).attr("r",1.7).attr("fill",colors[i]);
+    const share = d.Q/G.total, arc = d3.arc().innerRadius(102).outerRadius(108).startAngle(0).endAngle(2*Math.PI*share);
+    g.append("circle").attr("r",105).attr("fill","none").attr("stroke","rgba(245,242,236,.12)").attr("stroke-width",6);
+    g.append("path").attr("d",arc).attr("fill",colors[i]);
+    g.append("text").attr("class","num").attr("text-anchor","middle").attr("y",-118).attr("font-size",18).attr("fill",colors[i]).text(pct(share)+" del dinero");
+    g.append("text").attr("class","lbl").attr("text-anchor","middle").attr("y",128).text(d.nombre.toUpperCase().slice(0,50));
+    g.append("text").attr("class","lbl").attr("text-anchor","middle").attr("y",143).text(nf.format(d.n)+" adjudicaciones · "+pct(d.n/totN));
+  });
+  charts.semillas = k => seeds.classed("dim",(d,i)=> k==="all"||k==null ? false : String(i)!==k);
+  const cd = ord[0], li = ord[1];
+  document.getElementById("s-cd").textContent = pct(cd.n/totN)+" de las adjudicaciones";
+  document.getElementById("s-cd-t").textContent = `Pero solo ${pct(cd.Q/G.total)} del dinero (${QQ(cd.Q)}). Son compras de hasta Q90,000 que se ofertan en línea y se resuelven en días: la espiral más densa.`;
+  document.getElementById("s-lic").textContent = pct(li.Q/G.total)+" del dinero";
+  document.getElementById("s-lic-t").textContent = `Con apenas ${nf.format(li.n)} adjudicaciones (${pct(li.n/totN)}), la licitación pública concentra ${QQ(li.Q)}. Una semilla casi vacía con el arco más largo.`;
+})();
+
+/* ---------- 3. Herbario ---------- */
+(function(){
+  const svg = d3.select("#g-herbario"), fam = G.familias_top.slice(0,14);
+  const L = d3.scaleSqrt().domain([0,d3.max(fam,d=>d.Q)]).range([24,175]);
+  const Wd = d3.scaleSqrt().domain([0,d3.max(fam,d=>d.n)]).range([5,30]);
+  const x0 = 360, y0 = 40, step = 42;
+  svg.append("path").attr("d",`M${x0},${y0-10} C${x0+8},${y0+200} ${x0-8},${y0+400} ${x0},${y0+fam.length*step+20}`).attr("stroke","var(--acc)").attr("stroke-width",1.5).attr("fill","none").attr("opacity",.7);
+  const isObra = d => /^(72|81|30|22)/.test(d.codigo), isMed = d => /^51/.test(d.codigo);
+  const leaf = svg.selectAll("g.leaf").data(fam).join("g").attr("class","leaf")
+    .attr("transform",(d,i)=>`translate(${x0},${y0+i*step+10}) scale(${i%2?-1:1},1)`)
+    .on("mousemove",(e,d)=>showTip(e,`<b>${d.nombre}</b><br>${M(d.Q)} (estimado)<br>${nf.format(d.n)} procesos · UNSPSC ${d.codigo}`)).on("mouseleave",hideTip);
+  leaf.append("path").attr("d",d=>{const l=L(d.Q),w=Wd(d.n);return `M0,0 C${l*0.3},${-w*1.2} ${l*0.7},${-w} ${l},-6 C${l*0.7},${w*0.6} ${l*0.3},${w*0.8} 0,0Z`;})
+    .attr("fill",d=>isMed(d)?"rgba(232,166,143,.35)":isObra(d)?"rgba(217,194,126,.32)":"rgba(79,212,154,.25)")
+    .attr("stroke",d=>isMed(d)?"var(--rose)":isObra(d)?"var(--gold)":"var(--acc)");
+  leaf.append("path").attr("d",d=>`M0,0 Q${L(d.Q)*0.5},-4 ${L(d.Q)-4},-6`).attr("stroke","rgba(245,242,236,.4)").attr("fill","none").attr("stroke-width",.6);
+  svg.selectAll("text.fl").data(fam).join("text").attr("class","lbl fl")
+    .attr("x",(d,i)=> i%2 ? x0-L(d.Q)-8 : x0+L(d.Q)+8).attr("y",(d,i)=>y0+i*step+8).attr("text-anchor",(d,i)=>i%2?"end":"start")
+    .each(function(d){ const t=d3.select(this); t.append("tspan").attr("fill","var(--ink)").text(d.nombre.length>26?d.nombre.slice(0,25)+"…":d.nombre); t.append("tspan").attr("x",t.attr("x")).attr("dy",13).text(M(d.Q)); });
+  charts.herbario = k => { leaf.classed("dim", d => k==="obra" ? !isObra(d) : k==="med" ? !isMed(d) : false); svg.selectAll("text.fl").classed("dim", d => k==="obra" ? !isObra(d) : k==="med" ? !isMed(d) : false); };
+  const ob = fam.filter(isObra).slice(0,2);
+  document.getElementById("s-obra-t").textContent = `${ob.map(d=>`${d.nombre} (${M(d.Q)})`).join(" y ")} encabezan la lista. Obra pesada y servicios técnicos se adjudican en pocos procesos de alto valor.`;
+})();
+
+/* ---------- 4. Constelación ---------- */
+(function(){
+  const svg = d3.select("#g-constelacion"), C = D.constelacion, cx=360, cy=360;
+  const comp = C.compradores, prov = C.proveedores, ar = C.aristas;
+  const main = {}; ar.forEach(a=>{ if(!main[a.t]||a.Q>main[a.t].Q) main[a.t]=a; });
+  const ci = new Map(comp.map((c,i)=>[c.id,i]));
+  const ang = new Map(comp.map((c,i)=>[c.id, i/comp.length*2*Math.PI - Math.PI/2]));
+  const provS = [...prov].sort((a,b)=> (ci.get(main[a.id].s)-ci.get(main[b.id].s)) || b.Q-a.Q);
+  const pang = new Map(provS.map((p,i)=>[p.id, i/provS.length*2*Math.PI - Math.PI/2 + 0.04]));
+  const rc = 120, rp = 285;
+  const posC = id => [cx+rc*Math.cos(ang.get(id)), cy+rc*Math.sin(ang.get(id))];
+  const posP = id => [cx+rp*Math.cos(pang.get(id)), cy+rp*Math.sin(pang.get(id))];
+  const Wq = d3.scaleSqrt().domain([0,d3.max(ar,d=>d.Q)]).range([.4,7]);
+  const Sp = d3.scaleSqrt().domain([0,d3.max(prov,d=>d.Q)]).range([2,13]);
+  const Sc = d3.scaleSqrt().domain([0,d3.max(comp,d=>d.Q)]).range([4,22]);
+  [rc,rp].forEach(r=>svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",r).attr("fill","none").attr("stroke","rgba(245,242,236,.07)"));
+  const links = svg.append("g").selectAll("path").data(ar).join("path")
+    .attr("d",a=>{const [x1,y1]=posC(a.s),[x2,y2]=posP(a.t);return `M${x1},${y1} Q${cx+(x1+x2-2*cx)*0.15},${cy+(y1+y2-2*cy)*0.15} ${x2},${y2}`;})
+    .attr("fill","none").attr("stroke","var(--acc)").attr("stroke-width",a=>Wq(a.Q)).attr("opacity",.32);
+  const isFarma = p => /FARMAC|PHARMA|DROGUER|MEDIC|LAB|COHEN|ROCHE|ABBOTT|NIPRO|QUIRURG|NUTRICION/i.test(p.nombre);
+  const stars = svg.append("g").selectAll("g").data(prov).join("g").attr("transform",p=>`translate(${posP(p.id)})`)
+    .on("mousemove",(e,p)=>{ showTip(e,`<b>${p.persona?"Persona individual":p.nombre}</b><br>${M(p.Q)} con estas instituciones`); links.attr("opacity",a=>a.t===p.id?.9:.06); })
+    .on("mouseleave",()=>{hideTip(); links.attr("opacity",.32);});
+  stars.append("path").attr("d",p=>{const r=Sp(p.Q);return d3.range(8).map(k=>{const a=k*Math.PI/4, rr=k%2?r*0.4:r;return (k?"L":"M")+(rr*Math.cos(a))+","+(rr*Math.sin(a));}).join("")+"Z";})
+    .attr("fill",p=>isFarma(p)?"var(--rose)":"var(--gold)");
+  const topP = [...prov].sort((a,b)=>b.Q-a.Q).slice(0,8).sort((a,b)=>pang.get(a.id)-pang.get(b.id));
+  svg.append("g").selectAll("text").data(topP).join("text").attr("class","lbl")
+    .attr("x",(p,i)=>{const a=pang.get(p.id),r=rp+18+(i%2)*26;return cx+r*Math.cos(a);}).attr("y",(p,i)=>{const a=pang.get(p.id),r=rp+18+(i%2)*26;return cy+r*Math.sin(a)+3;})
+    .attr("text-anchor",p=>Math.cos(pang.get(p.id))<0?"end":"start").attr("fill","var(--ink)")
+    .text(p=>p.persona?"Persona individual":p.nombre.replace(/, S\.A\.|SOCIEDAD AN[OÓ]NIMA/,"").slice(0,24));
+  const bn = svg.append("g").selectAll("g").data(comp).join("g").attr("transform",c=>`translate(${posC(c.id)})`)
+    .on("mousemove",(e,c)=>{ showTip(e,`<b>${c.nombre}</b><br>${M(c.Q)} en total`); links.attr("opacity",a=>a.s===c.id?.9:.06); })
+    .on("mouseleave",()=>{hideTip(); links.attr("opacity",.32);});
+  bn.append("circle").attr("r",c=>Sc(c.Q)).attr("fill","var(--bg)").attr("stroke","var(--acc)").attr("stroke-width",1.5);
+  bn.append("circle").attr("r",2).attr("fill","var(--acc)");
+  svg.append("circle").attr("cx",cx).attr("cy",cy).attr("r",52).attr("fill","var(--bg)").attr("stroke","rgba(245,242,236,.12)");
+  svg.append("text").attr("x",cx).attr("y",cy-2).attr("text-anchor","middle").attr("class","num").attr("font-size",15).text("14 compradores");
+  svg.append("text").attr("x",cx).attr("y",cy+14).attr("text-anchor","middle").attr("class","lbl").text("60 PROVEEDORES");
+  charts.constelacion = k => {
+    const top = topP[0];
+    stars.classed("dim", p => k==="top" ? p.id!==top.id : k==="farma" ? !isFarma(p) : false);
+    links.attr("opacity", a => k==="top" ? (a.t===top.id?.9:.05) : k==="farma" ? (isFarma(prov.find(p=>p.id===a.t))?.6:.04) : .32);
+  };
+  const t1 = G.proveedores_top[0];
+  document.getElementById("s-top1").textContent = QQ(t1.Q);
+  document.getElementById("s-top1-h").textContent = t1.persona ? "Proveedor con más dinero adjudicado" : t1.nombre;
+  document.getElementById("s-top1-t").textContent = `Es el proveedor con más dinero adjudicado del año: ${nf.format(t1.n)} procesos. La mayor parte de esos contratos los ganó con el IGSS.`;
+  const farma = G.proveedores_top.filter(isFarma).slice(0,4);
+  document.getElementById("s-farma-t").textContent = `Las estrellas rosadas son droguerías, farmacéuticas y empresas de insumos médicos. Entre las de mayor monto: ${farma.map(p=>p.nombre.replace(/, S\.A\./,"")).join(", ")}. Orbitan sobre todo alrededor del IGSS y del Ministerio de Salud.`;
+})();
+
+/* ---------- 5. Salud ---------- */
+(function(){
+  const svg = d3.select("#g-salud"), S = D.mspas, cx=210, cy=320;
+  const seg = S.segmentos.slice(0,7), R = d3.scaleSqrt().domain([0,d3.max(seg,d=>d.pct)]).range([30,150]);
+  const n = seg.length, cols=["var(--rose)","var(--acc)","var(--gold)","var(--ink)","var(--acc)","var(--gold)","var(--ink)"];
+  const rose = svg.append("g").attr("transform",`translate(${cx},${cy})`);
+  [80,140,200].forEach(r=>rose.append("circle").attr("r",r).attr("fill","none").attr("stroke","rgba(245,242,236,.07)").attr("stroke-dasharray","2 4"));
+  const arcs = rose.selectAll("path").data(seg).join("path")
+    .attr("d",(d,i)=>d3.arc().innerRadius(24).outerRadius(R(d.pct)).startAngle(i*2*Math.PI/n+0.04).endAngle((i+1)*2*Math.PI/n-0.04).cornerRadius(6)())
+    .attr("fill",(d,i)=>cols[i]).attr("fill-opacity",(d,i)=>i<3?.55:.18).attr("stroke",(d,i)=>cols[i])
+    .on("mousemove",(e,d)=>showTip(e,`<b>${d.nombre}</b><br>${pct(d.pct)} · ${M(d.Q)}`)).on("mouseleave",hideTip);
+  rose.selectAll("text").data(seg).join("text").attr("class","lbl")
+    .attr("transform",(d,i)=>{const a=(i+.5)*2*Math.PI/n-Math.PI/2, r=Math.max(R(d.pct)+14,70);return `translate(${r*Math.cos(a)},${r*Math.sin(a)})`;})
+    .attr("text-anchor",(d,i)=>Math.cos((i+.5)*2*Math.PI/n-Math.PI/2)<-.1?"end":Math.cos((i+.5)*2*Math.PI/n-Math.PI/2)>.1?"start":"middle")
+    .attr("fill",(d,i)=>i<3?"var(--ink)":"var(--muted)").text(d=>`${d.nombre.replace("Construcción y mantenimiento","Obra y mant.").replace("Equipo e insumos médicos","Insumos médicos")} ${pct(d.pct)}`);
+  rose.append("text").attr("class","num").attr("text-anchor","middle").attr("y",5).attr("font-size",13).text("MSPAS");
+  // hospitales
+  const U = S.unidades_top.slice(0,8), x0=500, Ux = d3.scaleLinear().domain([0,d3.max(U,d=>d.Q)]).range([0,210]);
+  const hg = svg.append("g").attr("transform",`translate(${x0},90)`);
+  hg.append("text").attr("class","lbl").attr("y",-20).attr("fill","var(--acc)").text("UNIDADES QUE MÁS COMPRAN");
+  const hr = hg.selectAll("g").data(U).join("g").attr("transform",(d,i)=>`translate(0,${i*58})`);
+  hr.append("text").attr("font-size",12).attr("y",0).text(d=>d.nombre.replace(/HOSPITAL /,"H. ").replace(/REGIONAL /,"REG. ").slice(0,28));
+  hr.append("rect").attr("y",8).attr("height",10).attr("width",d=>Ux(d.Q)).attr("fill",(d,i)=>i<2?"var(--acc)":"rgba(79,212,154,.35)");
+  hr.append("text").attr("class","lbl").attr("y",34).text(d=>`${M(d.Q)} · ${nf.format(d.n)} procesos`);
+  charts.salud = k => { arcs.classed("dim", (d,i)=> k==="hosp"||k==="cd" ? true : k==="seg" ? i>2 : false); hr.classed("dim",(d,i)=> k==="hosp" ? i>1 : k==="seg"||k==="cd"); };
+  document.getElementById("s-ms-q").textContent = QQ(S.total);
+  document.getElementById("s-ms-t").textContent = `Hasta el ${fecha(D.corte)}, el Ministerio de Salud Pública y Asistencia Social ha adjudicado ${nf.format(S.procesos)} procesos a ${nf.format(S.proveedores)} proveedores, desde ${nf.format(S.unidades)} unidades compradoras. Los cinco proveedores principales se llevan ${pct(S.top5_proveedores_pct)} del monto.`;
+  document.getElementById("s-ms-seg").textContent = `Medicamentos (${pct(seg[0].pct)}), equipo e insumos médicos (${pct(seg[1].pct)}) y laboratorio (${pct(seg[2].pct)}) suman ${pct(seg[0].pct+seg[1].pct+seg[2].pct)} de lo adjudicado. La familia más grande: ${S.familias_top[0].nombre.toLowerCase()} (${M(S.familias_top[0].Q)}).`;
+  document.getElementById("s-ms-h").textContent = pct(S.top2_unidades_pct);
+  document.getElementById("s-ms-h-t").textContent = `El Hospital General San Juan de Dios (${M(U[0].Q)}) y el Hospital Roosevelt (${M(U[1].Q)}) suman ${pct(S.top2_unidades_pct)} de todo lo que adjudica el ministerio.`;
+  document.getElementById("s-ms-cd").textContent = pct(S.compra_directa_pct_adj);
+  document.getElementById("s-ms-cd-t").textContent = `${pct(S.compra_directa_pct_adj)} de las adjudicaciones del MSPAS fueron por compra directa con oferta electrónica, que representa ${pct(S.compra_directa_pct_Q)} del dinero.`;
+})();
+
+/* ---------- scrollytelling ---------- */
+document.querySelectorAll(".scrolly").forEach(sc=>{
+  const svgId = sc.querySelector(".sticky svg").id.replace("g-",""), fn = () => charts[svgId];
+  const steps = sc.querySelectorAll(".step");
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ steps.forEach(s=>s.classList.remove("on")); e.target.classList.add("on"); fn() && fn()(e.target.dataset.k); } }),{rootMargin:"-45% 0px -45% 0px"});
+  steps.forEach(s=>io.observe(s));
+});
+
+/* ---------- tablero ---------- */
+const TABS = [["general","Todo el Estado"],["salud","Salud"],["mspas","Ministerio de Salud"],["educacion","Educación"],["justicia","Justicia"],["ejecutivo","Ejecutivo"],["municipal","Municipalidades"]];
+function getSec(k){ return k==="general"?G : k==="mspas"?{nombre:"Ministerio de Salud",...D.mspas} : D.sectores[k]; }
+function rows(el, arr, total, label, sub){
+  document.getElementById(el).innerHTML = arr.slice(0,8).map(d=>`<li><span>${label(d)}</span><span class="q">${M(d.Q)}</span><span class="bar"><i style="width:${Math.max(1,d.Q/arr[0].Q*100)}%"></i></span>${sub?`<span class="sub">${sub(d)}</span>`:""}</li>`).join("");
+}
+function render(k){
+  const S = getSec(k);
+  document.querySelectorAll("#tabs button").forEach(b=>b.setAttribute("aria-selected", b.dataset.k===k));
+  document.getElementById("kpis").innerHTML = [[QQ(S.total),"adjudicado"],[nf.format(S.procesos),"procesos"],[nf.format(S.proveedores),"proveedores"],[nf.format(k==="general"||k==="mspas"?S.unidades:S.compradores),k==="general"||k==="mspas"?"unidades compradoras":"instituciones"],[pct(S.top5_proveedores_pct),"top 5 proveedores"]]
+    .map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
+  const useU = k==="mspas" || (S.compradores_top||[]).length<=1;
+  document.getElementById("l-comp-t").textContent = useU ? "Unidades que más compran" : "Instituciones que más compran";
+  rows("l-comp", useU?S.unidades_top:S.compradores_top, S.total, d=>d.nombre, d=>`${nf.format(d.n)} procesos${useU&&k!=="mspas"?" · "+d.entidad:""}`);
+  rows("l-prov", S.proveedores_top, S.total, d=>d.persona?"Persona individual":d.nombre, d=>`${nf.format(d.n)} procesos · ${pct(d.Q/S.total)}`);
+  rows("l-fam", S.familias_top, S.total, d=>d.nombre, d=>`UNSPSC ${d.codigo} · ${nf.format(d.n)} procesos · monto estimado`);
+  rows("l-mod", S.modalidades, S.total, d=>d.nombre, d=>`${nf.format(d.n)} adjudicaciones · ${pct(d.Q/S.total)} del monto`);
+  // meses
+  const svg = d3.select("#g-meses"); svg.selectAll("*").remove();
+  const ms = S.meses, x = d3.scaleBand().domain(ms.map(d=>d.mes)).range([40,630]).padding(.28), y = d3.scaleLinear().domain([0,d3.max(ms,d=>d.Q)]).nice().range([200,14]);
+  svg.append("g").selectAll("line").data(y.ticks(4)).join("line").attr("x1",40).attr("x2",630).attr("y1",y).attr("y2",y).attr("stroke","rgba(245,242,236,.08)");
+  svg.append("g").selectAll("text").data(y.ticks(4)).join("text").attr("class","lbl").attr("x",34).attr("y",d=>y(d)+3).attr("text-anchor","end").text(d=>d>=1e9?nf1.format(d/1e9)+"mM":nf.format(d/1e6)+"M");
+  svg.append("g").selectAll("rect").data(ms).join("rect").attr("x",d=>x(d.mes)).attr("width",x.bandwidth()).attr("y",d=>y(d.Q)).attr("height",d=>200-y(d.Q))
+    .attr("fill",(d,i)=>i===ms.length-1?"var(--gold)":"var(--acc)").attr("opacity",.85)
+    .on("mousemove",(e,d)=>showTip(e,`<b>${MESL[+d.mes.slice(5)-1]}</b><br>${M(d.Q)} · ${nf.format(d.n)} procesos`)).on("mouseleave",hideTip);
+  svg.append("g").selectAll("text").data(ms).join("text").attr("class","lbl").attr("x",d=>x(d.mes)+x.bandwidth()/2).attr("y",218).attr("text-anchor","middle").text(d=>MES[+d.mes.slice(5)-1]);
+  document.getElementById("m-title").textContent = `Monto adjudicado por mes · ${S.nombre||"Todo el Estado"}`;
+  document.getElementById("t-note").textContent = `Montos en quetzales, ${D.anio}, con corte al ${fecha(D.corte)}. Noviembre (en dorado) está incompleto. "Qué se compra" reparte el monto de cada proceso entre sus familias de producto: es una estimación.`;
+  try{ localStorage.setItem("fyd-tab",k); }catch(e){}
+}
+document.getElementById("tabs").innerHTML = TABS.map(([k,l])=>`<button role="tab" id="tab-${k}" data-k="${k}">${l}</button>`).join("");
+document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>render(b.dataset.k)));
+let first="general"; try{ first = localStorage.getItem("fyd-tab")||"general"; }catch(e){}
+render(TABS.some(t=>t[0]===first)?first:"general");
+
+/* ---------- mini: últimos 60 días ---------- */
+(function(){
+  const svg = d3.select("#g-mini"), ds = D.dias;
+  const x = d3.scalePoint().domain(ds.map(d=>d.fecha)).range([20,500]), y = d3.scaleSqrt().domain([0,d3.max(ds,d=>d.Q)]).range([250,40]);
+  svg.append("line").attr("x1",20).attr("x2",500).attr("y1",250).attr("y2",250).attr("stroke","rgba(245,242,236,.2)");
+  const g = svg.selectAll("g").data(ds).join("g").attr("transform",d=>`translate(${x(d.fecha)},0)`)
+    .on("mousemove",(e,d)=>showTip(e,`<b>${fecha(d.fecha)}</b><br>${M(d.Q)} · ${nf.format(d.n)} adjudicaciones`)).on("mouseleave",hideTip);
+  g.append("line").attr("y1",250).attr("y2",d=>y(d.Q)).attr("stroke",(d,i)=>i===ds.length-1?"var(--gold)":"var(--acc)").attr("opacity",.6);
+  g.append("circle").attr("cy",d=>y(d.Q)).attr("r",(d,i)=>i===ds.length-1?6:2.4).attr("fill",(d,i)=>i===ds.length-1?"var(--gold)":"var(--acc)");
+  const last = ds[ds.length-1];
+  svg.append("text").attr("class","lbl").attr("x",20).attr("y",20).text("ÚLTIMOS 60 DÍAS · QUETZALES ADJUDICADOS POR DÍA");
+  svg.append("text").attr("class","num").attr("x",478).attr("y",y(last.Q)-16).attr("text-anchor","end").attr("font-size",16).attr("fill","var(--gold)").text(M(last.Q));
+  svg.append("text").attr("class","lbl").attr("x",20).attr("y",270).text(fecha(ds[0].fecha));
+  svg.append("text").attr("class","lbl").attr("x",500).attr("y",270).attr("text-anchor","end").text(fecha(last.fecha));
+})();
+</script>
+</body>
+</html>

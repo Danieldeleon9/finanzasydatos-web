@@ -159,6 +159,7 @@ nav.scrolled{background:rgba(10,51,35,0.96);padding:14px 48px;backdrop-filter:bl
 .projects-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1px;background:rgba(255,255,255,0.08);}
 .project-card{background:var(--verde);padding:36px;display:flex;flex-direction:column;justify-content:space-between;min-height:280px;transition:background .3s;cursor:pointer;}
 .project-card:hover{background:var(--verde-mid);}
+a.project-card{text-decoration:none;color:inherit;}
 .project-card.featured{background:rgba(79,212,154,0.08);}
 .project-card.featured:hover{background:rgba(79,212,154,0.14);}
 .project-top{margin-bottom:auto;}
@@ -226,6 +227,7 @@ footer{background:var(--negro);padding:64px 48px 32px;}
     <a href="#pilares">Qué hacemos</a>
     <a href="#proyectos">Proyectos</a>
     <a href="#metodologia">Metodología</a>
+    <a href="/compras/">Compras HOY</a>
     <a href="#contacto" class="nav-cta">Contacto</a>
   </div>
 </nav>
@@ -327,7 +329,18 @@ footer{background:var(--negro);padding:64px 48px 32px;}
     <a href="#contacto" class="section-link">Ver portafolio</a>
   </div>
   <div class="projects-grid">
-    <div class="project-card featured">
+    <a class="project-card featured" href="/compras/">
+      <div class="project-top">
+        <span class="project-tag">Compras públicas · Datos diarios</span>
+        <h3>Monitor de Compras Públicas GT</h3>
+        <p>Quién compra, qué se compra y quién vende en el Estado de Guatemala. Datos abiertos OCDS de Guatecompras convertidos en visualizaciones, un tablero por sector y la serie "5 cosas sobre compras públicas HOY!!".</p>
+      </div>
+      <div class="project-bottom">
+        <span class="project-meta">Guatemala · 2026 · Ver monitor</span>
+        <div class="project-icon">↗</div>
+      </div>
+    </a>
+    <div class="project-card">
       <div class="project-top">
         <span class="project-tag">Presupuesto público</span>
         <h3>Monitor Fiscal Guatemala 2025</h3>
@@ -346,17 +359,6 @@ footer{background:var(--negro);padding:64px 48px 32px;}
       </div>
       <div class="project-bottom">
         <span class="project-meta">LATAM · 2024</span>
-        <div class="project-icon">↗</div>
-      </div>
-    </div>
-    <div class="project-card">
-      <div class="project-top">
-        <span class="project-tag">Transparencia</span>
-        <h3>Análisis Compras Públicas</h3>
-        <p>IA aplicada para detectar patrones y anomalías en contrataciones del Estado guatemalteco.</p>
-      </div>
-      <div class="project-bottom">
-        <span class="project-meta">Guatemala · 2025</span>
         <div class="project-icon">↗</div>
       </div>
     </div>
