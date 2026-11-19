@@ -1,65 +1,65 @@
 {
- "corte": "2026-11-17",
+ "corte": "2026-11-18",
  "anio": "2026",
  "fuente": "Guatecompras OCDS (ocds.guatecompras.gt), Minfin — CC BY 4.0",
  "general": {
-  "total": 48814521095.950005,
-  "procesos": 251736,
-  "adjudicaciones": 264631,
-  "proveedores": 9662,
+  "total": 49087336960.26,
+  "procesos": 253115,
+  "adjudicaciones": 266116,
+  "proveedores": 9687,
   "compradores": 492,
-  "unidades": 851,
-  "top5_proveedores_pct": 0.10356965492076611,
+  "unidades": 853,
+  "top5_proveedores_pct": 0.10313170269225348,
   "compradores_top": [
    {
     "nombre": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
-    "Q": 10093109129.34,
-    "n": 163427
+    "Q": 10136746773.22,
+    "n": 164202
    },
    {
     "nombre": "MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA",
-    "Q": 6687612196.28,
-    "n": 1339
+    "Q": 6687055210.78,
+    "n": 1343
    },
    {
     "nombre": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 2992214631.66,
-    "n": 36628
+    "Q": 3050274188.17,
+    "n": 36864
    },
    {
     "nombre": "INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE",
-    "Q": 2326735554.97,
-    "n": 7835
+    "Q": 2332439197.1,
+    "n": 7893
    },
    {
     "nombre": "MINISTERIO DE LA DEFENSA NACIONAL",
-    "Q": 2099291626.6699998,
-    "n": 1729
+    "Q": 2101341441.45,
+    "n": 1756
    },
    {
     "nombre": "MINISTERIO DE DESARROLLO SOCIAL",
-    "Q": 1427729853.58,
-    "n": 790
+    "Q": 1427841188.58,
+    "n": 793
    },
    {
     "nombre": "EMPRESA PORTUARIA QUETZAL -EPQ-",
-    "Q": 1378622324.45,
-    "n": 579
+    "Q": 1378797674.45,
+    "n": 581
    },
    {
     "nombre": "MINISTERIO DE GOBERNACIÓN",
-    "Q": 1016028565.79,
-    "n": 4416
+    "Q": 1018368316.79,
+    "n": 4446
    },
    {
     "nombre": "MUNICIPALIDAD DE GUATEMALA, GUATEMALA",
-    "Q": 913721078.18,
-    "n": 460
+    "Q": 914086638.18,
+    "n": 465
    },
    {
     "nombre": "MINISTERIO DE FINANZAS PÚBLICAS",
-    "Q": 671129508.45,
-    "n": 428
+    "Q": 671365887.24,
+    "n": 433
    },
    {
     "nombre": "FIDEICOMISO DE TRANSPORTE DE LA CIUDAD DE GUATEMALA",
@@ -73,13 +73,13 @@
    },
    {
     "nombre": "MUNICIPALIDAD DE QUETZALTENANGO, QUETZALTENANGO",
-    "Q": 408699107.6,
-    "n": 155
+    "Q": 416308913.6,
+    "n": 157
    },
    {
     "nombre": "MINISTERIO DE EDUCACIÓN",
-    "Q": 324834569.16,
-    "n": 2379
+    "Q": 325427432.16,
+    "n": 2389
    },
    {
     "nombre": "EMPRESA PORTUARIA NACIONAL SANTO TOMÁS DE CASTILLA -EMPORNA…",
@@ -88,8 +88,13 @@
    },
    {
     "nombre": "MINISTERIO DE CULTURA Y DEPORTES",
-    "Q": 312188786.6,
-    "n": 576
+    "Q": 312816202.8,
+    "n": 590
+   },
+   {
+    "nombre": "REGISTRO NACIONAL DE LAS PERSONAS -RENAP-",
+    "Q": 283265217.59000003,
+    "n": 266
    },
    {
     "nombre": "FIDEICOMISO PARA LA PLANIFICACION Y DESARROLLO DEL MUNICIPI…",
@@ -97,14 +102,9 @@
     "n": 55
    },
    {
-    "nombre": "REGISTRO NACIONAL DE LAS PERSONAS -RENAP-",
-    "Q": 257796029.59,
-    "n": 258
-   },
-   {
     "nombre": "SUPERINTENDENCIA DE ADMINISTRACION TRIBUTARIA -SAT-",
-    "Q": 234920322.27,
-    "n": 802
+    "Q": 235146473.19,
+    "n": 805
    },
    {
     "nombre": "EMPRESA ELÉCTRICA MUNICIPAL DE JALAPA",
@@ -116,14 +116,14 @@
    {
     "nombre": "COMPRAS DGC",
     "entidad": "MINISTERIO DE COMUNICACIONES, INFRAESTR…",
-    "Q": 3394850899.92,
-    "n": 282
+    "Q": 3394944837.92,
+    "n": 284
    },
    {
     "nombre": "UNIDAD DE CONSULTA EXTERNA DE ENFERMEDADES",
     "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-    "Q": 2853658675.17,
-    "n": 39568
+    "Q": 2873969908.17,
+    "n": 39816
    },
    {
     "nombre": "UNIDAD EJECUTORA DE CONSERVACION VIAL",
@@ -140,14 +140,14 @@
    {
     "nombre": "DEPARTAMENTO DE COMPRAS",
     "entidad": "EMPRESA PORTUARIA QUETZAL -EPQ-",
-    "Q": 1378622324.45,
-    "n": 579
+    "Q": 1378797674.45,
+    "n": 581
    },
    {
     "nombre": "SUBGERENCIA ADMINISTRATIVA",
     "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-    "Q": 1045542851.0899999,
-    "n": 77
+    "Q": 1045632251.0899999,
+    "n": 78
    },
    {
     "nombre": "CUERPO DE INGENIEROS DEL EJERCITO DE GUATEMALA TCIFVA",
@@ -170,20 +170,20 @@
    {
     "nombre": "HOSPITAL GENERAL SAN JUAN DE DIOS",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 652654230.49,
-    "n": 6819
+    "Q": 655189361.63,
+    "n": 6846
    },
    {
     "nombre": "FONDO DE PROTECCION SOCIAL",
     "entidad": "MINISTERIO DE DESARROLLO SOCIAL",
-    "Q": 629095985.73,
-    "n": 605
+    "Q": 629207320.73,
+    "n": 608
    },
    {
     "nombre": "HOSPITAL GENERAL DE ENFERMEDADES",
     "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-    "Q": 615909126.71,
-    "n": 10657
+    "Q": 617627875.05,
+    "n": 10689
    },
    {
     "nombre": "DIRECCION GENERAL DE ADQUISICIONES DEL ESTADO",
@@ -194,20 +194,20 @@
    {
     "nombre": "HOSPITAL ROOSEVELT",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 545885295.07,
-    "n": 5912
+    "Q": 549944920.95,
+    "n": 5968
    },
    {
     "nombre": "FONDO SOCIAL DE SOLIDARIDAD",
     "entidad": "MINISTERIO DE COMUNICACIONES, INFRAESTR…",
-    "Q": 545244903.3199999,
-    "n": 55
+    "Q": 544409536.3199999,
+    "n": 54
    },
    {
     "nombre": "COMANDANCIA DE LA MARINA DE LA DEFENSA NACIONAL",
     "entidad": "MINISTERIO DE LA DEFENSA NACIONAL",
-    "Q": 524260635.82,
-    "n": 251
+    "Q": 525176573.32,
+    "n": 259
    },
    {
     "nombre": "INTECAP",
@@ -224,22 +224,22 @@
    {
     "nombre": "Dirección General de la Policía Nacional Civil -PNC-",
     "entidad": "MINISTERIO DE GOBERNACIÓN",
-    "Q": 479444639.36,
-    "n": 762
+    "Q": 480843162.36,
+    "n": 779
    },
    {
     "nombre": "COORDINADOR DE PUBLICACIONES",
     "entidad": "MUNICIPALIDAD DE QUETZALTENANGO, QUETZA…",
-    "Q": 408699107.6,
-    "n": 155
+    "Q": 416308913.6,
+    "n": 157
    }
   ],
   "proveedores_top": [
    {
     "nombre": "J.I. COHEN, S.A.",
     "persona": false,
-    "Q": 1422964772.54,
-    "n": 15307
+    "Q": 1428941398.87,
+    "n": 15381
    },
    {
     "nombre": "CONSORCIO VÍAS TERRESTRES DEL ATLÁNTICO - (VIATLA).",
@@ -250,8 +250,8 @@
    {
     "nombre": "COMPAÑIA FARMACEUTICA LANQUETIN, S.A.",
     "persona": false,
-    "Q": 914797335.91,
-    "n": 4090
+    "Q": 915578245.89,
+    "n": 4100
    },
    {
     "nombre": "GOBIERNO DE LOS ESTADOS UNIDOS DE AMERICA",
@@ -280,14 +280,14 @@
    {
     "nombre": "AGENCIA FARMACEUTICA INTERNACIONAL, S.A.",
     "persona": false,
-    "Q": 564275305.64,
-    "n": 7080
+    "Q": 567392668.61,
+    "n": 7118
    },
    {
     "nombre": "REUS PHARMA, S.A.",
     "persona": false,
-    "Q": 557375370.55,
-    "n": 7322
+    "Q": 559398241.55,
+    "n": 7347
    },
    {
     "nombre": "DISTRIBUIDORA DE ELECTRICIDAD DE OCCIDENTE, S.A.",
@@ -328,8 +328,8 @@
    {
     "nombre": "NIPRO MEDICAL CORPORATION - SUCURSAL DE GUATEMALA",
     "persona": false,
-    "Q": 373907327.13,
-    "n": 2805
+    "Q": 376513567.13,
+    "n": 2837
    },
    {
     "nombre": "CONSTRUCTORA CACERES & MAZARIEGOS, S.A.",
@@ -340,8 +340,8 @@
    {
     "nombre": "CENTRO DISTRIBUIDOR, S.A.",
     "persona": false,
-    "Q": 345570665.69,
-    "n": 4502
+    "Q": 346653365.41,
+    "n": 4516
    },
    {
     "nombre": "DISTRIBUIDORA DE ELECTRICIDAD DE ORIENTE, S.A.",
@@ -352,229 +352,229 @@
    {
     "nombre": "LABYMED, S.A.",
     "persona": false,
-    "Q": 330595591.86,
-    "n": 4988
+    "Q": 331643925.86,
+    "n": 5006
    }
   ],
   "familias_top": [
    {
     "codigo": "7214",
     "nombre": "Construcción pesada (carreteras y puentes)",
-    "Q": 6770652440.473303,
-    "n": 4479
+    "Q": 6804526817.473303,
+    "n": 4509
    },
    {
     "codigo": "8110",
     "nombre": "Servicios de ingeniería",
-    "Q": 4897359190.929194,
-    "n": 1069
+    "Q": 4937300735.929194,
+    "n": 1082
    },
    {
     "codigo": "8310",
     "nombre": "Servicios públicos (energía, agua)",
-    "Q": 2441335057.649798,
-    "n": 1275
+    "Q": 2443468607.649798,
+    "n": 1278
    },
    {
     "codigo": "5114",
     "nombre": "Medicamentos del sistema nervioso",
-    "Q": 1397913651.473906,
-    "n": 19765
+    "Q": 1400898983.6843822,
+    "n": 19823
    },
    {
     "codigo": "8512",
     "nombre": "Servicios médicos especializados",
-    "Q": 1351775404.1459525,
-    "n": 19988
+    "Q": 1357357576.1459525,
+    "n": 20060
    },
    {
     "codigo": "4111",
     "nombre": "Reactivos e instrumentos de laboratorio",
-    "Q": 1119124520.157787,
-    "n": 18224
+    "Q": 1123356790.0161204,
+    "n": 18321
    },
    {
     "codigo": "3011",
     "nombre": "Concreto y cemento",
-    "Q": 1031792522.6314739,
-    "n": 2146
+    "Q": 1032388950.6136168,
+    "n": 2153
    },
    {
     "codigo": "3012",
     "nombre": "Materiales viales",
-    "Q": 979926140.4766781,
-    "n": 1312
+    "Q": 1003652712.748821,
+    "n": 1322
    },
    {
     "codigo": "8010",
     "nombre": "Asesoría y consultoría",
-    "Q": 972337123.5569047,
-    "n": 349
+    "Q": 992076523.5569047,
+    "n": 352
    },
    {
     "codigo": "7810",
     "nombre": "Transporte y mensajería",
-    "Q": 882435985.1673968,
-    "n": 820
+    "Q": 882630113.1673968,
+    "n": 822
    },
    {
     "codigo": "5019",
     "nombre": "Alimentos preparados",
-    "Q": 874724157.1980736,
-    "n": 3546
-   },
-   {
-    "codigo": "2510",
-    "nombre": "Vehículos",
-    "Q": 868167890.1642014,
-    "n": 940
-   },
-   {
-    "codigo": "5111",
-    "nombre": "Medicamentos oncológicos",
-    "Q": 866176557.0013889,
-    "n": 11554
+    "Q": 874848115.4202958,
+    "n": 3551
    },
    {
     "codigo": "7315",
     "nombre": "Mantenimiento e impresión industrial",
-    "Q": 860282754.2288736,
-    "n": 550
+    "Q": 873088521.2288736,
+    "n": 556
+   },
+   {
+    "codigo": "2510",
+    "nombre": "Vehículos",
+    "Q": 872691355.9380109,
+    "n": 945
+   },
+   {
+    "codigo": "5111",
+    "nombre": "Medicamentos oncológicos",
+    "Q": 866821454.0913888,
+    "n": 11566
    },
    {
     "codigo": "5112",
     "nombre": "Medicamentos cardiovasculares",
-    "Q": 782671127.4741762,
-    "n": 6699
+    "Q": 783632519.8641762,
+    "n": 6726
    },
    {
     "codigo": "1510",
     "nombre": "Combustibles",
-    "Q": 753517177.6717921,
-    "n": 1999
-   },
-   {
-    "codigo": "5110",
-    "nombre": "Medicamentos antiinfecciosos",
-    "Q": 734005380.924865,
-    "n": 11160
+    "Q": 754110322.5317922,
+    "n": 2008
    },
    {
     "codigo": "5113",
     "nombre": "Medicamentos hematológicos",
-    "Q": 733940698.804731,
-    "n": 7321
+    "Q": 743184274.0618739,
+    "n": 7439
+   },
+   {
+    "codigo": "5110",
+    "nombre": "Medicamentos antiinfecciosos",
+    "Q": 736759852.9653412,
+    "n": 11214
    },
    {
     "codigo": "5118",
     "nombre": "Hormonas e insulinas",
-    "Q": 636250733.8683347,
-    "n": 9904
+    "Q": 642243733.5354774,
+    "n": 9994
    },
    {
     "codigo": "4323",
     "nombre": "Software y licencias",
-    "Q": 559524228.5355357,
-    "n": 1413
+    "Q": 561202037.658869,
+    "n": 1429
    }
   ],
   "segmentos": [
    {
     "codigo": "72",
     "nombre": "Construcción y mantenimiento",
-    "Q": 7821762859.176474,
-    "pct": 0.16023434591936256
+    "Q": 7857461919.489807,
+    "pct": 0.16007105714149925
    },
    {
     "codigo": "51",
     "nombre": "Medicamentos",
-    "Q": 6454614169.639541,
-    "pct": 0.13222733778238502
+    "Q": 6484379463.492397,
+    "pct": 0.13209882354673272
    },
    {
     "codigo": "81",
     "nombre": "Ingeniería",
-    "Q": 5337519739.461128,
-    "pct": 0.10934286805702098
+    "Q": 5393772607.361129,
+    "pct": 0.10988114127535183
    },
    {
     "codigo": "30",
     "nombre": "Materiales de construcción",
-    "Q": 2723777886.9466667,
-    "pct": 0.055798517035387865
+    "Q": 2751870405.439048,
+    "pct": 0.05606069866179336
    },
    {
     "codigo": "83",
     "nombre": "Servicios públicos",
-    "Q": 2586912501.747298,
-    "pct": 0.05299473278991006
+    "Q": 2589646051.747298,
+    "pct": 0.05275588801738861
    },
    {
     "codigo": "42",
     "nombre": "Equipo e insumos médicos",
-    "Q": 2003486852.2067642,
-    "pct": 0.04104284559647124
+    "Q": 2013275412.808431,
+    "pct": 0.041014150236716514
    },
    {
     "codigo": "85",
     "nombre": "Salud (servicios)",
-    "Q": 1981036575.8592832,
-    "pct": 0.04058293580234763
+    "Q": 1990074755.8592832,
+    "pct": 0.04054150986985509
    },
    {
     "codigo": "80",
     "nombre": "Gestión",
-    "Q": 1921549427.499348,
-    "pct": 0.03936429948216317
+    "Q": 1943539690.4993482,
+    "pct": 0.03959350437105182
    },
    {
     "codigo": "50",
     "nombre": "Alimentos",
-    "Q": 1614311691.9274633,
-    "pct": 0.03307031710409217
+    "Q": 1617915892.8230188,
+    "pct": 0.03295994431583948
    },
    {
     "codigo": "43",
     "nombre": "Tecnología",
-    "Q": 1364572878.9201758,
-    "pct": 0.027954240834156013
+    "Q": 1368370505.3768425,
+    "pct": 0.027876242430601692
    }
   ],
   "modalidades": [
    {
     "nombre": "Licitación Pública",
-    "Q": 21178894024.17,
-    "n": 3886
+    "Q": 21277197733.72,
+    "n": 3922
    },
    {
     "nombre": "Compra Directa con Oferta Electrónica",
-    "Q": 12786510456.06,
-    "n": 240731
+    "Q": 12860188628.36,
+    "n": 242048
    },
    {
     "nombre": "Procedimientos regulados por el artículo 54 LCE",
-    "Q": 5856762289.83,
-    "n": 9472
+    "Q": 5862465931.96,
+    "n": 9547
    },
    {
     "nombre": "Cotización",
-    "Q": 3590473942.85,
-    "n": 6332
+    "Q": 3618611582.85,
+    "n": 6373
    },
    {
     "nombre": "Convenios y Tratados Internacionales",
-    "Q": 2615049183.92,
-    "n": 146
+    "Q": 2654199183.92,
+    "n": 147
    },
    {
     "nombre": "Negociaciones entre Entidades Públicas",
-    "Q": 660427408.9,
-    "n": 621
+    "Q": 662088352.23,
+    "n": 624
    },
    {
     "nombre": "Procedimientos Regulados por el artículo 44 LCE",
-    "Q": 649430619.95,
-    "n": 953
+    "Q": 649582891.95,
+    "n": 956
    },
    {
     "nombre": "Contrato Abierto",
@@ -600,65 +600,65 @@
    },
    {
     "mes": "2026-04",
-    "Q": 3832120178.87,
-    "n": 19129
+    "Q": 3832055278.87,
+    "n": 19128
    },
    {
     "mes": "2026-05",
-    "Q": 5015711209.03,
-    "n": 25122
+    "Q": 5015596909.03,
+    "n": 25119
    },
    {
     "mes": "2026-06",
-    "Q": 4634604977.19,
-    "n": 26803
+    "Q": 4634198244.69,
+    "n": 26794
    },
    {
     "mes": "2026-07",
-    "Q": 3727315019.25,
-    "n": 23469
+    "Q": 3727157919.25,
+    "n": 23466
    },
    {
     "mes": "2026-08",
-    "Q": 3916254549.71,
-    "n": 23504
+    "Q": 3916126469.71,
+    "n": 23500
    },
    {
     "mes": "2026-09",
-    "Q": 6843288630.53,
-    "n": 24286
+    "Q": 6842824466.39,
+    "n": 24276
    },
    {
     "mes": "2026-10",
-    "Q": 5922498476.4,
-    "n": 26685
+    "Q": 5920585640.4,
+    "n": 26660
    },
    {
     "mes": "2026-11",
-    "Q": 3608340708.82,
-    "n": 15277
+    "Q": 3884404685.77,
+    "n": 16711
    }
   ],
   "tipos_entidad": [
    {
     "nombre": "Administración Central",
-    "Q": 16782563131.67,
-    "n": 55253
+    "Q": 16850547145.77,
+    "n": 55634
    },
    {
     "nombre": "Gobiernos Locales (Municipalidades, Mancomunidades, etc.)",
-    "Q": 13210624218.98,
-    "n": 15612
+    "Q": 13333918252.53,
+    "n": 15725
    },
    {
     "nombre": "Entidades Descentralizadas, Autónomas y de Seguridad Social",
-    "Q": 11962983055.25,
-    "n": 168869
+    "Q": 12035978418.38,
+    "n": 169681
    },
    {
     "nombre": "Empresas Públicas (Nacionales y Municipales)",
-    "Q": 4888266268.33,
-    "n": 10118
+    "Q": 4894183760.46,
+    "n": 10179
    },
    {
     "nombre": "Fideicomisos con fondos públicos",
@@ -675,129 +675,129 @@
  "sectores": {
   "salud": {
    "nombre": "Salud",
-   "total": 13085323761.0,
-   "procesos": 200055,
-   "adjudicaciones": 210870,
-   "proveedores": 2626,
+   "total": 13187020961.39,
+   "procesos": 201066,
+   "adjudicaciones": 211965,
+   "proveedores": 2636,
    "compradores": 2,
    "unidades": 189,
-   "top5_proveedores_pct": 0.2808843722877145,
+   "top5_proveedores_pct": 0.2797025523497168,
    "compradores_top": [
     {
      "nombre": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
-     "Q": 10093109129.34,
-     "n": 163427
+     "Q": 10136746773.22,
+     "n": 164202
     },
     {
      "nombre": "MINISTERIO DE SALUD PÚBLICA",
-     "Q": 2992214631.66,
-     "n": 36628
+     "Q": 3050274188.17,
+     "n": 36864
     }
    ],
    "unidades_top": [
     {
      "nombre": "UNIDAD DE CONSULTA EXTERNA DE ENFERMEDADES",
      "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-     "Q": 2853658675.17,
-     "n": 39568
+     "Q": 2873969908.17,
+     "n": 39816
     },
     {
      "nombre": "SUBGERENCIA ADMINISTRATIVA",
      "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-     "Q": 1045542851.0899999,
-     "n": 77
+     "Q": 1045632251.0899999,
+     "n": 78
     },
     {
      "nombre": "HOSPITAL GENERAL SAN JUAN DE DIOS",
      "entidad": "MINISTERIO DE SALUD PÚBLICA",
-     "Q": 652654230.49,
-     "n": 6819
+     "Q": 655189361.63,
+     "n": 6846
     },
     {
      "nombre": "HOSPITAL GENERAL DE ENFERMEDADES",
      "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-     "Q": 615909126.71,
-     "n": 10657
+     "Q": 617627875.05,
+     "n": 10689
     },
     {
      "nombre": "HOSPITAL ROOSEVELT",
      "entidad": "MINISTERIO DE SALUD PÚBLICA",
-     "Q": 545885295.07,
-     "n": 5912
+     "Q": 549944920.95,
+     "n": 5968
     },
     {
      "nombre": "CENTRO DE ATENCION MEDICA INTEGRAL PARA PENSIONADOS, CAMIP …",
      "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-     "Q": 396443630.65,
-     "n": 5642
+     "Q": 397493390.65,
+     "n": 5657
     },
     {
      "nombre": "HOSPITAL DE QUETZALTENANGO",
      "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-     "Q": 392115563.08,
-     "n": 6848
+     "Q": 390395844.38,
+     "n": 6817
     },
     {
      "nombre": "HOSPITAL GENERAL DE ACCIDENTES CEIBAL",
      "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-     "Q": 360283308.63,
-     "n": 14499
+     "Q": 362309027.43,
+     "n": 14551
     },
     {
      "nombre": "CENTRO DE ATENCION MEDICA INTEGRAL PARA PENSIONADOS (CAMIP)",
      "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-     "Q": 342922555.82,
-     "n": 5802
+     "Q": 346746750.9,
+     "n": 5861
     },
     {
      "nombre": "UNIDAD DE CONSULTA EXTERNA DE ESPECIALIDADES MEDICO-QUIRURG…",
      "entidad": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-     "Q": 288767381.39,
-     "n": 4545
+     "Q": 288802019.39,
+     "n": 4544
     }
    ],
    "proveedores_top": [
     {
      "nombre": "J.I. COHEN, S.A.",
      "persona": false,
-     "Q": 1318162521.99,
-     "n": 15284
+     "Q": 1324139148.32,
+     "n": 15358
     },
     {
      "nombre": "COMPAÑIA FARMACEUTICA LANQUETIN, S.A.",
      "persona": false,
-     "Q": 914005577.3,
-     "n": 4077
+     "Q": 914786487.28,
+     "n": 4087
     },
     {
      "nombre": "REUS PHARMA, S.A.",
      "persona": false,
-     "Q": 556149973.05,
-     "n": 7307
+     "Q": 558172844.05,
+     "n": 7332
     },
     {
      "nombre": "AGENCIA FARMACEUTICA INTERNACIONAL, S.A.",
      "persona": false,
-     "Q": 543276544.82,
-     "n": 7063
+     "Q": 546393907.79,
+     "n": 7101
     },
     {
      "nombre": "CENTRO DISTRIBUIDOR, S.A.",
      "persona": false,
-     "Q": 343868333.63,
-     "n": 4497
+     "Q": 344951033.35,
+     "n": 4511
     },
     {
      "nombre": "LABYMED, S.A.",
      "persona": false,
-     "Q": 322265236.95,
-     "n": 4946
+     "Q": 323313570.95,
+     "n": 4964
     },
     {
      "nombre": "SERVICIOS QUIRURGICOS, S.A.",
      "persona": false,
-     "Q": 286828128.01,
-     "n": 5465
+     "Q": 287844919.01,
+     "n": 5479
     },
     {
      "nombre": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL",
@@ -808,64 +808,64 @@
     {
      "nombre": "AVIV FARMACEUTICA, S.A.",
      "persona": false,
-     "Q": 254243099.4,
-     "n": 3390
+     "Q": 255587471.4,
+     "n": 3407
     },
     {
      "nombre": "PRODUCTOS ROCHE GUATEMALA, S.A.",
      "persona": false,
-     "Q": 240072979.75,
-     "n": 4448
+     "Q": 241613170.71,
+     "n": 4486
     }
    ],
    "familias_top": [
     {
      "codigo": "5114",
      "nombre": "Medicamentos del sistema nervioso",
-     "Q": 1375048042.6454563,
-     "n": 19610
+     "Q": 1377993774.8559325,
+     "n": 19667
     },
     {
      "codigo": "8512",
      "nombre": "Servicios médicos especializados",
-     "Q": 1327889751.965,
-     "n": 19941
+     "Q": 1333471923.965,
+     "n": 20013
     },
     {
      "codigo": "4111",
      "nombre": "Reactivos e instrumentos de laboratorio",
-     "Q": 979695582.1616209,
-     "n": 17395
+     "Q": 983572671.1866208,
+     "n": 17486
     },
     {
      "codigo": "5111",
      "nombre": "Medicamentos oncológicos",
-     "Q": 842244095.6425,
-     "n": 11499
+     "Q": 842760808.7325,
+     "n": 11509
     },
     {
      "codigo": "5112",
      "nombre": "Medicamentos cardiovasculares",
-     "Q": 780362070.6377774,
-     "n": 6648
+     "Q": 781323463.0277774,
+     "n": 6675
     },
     {
      "codigo": "5113",
      "nombre": "Medicamentos hematológicos",
-     "Q": 712034151.4806821,
-     "n": 7282
+     "Q": 721277726.737825,
+     "n": 7400
     },
     {
      "codigo": "5110",
      "nombre": "Medicamentos antiinfecciosos",
-     "Q": 704735525.2847487,
-     "n": 10999
+     "Q": 707414397.3252249,
+     "n": 11052
     },
     {
      "codigo": "5118",
      "nombre": "Hormonas e insulinas",
-     "Q": 632724158.0002183,
-     "n": 9826
+     "Q": 638717157.6673611,
+     "n": 9916
     },
     {
      "codigo": "8016",
@@ -876,77 +876,77 @@
     {
      "codigo": "5119",
      "nombre": "Sueros, electrolitos y nutrición",
-     "Q": 350340569.22241235,
-     "n": 5959
+     "Q": 353039304.6995552,
+     "n": 6006
     }
    ],
    "segmentos": [
     {
      "codigo": "51",
      "nombre": "Medicamentos",
-     "Q": 6302773790.468961,
-     "pct": 0.48166739360733196
+     "Q": 6332181395.321817,
+     "pct": 0.4801828566028429
     },
     {
      "codigo": "85",
      "nombre": "Salud (servicios)",
-     "Q": 1919705806.2983334,
-     "pct": 0.14670678703570927
+     "Q": 1928743986.2983334,
+     "pct": 0.14626078110783794
     },
     {
      "codigo": "42",
      "nombre": "Equipo e insumos médicos",
-     "Q": 1447861493.5566134,
-     "pct": 0.11064773940648494
+     "Q": 1456926188.0782802,
+     "pct": 0.1104818284845367
     },
     {
      "codigo": "41",
      "nombre": "Laboratorio",
-     "Q": 1096566560.5980058,
-     "pct": 0.08380125556130714
+     "Q": 1100708022.6063392,
+     "pct": 0.08346904322280817
     },
     {
      "codigo": "80",
      "nombre": "Gestión",
-     "Q": 455689280.495,
-     "pct": 0.034824455918557685
+     "Q": 475533170.495,
+     "pct": 0.03606069724824913
     },
     {
      "codigo": "12",
      "nombre": "Químicos",
-     "Q": 329345306.17052597,
-     "pct": 0.025169060558678673
+     "Q": 332391035.3576688,
+     "pct": 0.02520592303074891
     },
     {
      "codigo": "43",
      "nombre": "Tecnología",
-     "Q": 220778116.66645086,
-     "pct": 0.016872193665124772
+     "Q": 221568225.16645086,
+     "pct": 0.016801992338919897
     },
     {
      "codigo": "81",
      "nombre": "Ingeniería",
-     "Q": 142936904.6366667,
-     "pct": 0.010923451895220301
+     "Q": 162601304.6366667,
+     "pct": 0.012330404654147711
     },
     {
      "codigo": "50",
      "nombre": "Alimentos",
-     "Q": 142512106.77902752,
-     "pct": 0.010890988208008736
+     "Q": 143077435.11902753,
+     "pct": 0.010849867876751006
     },
     {
      "codigo": "72",
      "nombre": "Construcción y mantenimiento",
-     "Q": 120387666.04333334,
-     "pct": 0.009200205378344657
+     "Q": 121448982.04333334,
+     "pct": 0.009209736027486514
     }
    ],
    "modalidades": [
     {
      "nombre": "Compra Directa con Oferta Electrónica",
-     "Q": 10640886782.95,
-     "n": 208930
+     "Q": 10699495983.34,
+     "n": 210017
     },
     {
      "nombre": "Licitación Pública",
@@ -955,8 +955,8 @@
     },
     {
      "nombre": "Cotización",
-     "Q": 358514412.72,
-     "n": 738
+     "Q": 362452412.72,
+     "n": 745
     },
     {
      "nombre": "Negociaciones entre Entidades Públicas",
@@ -970,8 +970,8 @@
     },
     {
      "nombre": "Convenios y Tratados Internacionales",
-     "Q": 54786503.88,
-     "n": 63
+     "Q": 93936503.88,
+     "n": 64
     },
     {
      "nombre": "Adquisición Directa por Ausencia de Oferta",
@@ -1002,65 +1002,65 @@
     },
     {
      "mes": "2026-04",
-     "Q": 976679546.43,
-     "n": 14663
+     "Q": 976614646.43,
+     "n": 14662
     },
     {
      "mes": "2026-05",
-     "Q": 1405861378.06,
-     "n": 20209
+     "Q": 1405747078.06,
+     "n": 20206
     },
     {
      "mes": "2026-06",
-     "Q": 1780011239.25,
-     "n": 21680
+     "Q": 1779874506.75,
+     "n": 21674
     },
     {
      "mes": "2026-07",
-     "Q": 1249933932.81,
-     "n": 18177
+     "Q": 1249856932.81,
+     "n": 18176
     },
     {
      "mes": "2026-08",
-     "Q": 1141184269.91,
-     "n": 18236
+     "Q": 1141094849.91,
+     "n": 18234
     },
     {
      "mes": "2026-09",
-     "Q": 1073271824.07,
-     "n": 18808
+     "Q": 1072908988.93,
+     "n": 18800
     },
     {
      "mes": "2026-10",
-     "Q": 1370376459.09,
-     "n": 20687
+     "Q": 1369361300.09,
+     "n": 20664
     },
     {
      "mes": "2026-11",
-     "Q": 725618136.85,
-     "n": 11624
+     "Q": 829175683.88,
+     "n": 12679
     }
    ]
   },
   "educacion": {
    "nombre": "Educación",
-   "total": 403898286.43000007,
-   "procesos": 3379,
-   "adjudicaciones": 3468,
-   "proveedores": 790,
+   "total": 405392297.92999995,
+   "procesos": 3396,
+   "adjudicaciones": 3486,
+   "proveedores": 794,
    "compradores": 2,
-   "unidades": 114,
-   "top5_proveedores_pct": 0.3233467180421778,
+   "unidades": 116,
+   "top5_proveedores_pct": 0.32215507301658425,
    "compradores_top": [
     {
      "nombre": "MINISTERIO DE EDUCACIÓN",
-     "Q": 324834569.16,
-     "n": 2379
+     "Q": 325427432.16,
+     "n": 2389
     },
     {
      "nombre": "UNIVERSIDAD DE SAN CARLOS DE GUATEMALA -USAC-",
-     "Q": 79063717.27,
-     "n": 1000
+     "Q": 79964865.77,
+     "n": 1007
     }
    ],
    "unidades_top": [
@@ -1103,8 +1103,8 @@
     {
      "nombre": "DIRECCIÓN GENERAL DE EDUCACIÓN EXTRAESCOLAR -DIGEEX-",
      "entidad": "MINISTERIO DE EDUCACIÓN",
-     "Q": 6671386.85,
-     "n": 104
+     "Q": 6938349.85,
+     "n": 107
     },
     {
      "nombre": "CUNOC",
@@ -1191,26 +1191,26 @@
     {
      "codigo": "7315",
      "nombre": "Mantenimiento e impresión industrial",
-     "Q": 118346500.08,
-     "n": 23
+     "Q": 118433825.08,
+     "n": 24
     },
     {
      "codigo": "4323",
      "nombre": "Software y licencias",
-     "Q": 31701182.570952382,
-     "n": 100
+     "Q": 31787682.570952382,
+     "n": 101
     },
     {
      "codigo": "8610",
      "nombre": "Capacitación",
-     "Q": 18480286.13,
-     "n": 182
+     "Q": 18659924.13,
+     "n": 184
     },
     {
      "codigo": "4321",
      "nombre": "Computadoras",
-     "Q": 18221450.124285713,
-     "n": 295
+     "Q": 18352247.624285713,
+     "n": 299
     },
     {
      "codigo": "5612",
@@ -1239,8 +1239,8 @@
     {
      "codigo": "5610",
      "nombre": "Mobiliario",
-     "Q": 9013616.530555556,
-     "n": 120
+     "Q": 9016534.030555556,
+     "n": 121
     },
     {
      "codigo": "6010",
@@ -1253,69 +1253,69 @@
     {
      "codigo": "73",
      "nombre": "Producción industrial",
-     "Q": 118366900.08,
-     "pct": 0.2930611593483803
+     "Q": 118454225.08,
+     "pct": 0.292196535762635
     },
     {
      "codigo": "43",
      "nombre": "Tecnología",
-     "Q": 55417608.279802196,
-     "pct": 0.13720684177600903
+     "Q": 55634905.779802196,
+     "pct": 0.13723720471228293
     },
     {
      "codigo": "50",
      "nombre": "Alimentos",
      "Q": 23715881.512142856,
-     "pct": 0.05871746008571659
+     "pct": 0.05850106583978054
     },
     {
      "codigo": "56",
      "nombre": "Mobiliario",
-     "Q": 22122860.35277778,
-     "pct": 0.05477334540910935
+     "Q": 22224007.85277778,
+     "pct": 0.054820991830030405
     },
     {
      "codigo": "86",
      "nombre": "Educación (servicios)",
-     "Q": 19170349.275454547,
-     "pct": 0.047463309252679824
+     "Q": 19349987.275454547,
+     "pct": 0.04773151185717829
     },
     {
      "codigo": "41",
      "nombre": "Laboratorio",
      "Q": 13895835.645966839,
-     "pct": 0.034404294627714736
+     "pct": 0.03427750284581447
     },
     {
      "codigo": "25",
      "nombre": "Vehículos",
      "Q": 12444293.448397435,
-     "pct": 0.0308104635906995
+     "pct": 0.030696916325100534
     },
     {
      "codigo": "44",
      "nombre": "Oficina",
      "Q": 11284981.817033578,
-     "pct": 0.02794015769856302
+     "pct": 0.02783718850766667
     },
     {
      "codigo": "60",
      "nombre": "Material educativo",
      "Q": 10156859.176468864,
-     "pct": 0.025147071720070684
+     "pct": 0.025054396021659674
     },
     {
      "codigo": "72",
      "nombre": "Construcción y mantenimiento",
      "Q": 10134221.174285714,
-     "pct": 0.025091022950012153
+     "pct": 0.0249985538107969
     }
    ],
    "modalidades": [
     {
      "nombre": "Compra Directa con Oferta Electrónica",
-     "Q": 187098537.64,
-     "n": 3351
+     "Q": 187992549.14,
+     "n": 3368
     },
     {
      "nombre": "Licitación Pública",
@@ -1324,8 +1324,8 @@
     },
     {
      "nombre": "Cotización",
-     "Q": 22634758.18,
-     "n": 37
+     "Q": 23234758.18,
+     "n": 38
     },
     {
      "nombre": "Convenios y Tratados Internacionales",
@@ -1401,35 +1401,35 @@
     },
     {
      "mes": "2026-11",
-     "Q": 17893637.15,
-     "n": 252
+     "Q": 19387648.65,
+     "n": 269
     }
    ]
   },
   "justicia": {
    "nombre": "Justicia",
-   "total": 386181049.63,
-   "procesos": 1456,
-   "adjudicaciones": 1466,
+   "total": 386649054.63,
+   "procesos": 1462,
+   "adjudicaciones": 1472,
    "proveedores": 606,
    "compradores": 5,
    "unidades": 10,
-   "top5_proveedores_pct": 0.40467938608000414,
+   "top5_proveedores_pct": 0.4046413878593789,
    "compradores_top": [
     {
      "nombre": "MINISTERIO PÚBLICO",
-     "Q": 115298895.94,
-     "n": 417
+     "Q": 115344875.94,
+     "n": 418
     },
     {
      "nombre": "ORGANISMO JUDICIAL",
-     "Q": 114553097.59,
-     "n": 702
+     "Q": 114832547.59,
+     "n": 705
     },
     {
      "nombre": "INSTITUTO NACIONAL DE CIENCIAS FORENSES DE GUATEMALA",
-     "Q": 93944596.72999999,
-     "n": 197
+     "Q": 94087171.72999999,
+     "n": 199
     },
     {
      "nombre": "INSTITUTO DE LA DEFENSA PÚBLICA PENAL",
@@ -1446,14 +1446,14 @@
     {
      "nombre": "DEPARTAMENTO DE ADQUISICIONES DE BIENES Y SERVICIOS",
      "entidad": "ORGANISMO JUDICIAL",
-     "Q": 95511885.54,
-     "n": 642
+     "Q": 95791335.54,
+     "n": 645
     },
     {
      "nombre": "SECCION DE ADQUISICIONES",
      "entidad": "INSTITUTO NACIONAL DE CIENCIAS FORENSES…",
-     "Q": 93944596.72999999,
-     "n": 197
+     "Q": 94087171.72999999,
+     "n": 199
     },
     {
      "nombre": "DEPARTAMENTO DE EVENTOS DE COTIZACIÓN Y LICITACIÓN",
@@ -1464,8 +1464,8 @@
     {
      "nombre": "SECCION DE COMPRAS",
      "entidad": "MINISTERIO PÚBLICO",
-     "Q": 49373001.07,
-     "n": 392
+     "Q": 49418981.07,
+     "n": 393
     },
     {
      "nombre": "SECCION DE COMPRAS",
@@ -1526,8 +1526,8 @@
     {
      "nombre": "IMPORTADORA Y EXPORTADORA MARTIN, S.A.",
      "persona": false,
-     "Q": 18742540.0,
-     "n": 9
+     "Q": 18917240.0,
+     "n": 11
     },
     {
      "nombre": "EQUIPOS Y PRODUCTOS DE LABORATORIO, S.A.",
@@ -1606,8 +1606,8 @@
     {
      "codigo": "4321",
      "nombre": "Computadoras",
-     "Q": 15337065.21,
-     "n": 59
+     "Q": 15383045.21,
+     "n": 60
     },
     {
      "codigo": "4410",
@@ -1624,8 +1624,8 @@
     {
      "codigo": "4323",
      "nombre": "Software y licencias",
-     "Q": 13669949.36,
-     "n": 82
+     "Q": 13754849.36,
+     "n": 83
     }
    ],
    "segmentos": [
@@ -1633,61 +1633,61 @@
      "codigo": "92",
      "nombre": "Defensa",
      "Q": 44461659.0,
-     "pct": 0.11513164367489992
+     "pct": 0.1149922868492389
     },
     {
      "codigo": "80",
      "nombre": "Gestión",
-     "Q": 41065047.33,
-     "pct": 0.1063362569689642
+     "Q": 41139447.33,
+     "pct": 0.10639996875039043
     },
     {
      "codigo": "15",
      "nombre": "Combustibles",
      "Q": 36955989.5,
-     "pct": 0.09569602013202752
+     "pct": 0.09558018843564656
     },
     {
      "codigo": "43",
      "nombre": "Tecnología",
-     "Q": 32846832.25,
-     "pct": 0.08505552585107566
+     "Q": 32977712.25,
+     "pct": 0.08529107172279962
     },
     {
      "codigo": "81",
      "nombre": "Ingeniería",
-     "Q": 27987276.0,
-     "pct": 0.07247190411547798
+     "Q": 28077076.0,
+     "pct": 0.07261643514651311
     },
     {
      "codigo": "41",
      "nombre": "Laboratorio",
-     "Q": 22251684.873333335,
-     "pct": 0.057619825971918275
+     "Q": 22224084.873333335,
+     "pct": 0.057478699630083036
     },
     {
      "codigo": "73",
      "nombre": "Producción industrial",
      "Q": 21802972.28,
-     "pct": 0.056457903102416405
+     "pct": 0.05638956572870491
     },
     {
      "codigo": "25",
      "nombre": "Vehículos",
      "Q": 20257736.25,
-     "pct": 0.05245657773577687
+     "pct": 0.05239308361787006
     },
     {
      "codigo": "45",
      "nombre": "Audiovisual",
-     "Q": 17450166.76,
-     "pct": 0.04518649161246779
+     "Q": 17518341.76,
+     "pct": 0.04530811998690649
     },
     {
      "codigo": "44",
      "nombre": "Oficina",
      "Q": 16126830.39,
-     "pct": 0.04175976632061856
+     "pct": 0.04170921976114079
     }
    ],
    "modalidades": [
@@ -1698,8 +1698,8 @@
     },
     {
      "nombre": "Compra Directa con Oferta Electrónica",
-     "Q": 71152491.65,
-     "n": 1177
+     "Q": 71620496.65,
+     "n": 1183
     },
     {
      "nombre": "Convenios y Tratados Internacionales",
@@ -1765,8 +1765,8 @@
     },
     {
      "mes": "2026-07",
-     "Q": 66995111.26,
-     "n": 155
+     "Q": 66915011.26,
+     "n": 153
     },
     {
      "mes": "2026-08",
@@ -1785,78 +1785,78 @@
     },
     {
      "mes": "2026-11",
-     "Q": 17318213.419999998,
-     "n": 99
+     "Q": 17866318.419999998,
+     "n": 107
     }
    ]
   },
   "ejecutivo": {
    "nombre": "Ejecutivo (Adm. Central)",
-   "total": 16782563131.670002,
-   "procesos": 55253,
-   "adjudicaciones": 66262,
-   "proveedores": 4129,
+   "total": 16850547145.770002,
+   "procesos": 55634,
+   "adjudicaciones": 66732,
+   "proveedores": 4141,
    "compradores": 55,
-   "unidades": 296,
-   "top5_proveedores_pct": 0.21459512314979895,
+   "unidades": 297,
+   "top5_proveedores_pct": 0.21372933299166338,
    "compradores_top": [
     {
      "nombre": "MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA",
-     "Q": 6687612196.28,
-     "n": 1339
+     "Q": 6687055210.78,
+     "n": 1343
     },
     {
      "nombre": "MINISTERIO DE SALUD PÚBLICA",
-     "Q": 2992214631.66,
-     "n": 36628
+     "Q": 3050274188.17,
+     "n": 36864
     },
     {
      "nombre": "MINISTERIO DE LA DEFENSA NACIONAL",
-     "Q": 2099291626.6699998,
-     "n": 1729
+     "Q": 2101341441.45,
+     "n": 1756
     },
     {
      "nombre": "MINISTERIO DE DESARROLLO SOCIAL",
-     "Q": 1427729853.58,
-     "n": 790
+     "Q": 1427841188.58,
+     "n": 793
     },
     {
      "nombre": "MINISTERIO DE GOBERNACIÓN",
-     "Q": 1016028565.79,
-     "n": 4416
+     "Q": 1018368316.79,
+     "n": 4446
     },
     {
      "nombre": "MINISTERIO DE FINANZAS PÚBLICAS",
-     "Q": 671129508.45,
-     "n": 428
+     "Q": 671365887.24,
+     "n": 433
     },
     {
      "nombre": "MINISTERIO DE EDUCACIÓN",
-     "Q": 324834569.16,
-     "n": 2379
+     "Q": 325427432.16,
+     "n": 2389
     },
     {
      "nombre": "MINISTERIO DE CULTURA Y DEPORTES",
-     "Q": 312188786.6,
-     "n": 576
+     "Q": 312816202.8,
+     "n": 590
     },
     {
      "nombre": "MINISTERIO DE AGRICULTURA, GANADERIA Y ALIMENTACIÓN",
-     "Q": 128273868.92,
-     "n": 567
+     "Q": 128939769.92,
+     "n": 577
     },
     {
      "nombre": "MINISTERIO PÚBLICO",
-     "Q": 115298895.94,
-     "n": 417
+     "Q": 115344875.94,
+     "n": 418
     }
    ],
    "unidades_top": [
     {
      "nombre": "COMPRAS DGC",
      "entidad": "MINISTERIO DE COMUNICACIONES, INFRAESTR…",
-     "Q": 3394850899.92,
-     "n": 282
+     "Q": 3394944837.92,
+     "n": 284
     },
     {
      "nombre": "UNIDAD EJECUTORA DE CONSERVACION VIAL",
@@ -1879,14 +1879,14 @@
     {
      "nombre": "HOSPITAL GENERAL SAN JUAN DE DIOS",
      "entidad": "MINISTERIO DE SALUD PÚBLICA",
-     "Q": 652654230.49,
-     "n": 6819
+     "Q": 655189361.63,
+     "n": 6846
     },
     {
      "nombre": "FONDO DE PROTECCION SOCIAL",
      "entidad": "MINISTERIO DE DESARROLLO SOCIAL",
-     "Q": 629095985.73,
-     "n": 605
+     "Q": 629207320.73,
+     "n": 608
     },
     {
      "nombre": "DIRECCION GENERAL DE ADQUISICIONES DEL ESTADO",
@@ -1897,20 +1897,20 @@
     {
      "nombre": "HOSPITAL ROOSEVELT",
      "entidad": "MINISTERIO DE SALUD PÚBLICA",
-     "Q": 545885295.07,
-     "n": 5912
+     "Q": 549944920.95,
+     "n": 5968
     },
     {
      "nombre": "FONDO SOCIAL DE SOLIDARIDAD",
      "entidad": "MINISTERIO DE COMUNICACIONES, INFRAESTR…",
-     "Q": 545244903.3199999,
-     "n": 55
+     "Q": 544409536.3199999,
+     "n": 54
     },
     {
      "nombre": "COMANDANCIA DE LA MARINA DE LA DEFENSA NACIONAL",
      "entidad": "MINISTERIO DE LA DEFENSA NACIONAL",
-     "Q": 524260635.82,
-     "n": 251
+     "Q": 525176573.32,
+     "n": 259
     }
    ],
    "proveedores_top": [
@@ -1971,64 +1971,64 @@
     {
      "nombre": "J.I. COHEN, S.A.",
      "persona": false,
-     "Q": 251925538.42000002,
-     "n": 895
+     "Q": 252999054.78,
+     "n": 908
     }
    ],
    "familias_top": [
     {
      "codigo": "7214",
      "nombre": "Construcción pesada (carreteras y puentes)",
-     "Q": 3318721687.37,
-     "n": 944
+     "Q": 3319621687.37,
+     "n": 945
     },
     {
      "codigo": "8110",
      "nombre": "Servicios de ingeniería",
-     "Q": 3129397902.3166666,
-     "n": 148
+     "Q": 3148972902.3166666,
+     "n": 149
     },
     {
      "codigo": "5019",
      "nombre": "Alimentos preparados",
-     "Q": 834784073.3762718,
-     "n": 2895
+     "Q": 834933769.598494,
+     "n": 2900
     },
     {
      "codigo": "8010",
      "nombre": "Asesoría y consultoría",
-     "Q": 780736777.92,
-     "n": 90
+     "Q": 800311777.92,
+     "n": 91
     },
     {
      "codigo": "2510",
      "nombre": "Vehículos",
-     "Q": 564413211.4742006,
-     "n": 240
+     "Q": 564903211.4742006,
+     "n": 241
     },
     {
      "codigo": "3011",
      "nombre": "Concreto y cemento",
-     "Q": 561673262.0464678,
+     "Q": 561337078.5464678,
      "n": 193
     },
     {
      "codigo": "4111",
      "nombre": "Reactivos e instrumentos de laboratorio",
-     "Q": 528834449.37456566,
-     "n": 6338
+     "Q": 530601739.33289903,
+     "n": 6372
     },
     {
      "codigo": "4321",
      "nombre": "Computadoras",
-     "Q": 353198366.51058066,
-     "n": 1112
+     "Q": 354655764.01058066,
+     "n": 1136
     },
     {
      "codigo": "1510",
      "nombre": "Combustibles",
-     "Q": 242480963.76285714,
-     "n": 743
+     "Q": 242735963.76285714,
+     "n": 747
     },
     {
      "codigo": "9412",
@@ -2041,62 +2041,62 @@
     {
      "codigo": "72",
      "nombre": "Construcción y mantenimiento",
-     "Q": 3520861379.6902504,
-     "pct": 0.20979282795284773
+     "Q": 3522291178.6902504,
+     "pct": 0.2090312645767382
     },
     {
      "codigo": "81",
      "nombre": "Ingeniería",
-     "Q": 3254817447.4466667,
-     "pct": 0.19394042625733213
+     "Q": 3274615123.4466667,
+     "pct": 0.1943328661745381
     },
     {
      "codigo": "80",
      "nombre": "Gestión",
-     "Q": 1092592462.46,
-     "pct": 0.06510283643135494
+     "Q": 1113165874.46,
+     "pct": 0.06606111153722616
     },
     {
      "codigo": "50",
      "nombre": "Alimentos",
-     "Q": 1075317138.0719557,
-     "pct": 0.06407347492962792
+     "Q": 1076245641.6175113,
+     "pct": 0.06387007094233622
     },
     {
      "codigo": "51",
      "nombre": "Medicamentos",
-     "Q": 1032574927.3069733,
-     "pct": 0.06152665234778257
+     "Q": 1038205677.3198304,
+     "pct": 0.06161257959985302
     },
     {
      "codigo": "42",
      "nombre": "Equipo e insumos médicos",
-     "Q": 766858698.6884875,
-     "pct": 0.04569377708708663
+     "Q": 772984132.8601542,
+     "pct": 0.04587293968399101
     },
     {
      "codigo": "25",
      "nombre": "Vehículos",
-     "Q": 705008719.7726545,
-     "pct": 0.04200840564348888
+     "Q": 705618563.1059879,
+     "pct": 0.0418751128376932
     },
     {
      "codigo": "30",
      "nombre": "Materiales de construcción",
-     "Q": 658146959.7550898,
-     "pct": 0.03921611702524242
+     "Q": 658205382.088423,
+     "pct": 0.039061365568396546
     },
     {
      "codigo": "43",
      "nombre": "Tecnología",
-     "Q": 643642742.2800623,
-     "pct": 0.03835187374123196
+     "Q": 646734312.0700623,
+     "pct": 0.038380612004780636
     },
     {
      "codigo": "41",
      "nombre": "Laboratorio",
-     "Q": 594221629.8346965,
-     "pct": 0.035407084434758006
+     "Q": 596189152.7763631,
+     "pct": 0.03538099668923953
     }
    ],
    "modalidades": [
@@ -2107,13 +2107,13 @@
     },
     {
      "nombre": "Compra Directa con Oferta Electrónica",
-     "Q": 3120028185.33,
-     "n": 61967
+     "Q": 3143480179.43,
+     "n": 62420
     },
     {
      "nombre": "Convenios y Tratados Internacionales",
-     "Q": 2042364829.13,
-     "n": 129
+     "Q": 2081514829.13,
+     "n": 130
     },
     {
      "nombre": "Procedimientos regulados por el artículo 54 LCE",
@@ -2122,8 +2122,8 @@
     },
     {
      "nombre": "Cotización",
-     "Q": 693233650.03,
-     "n": 1308
+     "Q": 697677528.03,
+     "n": 1316
     },
     {
      "nombre": "Contrato Abierto",
@@ -2132,8 +2132,8 @@
     },
     {
      "nombre": "Arrendamiento o Adquisición de Bienes Inmuebles",
-     "Q": 300553304.82,
-     "n": 1175
+     "Q": 301088054.82,
+     "n": 1176
     },
     {
      "nombre": "Arrendamientos por Licitación Pública",
@@ -2169,55 +2169,55 @@
     },
     {
      "mes": "2026-06",
-     "Q": 1390273113.96,
-     "n": 5624
+     "Q": 1389874213.96,
+     "n": 5619
     },
     {
      "mes": "2026-07",
-     "Q": 1064333183.2,
-     "n": 5655
+     "Q": 1064253083.2,
+     "n": 5653
     },
     {
      "mes": "2026-08",
-     "Q": 1007008181.54,
-     "n": 5747
+     "Q": 1006969521.54,
+     "n": 5745
     },
     {
      "mes": "2026-09",
-     "Q": 2567040760.79,
-     "n": 4975
+     "Q": 2566845626.65,
+     "n": 4971
     },
     {
      "mes": "2026-10",
-     "Q": 2099610583.3700001,
-     "n": 6823
+     "Q": 2098277796.3700001,
+     "n": 6816
     },
     {
      "mes": "2026-11",
-     "Q": 1117426981.82,
-     "n": 4162
+     "Q": 1187456577.06,
+     "n": 4563
     }
    ]
   },
   "municipal": {
    "nombre": "Municipalidades",
-   "total": 13210624218.98,
-   "procesos": 15612,
-   "adjudicaciones": 15619,
-   "proveedores": 2771,
+   "total": 13333918252.529999,
+   "procesos": 15725,
+   "adjudicaciones": 15732,
+   "proveedores": 2776,
    "compradores": 345,
    "unidades": 270,
-   "top5_proveedores_pct": 0.09740833863938009,
+   "top5_proveedores_pct": 0.0969208700011934,
    "compradores_top": [
     {
      "nombre": "MUNICIPALIDAD DE GUATEMALA, GUATEMALA",
-     "Q": 913721078.18,
-     "n": 460
+     "Q": 914086638.18,
+     "n": 465
     },
     {
      "nombre": "MUNICIPALIDAD DE QUETZALTENANGO, QUETZALTENANGO",
-     "Q": 408699107.6,
-     "n": 155
+     "Q": 416308913.6,
+     "n": 157
     },
     {
      "nombre": "MUNICIPALIDAD DE SAN JUAN SACATEPEQUEZ, GUATEMALA",
@@ -2270,8 +2270,8 @@
     {
      "nombre": "COORDINADOR DE PUBLICACIONES",
      "entidad": "MUNICIPALIDAD DE QUETZALTENANGO, QUETZA…",
-     "Q": 408699107.6,
-     "n": 155
+     "Q": 416308913.6,
+     "n": 157
     },
     {
      "nombre": "DIRECCION MUNICIPAL DE PLANIFICACION",
@@ -2350,8 +2350,8 @@
     {
      "nombre": "MOLINA,RODRIGUEZ,,QUITZE,FERNANDA",
      "persona": true,
-     "Q": 101155871.56,
-     "n": 64
+     "Q": 106665871.56,
+     "n": 65
     },
     {
      "nombre": "PORTILLO,LIMA,,EDDIE,ERLY DANNIERY",
@@ -2366,42 +2366,42 @@
      "n": 29
     },
     {
-     "nombre": "EXCELENCIA EN MULTISERVICIOS EN OUTSOURCING, S.A.",
-     "persona": false,
-     "Q": 94471586.04,
-     "n": 34
+     "nombre": "PORTILLO,CORADO,,NAYELI,MARISOL",
+     "persona": true,
+     "Q": 95321575.0,
+     "n": 72
     },
     {
      "nombre": "ARÉVALO,VÁSQUEZ,,HAINZ,NOÉ",
      "persona": true,
-     "Q": 93404409.0,
-     "n": 37
+     "Q": 95246588.0,
+     "n": 38
     },
     {
-     "nombre": "PORTILLO,CORADO,,NAYELI,MARISOL",
-     "persona": true,
-     "Q": 92322075.0,
-     "n": 71
+     "nombre": "EXCELENCIA EN MULTISERVICIOS EN OUTSOURCING, S.A.",
+     "persona": false,
+     "Q": 94471586.04,
+     "n": 34
     }
    ],
    "familias_top": [
     {
      "codigo": "7214",
      "nombre": "Construcción pesada (carreteras y puentes)",
-     "Q": 3401908711.275684,
-     "n": 3449
+     "Q": 3434883088.275684,
+     "n": 3478
     },
     {
      "codigo": "8110",
      "nombre": "Servicios de ingeniería",
-     "Q": 1249348848.01321,
-     "n": 676
+     "Q": 1269674843.01321,
+     "n": 687
     },
     {
      "codigo": "3012",
      "nombre": "Materiales viales",
-     "Q": 939468763.1387581,
-     "n": 1169
+     "Q": 963195335.410901,
+     "n": 1179
     },
     {
      "codigo": "7315",
@@ -2412,122 +2412,122 @@
     {
      "codigo": "3011",
      "nombre": "Concreto y cemento",
-     "Q": 462305123.0275524,
-     "n": 1724
+     "Q": 463237734.5096953,
+     "n": 1731
     },
     {
      "codigo": "2210",
      "nombre": "Maquinaria pesada",
-     "Q": 419253788.9891082,
-     "n": 625
+     "Q": 419328788.9891082,
+     "n": 626
     },
     {
      "codigo": "3017",
      "nombre": "Puertas y ventanas",
-     "Q": 414798220.39092666,
-     "n": 782
+     "Q": 415851211.4980695,
+     "n": 786
     },
     {
      "codigo": "8612",
      "nombre": "Obras y servicios educativos",
-     "Q": 382675000.2438095,
-     "n": 309
+     "Q": 383726500.2438095,
+     "n": 311
     },
     {
      "codigo": "5020",
      "nombre": "Agua y bebidas",
-     "Q": 355559746.7355089,
-     "n": 312
+     "Q": 358098578.7355089,
+     "n": 315
     },
     {
      "codigo": "8310",
      "nombre": "Servicios públicos (energía, agua)",
-     "Q": 270666905.3433692,
-     "n": 237
+     "Q": 272756555.3433692,
+     "n": 239
     }
    ],
    "segmentos": [
     {
      "codigo": "72",
      "nombre": "Construcción y mantenimiento",
-     "Q": 3762247845.9926515,
-     "pct": 0.2847895590419827
+     "Q": 3795308106.325985,
+     "pct": 0.28463562131152687
     },
     {
      "codigo": "30",
      "nombre": "Materiales de construcción",
-     "Q": 2014235514.4559393,
-     "pct": 0.15247088109296472
+     "Q": 2041522526.614987,
+     "pct": 0.15310747283362303
     },
     {
      "codigo": "81",
      "nombre": "Ingeniería",
-     "Q": 1368640188.4715397,
-     "pct": 0.10360147755207387
+     "Q": 1392323715.3715396,
+     "pct": 0.10441969787143085
     },
     {
      "codigo": "73",
      "nombre": "Producción industrial",
      "Q": 717498104.1059059,
-     "pct": 0.054312202982434415
+     "pct": 0.05380999722041694
     },
     {
      "codigo": "22",
      "nombre": "Maquinaria de construcción",
-     "Q": 419253788.9891082,
-     "pct": 0.031736107396557155
+     "Q": 419328788.9891082,
+     "pct": 0.031448279571501356
     },
     {
      "codigo": "86",
      "nombre": "Educación (servicios)",
-     "Q": 415895841.65444887,
-     "pct": 0.03148192203188416
+     "Q": 418385689.90444887,
+     "pct": 0.031377550242972556
     },
     {
      "codigo": "50",
      "nombre": "Alimentos",
-     "Q": 396372862.05555075,
-     "pct": 0.03000409787495681
+     "Q": 398911694.05555075,
+     "pct": 0.02991706462426081
     },
     {
      "codigo": "70",
      "nombre": "Servicios agrícolas",
-     "Q": 387105973.08692753,
-     "pct": 0.029302625422556773
+     "Q": 387191376.42026085,
+     "pct": 0.029038079361765588
     },
     {
      "codigo": "71",
      "nombre": "Minería",
-     "Q": 282157738.22564036,
-     "pct": 0.021358395602552833
+     "Q": 282311253.14230704,
+     "pct": 0.02117241517426739
     },
     {
      "codigo": "83",
      "nombre": "Servicios públicos",
-     "Q": 275603652.0308692,
-     "pct": 0.02086227323269882
+     "Q": 277693302.0308692,
+     "pct": 0.020826084034089472
     }
    ],
    "modalidades": [
     {
      "nombre": "Licitación Pública",
-     "Q": 9937871591.32,
-     "n": 2853
+     "Q": 10036175300.87,
+     "n": 2889
     },
     {
      "nombre": "Cotización",
-     "Q": 2430404703.67,
-     "n": 4102
+     "Q": 2451520765.67,
+     "n": 4131
     },
     {
      "nombre": "Compra Directa con Oferta Electrónica",
-     "Q": 659881228.6,
-     "n": 8156
+     "Q": 663551165.6,
+     "n": 8201
     },
     {
      "nombre": "Adquisición Directa por Ausencia de Oferta",
-     "Q": 70842708.78,
-     "n": 184
+     "Q": 71018333.78,
+     "n": 186
     },
     {
      "nombre": "Arrendamiento o Adquisición de Bienes Inmuebles",
@@ -2603,62 +2603,68 @@
     },
     {
      "mes": "2026-11",
-     "Q": 969416171.95,
-     "n": 983
+     "Q": 1092710205.5,
+     "n": 1096
     }
    ]
   }
  },
  "mspas": {
-  "total": 2992214631.66,
-  "procesos": 36628,
-  "adjudicaciones": 47259,
-  "proveedores": 1505,
+  "total": 3050274188.17,
+  "procesos": 36864,
+  "adjudicaciones": 47579,
+  "proveedores": 1511,
   "compradores": 1,
   "unidades": 87,
-  "top5_proveedores_pct": 0.23672553209762084,
+  "top5_proveedores_pct": 0.23329090332266894,
   "compradores_top": [
    {
     "nombre": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 2992214631.66,
-    "n": 36628
+    "Q": 3050274188.17,
+    "n": 36864
    }
   ],
   "unidades_top": [
    {
     "nombre": "HOSPITAL GENERAL SAN JUAN DE DIOS",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 652654230.49,
-    "n": 6819
+    "Q": 655189361.63,
+    "n": 6846
    },
    {
     "nombre": "HOSPITAL ROOSEVELT",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 545885295.07,
-    "n": 5912
+    "Q": 549944920.95,
+    "n": 5968
    },
    {
     "nombre": "HOSPITAL REGIONAL DE OCCIDENTE QUETZALTENANGO",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 129825784.59,
-    "n": 1305
+    "Q": 131400650.64,
+    "n": 1326
    },
    {
     "nombre": "HOSPITAL REGIONAL DE HUEHUETENANGO \"DR. JORGE VIDES MOLINA\"",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 108467141.24,
-    "n": 794
+    "Q": 109095164.04,
+    "n": 804
    },
    {
     "nombre": "HOSPITAL PEDRO DE BETHANCOURT",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 97116476.51,
-    "n": 1095
+    "Q": 99078864.01,
+    "n": 1119
+   },
+   {
+    "nombre": "UNIDAD ESPECIAL DE EJECUCIÓN DE PROGRAMAS Y PROYECTOS DE SA…",
+    "entidad": "MINISTERIO DE SALUD PÚBLICA",
+    "Q": 85077567.35,
+    "n": 23
    },
    {
     "nombre": "HOSPITAL REGIONAL DE CUILAPA ''LICENCIADO GUILLERMO FERNÁND…",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 81973668.92999999,
+    "Q": 81972418.92999999,
     "n": 1013
    },
    {
@@ -2670,76 +2676,70 @@
    {
     "nombre": "HOSPITAL DE ESCUINTLA",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 61905910.95,
+    "Q": 61898410.95,
     "n": 806
    },
    {
     "nombre": "HOSPITAL NACIONAL DE ESPECIALIDADES QUIRÚRGICAS DE VILLA NU…",
     "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 56747475.69,
-    "n": 732
-   },
-   {
-    "nombre": "HOSPITAL DE SAN BENITO",
-    "entidad": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 54046701.7,
-    "n": 793
+    "Q": 56874963.64,
+    "n": 738
    }
   ],
   "proveedores_top": [
    {
     "nombre": "LABYMED, S.A.",
     "persona": false,
-    "Q": 208665979.06,
-    "n": 2386
+    "Q": 209478799.06,
+    "n": 2400
    },
    {
     "nombre": "SERVICIOS QUIRURGICOS, S.A.",
     "persona": false,
-    "Q": 153415788.03,
-    "n": 2209
+    "Q": 154141503.03,
+    "n": 2216
    },
    {
     "nombre": "J.I. COHEN, S.A.",
     "persona": false,
-    "Q": 151593175.42,
-    "n": 891
+    "Q": 152666691.78,
+    "n": 904
    },
    {
     "nombre": "COMPAÑIA DE EQUIPO MEDICO-HOSPITALARIO, S.A.",
     "persona": false,
-    "Q": 102814882.09,
-    "n": 1175
+    "Q": 103033182.09,
+    "n": 1180
    },
    {
     "nombre": "AGENCIA FARMACEUTICA INTERNACIONAL, S.A.",
     "persona": false,
-    "Q": 91843776.23,
-    "n": 906
+    "Q": 92281044.78,
+    "n": 912
    },
    {
     "nombre": "PRODUCTOS ROCHE GUATEMALA, S.A.",
     "persona": false,
-    "Q": 82527583.77,
-    "n": 1004
+    "Q": 82965685.77,
+    "n": 1011
    },
    {
     "nombre": "DISGUA DISTRIBUIDORA GUATEMALTECA, S.A.",
     "persona": false,
-    "Q": 52869170.0,
-    "n": 207
+    "Q": 52957370.0,
+    "n": 208
    },
    {
     "nombre": "CENTRO DISTRIBUIDOR, S.A.",
     "persona": false,
-    "Q": 51302517.64,
-    "n": 408
+    "Q": 51460439.64,
+    "n": 411
    },
    {
     "nombre": "OXI-RENT, S.A.",
     "persona": false,
-    "Q": 50927557.07,
-    "n": 866
+    "Q": 50837557.07,
+    "n": 865
    },
    {
     "nombre": "ABBOTT LABORATORIOS, LIMITADA",
@@ -2752,131 +2752,131 @@
    {
     "codigo": "4111",
     "nombre": "Reactivos e instrumentos de laboratorio",
-    "Q": 485777222.9342161,
-    "n": 6108
+    "Q": 487425293.0592161,
+    "n": 6139
    },
    {
     "codigo": "5110",
     "nombre": "Medicamentos antiinfecciosos",
-    "Q": 179928305.61859488,
-    "n": 3431
+    "Q": 180679043.20907107,
+    "n": 3444
    },
    {
     "codigo": "4229",
     "nombre": "Instrumental quirúrgico",
-    "Q": 160685608.14593217,
-    "n": 2938
+    "Q": 162306077.29593217,
+    "n": 2967
    },
    {
     "codigo": "5113",
     "nombre": "Medicamentos hematológicos",
-    "Q": 130193900.24068218,
-    "n": 1510
+    "Q": 130769146.49782504,
+    "n": 1520
    },
    {
     "codigo": "5114",
     "nombre": "Medicamentos del sistema nervioso",
-    "Q": 115533681.51545635,
-    "n": 2178
+    "Q": 115949924.10593253,
+    "n": 2191
    },
    {
     "codigo": "5119",
     "nombre": "Sueros, electrolitos y nutrición",
-    "Q": 113597011.30241233,
-    "n": 2091
+    "Q": 115188932.1595552,
+    "n": 2115
    },
    {
     "codigo": "8516",
     "nombre": "Arrendamiento y mantenimiento de equipo médico",
-    "Q": 94274698.49,
-    "n": 800
+    "Q": 94256038.49,
+    "n": 802
    },
    {
     "codigo": "5111",
     "nombre": "Medicamentos oncológicos",
-    "Q": 90150636.5525,
-    "n": 714
+    "Q": 90613027.6425,
+    "n": 720
    },
    {
     "codigo": "5120",
     "nombre": "Inmunoglobulinas y vacunas",
-    "Q": 89050313.40821429,
-    "n": 1122
+    "Q": 89513381.19821429,
+    "n": 1128
    },
    {
     "codigo": "4222",
     "nombre": "Insumos intravenosos",
-    "Q": 80763636.47229438,
-    "n": 1340
+    "Q": 81172112.47229438,
+    "n": 1348
    }
   ],
   "segmentos": [
    {
     "codigo": "51",
     "nombre": "Medicamentos",
-    "Q": 930602051.4628066,
-    "pct": 0.31100778721429273
+    "Q": 936128936.4756638,
+    "pct": 0.3068999305394544
    },
    {
     "codigo": "42",
     "nombre": "Equipo e insumos médicos",
-    "Q": 666121892.9795487,
-    "pct": 0.2226183529521752
+    "Q": 671754393.9012153,
+    "pct": 0.2202275442996263
    },
    {
     "codigo": "41",
     "nombre": "Laboratorio",
-    "Q": 544868281.743101,
-    "pct": 0.18209532029486228
+    "Q": 546744184.8514344,
+    "pct": 0.1792442748169637
    },
    {
     "codigo": "85",
     "nombre": "Salud (servicios)",
-    "Q": 133098393.235,
-    "pct": 0.04448156620407962
+    "Q": 133079733.235,
+    "pct": 0.043628777291932784
    },
    {
     "codigo": "50",
     "nombre": "Alimentos",
-    "Q": 74784420.78853078,
-    "pct": 0.024993000166917308
+    "Q": 75216680.77853078,
+    "pct": 0.02465899002464979
    },
    {
     "codigo": "72",
     "nombre": "Construcción y mantenimiento",
-    "Q": 70961759.14,
-    "pct": 0.023715464254859396
-   },
-   {
-    "codigo": "12",
-    "nombre": "Químicos",
-    "Q": 67396443.4280552,
-    "pct": 0.022523933515646726
-   },
-   {
-    "codigo": "15",
-    "nombre": "Combustibles",
-    "Q": 60863157.403333336,
-    "pct": 0.020340505242957153
+    "Q": 71932759.14,
+    "pct": 0.023582391189283798
    },
    {
     "codigo": "81",
     "nombre": "Ingeniería",
-    "Q": 48569920.85666667,
-    "pct": 0.016232097905931765
+    "Q": 68144920.85666667,
+    "pct": 0.022340588633295928
    },
    {
-    "codigo": "25",
-    "nombre": "Vehículos",
-    "Q": 35171868.6919697,
-    "pct": 0.01175446049886378
+    "codigo": "12",
+    "nombre": "Químicos",
+    "Q": 67794705.64519805,
+    "pct": 0.02222577429534989
+   },
+   {
+    "codigo": "15",
+    "nombre": "Combustibles",
+    "Q": 60938157.403333336,
+    "pct": 0.019977927767828946
+   },
+   {
+    "codigo": "80",
+    "nombre": "Gestión",
+    "Q": 42151269.235,
+    "pct": 0.013818845990461102
    }
   ],
   "modalidades": [
    {
     "nombre": "Compra Directa con Oferta Electrónica",
-    "Q": 2140659923.92,
-    "n": 46103
+    "Q": 2155631480.43,
+    "n": 46415
    },
    {
     "nombre": "Licitación Pública",
@@ -2885,13 +2885,13 @@
    },
    {
     "nombre": "Cotización",
-    "Q": 351606128.84,
-    "n": 723
+    "Q": 355544128.84,
+    "n": 730
    },
    {
     "nombre": "Convenios y Tratados Internacionales",
-    "Q": 54786503.88,
-    "n": 63
+    "Q": 93936503.88,
+    "n": 64
    },
    {
     "nombre": "Arrendamientos por Licitación Pública",
@@ -2942,8 +2942,8 @@
    },
    {
     "mes": "2026-06",
-    "Q": 286821309.1,
-    "n": 3752
+    "Q": 286692409.1,
+    "n": 3750
    },
    {
     "mes": "2026-07",
@@ -2957,38 +2957,33 @@
    },
    {
     "mes": "2026-09",
-    "Q": 259981070.75,
-    "n": 3004
+    "Q": 259887265.61,
+    "n": 3002
    },
    {
     "mes": "2026-10",
-    "Q": 425103878.02,
-    "n": 4677
+    "Q": 424668768.02,
+    "n": 4672
    },
    {
     "mes": "2026-11",
-    "Q": 238766721.13,
-    "n": 2752
+    "Q": 297484092.78,
+    "n": 2997
    }
   ],
-  "compra_directa_pct_adj": 0.9755390507628177,
-  "compra_directa_pct_Q": 0.7154098844615366,
-  "top2_unidades_pct": 0.4005526585153695
+  "compra_directa_pct_adj": 0.9755354252926711,
+  "compra_directa_pct_Q": 0.7067008889857416,
+  "top2_unidades_pct": 0.39509047653942725
  },
  "hoy": {
-  "fecha": "2026-11-17",
-  "Q": 200241627.27,
-  "adjudicaciones": 2066,
-  "procesos": 1946,
-  "top_comprador": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
-  "top_comprador_Q": 70870816.19
+  "fecha": "2026-11-18",
+  "Q": 277466832.12,
+  "adjudicaciones": 1587,
+  "procesos": 1465,
+  "top_comprador": "MINISTERIO DE SALUD PÚBLICA",
+  "top_comprador_Q": 58895668.25
  },
  "dias": [
-  {
-   "fecha": "2026-09-15",
-   "Q": 1010167.0,
-   "n": 5
-  },
   {
    "fecha": "2026-09-16",
    "Q": 123486873.61,
@@ -2996,8 +2991,8 @@
   },
   {
    "fecha": "2026-09-17",
-   "Q": 404583666.72,
-   "n": 1490
+   "Q": 404511666.72,
+   "n": 1489
   },
   {
    "fecha": "2026-09-18",
@@ -3011,8 +3006,8 @@
   },
   {
    "fecha": "2026-09-21",
-   "Q": 203585739.14000002,
-   "n": 1439
+   "Q": 203578019.14,
+   "n": 1438
   },
   {
    "fecha": "2026-09-22",
@@ -3021,8 +3016,8 @@
   },
   {
    "fecha": "2026-09-23",
-   "Q": 379480464.65,
-   "n": 1373
+   "Q": 379452703.51,
+   "n": 1369
   },
   {
    "fecha": "2026-09-24",
@@ -3041,8 +3036,8 @@
   },
   {
    "fecha": "2026-09-28",
-   "Q": 172292815.99,
-   "n": 1303
+   "Q": 172095415.99,
+   "n": 1299
   },
   {
    "fecha": "2026-09-29",
@@ -3051,8 +3046,8 @@
   },
   {
    "fecha": "2026-09-30",
-   "Q": 187670465.89,
-   "n": 1173
+   "Q": 187515592.89000002,
+   "n": 1166
   },
   {
    "fecha": "2026-10-01",
@@ -3061,8 +3056,8 @@
   },
   {
    "fecha": "2026-10-02",
-   "Q": 282267219.74,
-   "n": 1118
+   "Q": 282258579.74,
+   "n": 1117
   },
   {
    "fecha": "2026-10-03",
@@ -3086,8 +3081,8 @@
   },
   {
    "fecha": "2026-10-07",
-   "Q": 894717466.2,
-   "n": 1313
+   "Q": 894700540.2,
+   "n": 1312
   },
   {
    "fecha": "2026-10-08",
@@ -3111,18 +3106,18 @@
   },
   {
    "fecha": "2026-10-12",
-   "Q": 262844390.17,
-   "n": 517
+   "Q": 262009023.17,
+   "n": 516
   },
   {
    "fecha": "2026-10-13",
-   "Q": 195771924.34,
-   "n": 1403
+   "Q": 195736944.34,
+   "n": 1402
   },
   {
    "fecha": "2026-10-14",
-   "Q": 252794959.16,
-   "n": 1624
+   "Q": 252425444.16,
+   "n": 1617
   },
   {
    "fecha": "2026-10-15",
@@ -3131,12 +3126,12 @@
   },
   {
    "fecha": "2026-10-16",
-   "Q": 233892929.54,
-   "n": 1499
+   "Q": 233872469.54,
+   "n": 1498
   },
   {
    "fecha": "2026-10-17",
-   "Q": 7144158.9399999995,
+   "Q": 7144158.94,
    "n": 204
   },
   {
@@ -3146,7 +3141,7 @@
   },
   {
    "fecha": "2026-10-19",
-   "Q": 80264346.43,
+   "Q": 80264346.42999999,
    "n": 852
   },
   {
@@ -3166,8 +3161,8 @@
   },
   {
    "fecha": "2026-10-23",
-   "Q": 225995425.47,
-   "n": 1439
+   "Q": 225911325.47,
+   "n": 1437
   },
   {
    "fecha": "2026-10-24",
@@ -3181,18 +3176,18 @@
   },
   {
    "fecha": "2026-10-26",
-   "Q": 237471521.97,
-   "n": 1541
+   "Q": 237165365.97,
+   "n": 1535
   },
   {
    "fecha": "2026-10-27",
-   "Q": 281656326.26,
-   "n": 1390
+   "Q": 281594016.26,
+   "n": 1389
   },
   {
    "fecha": "2026-10-28",
-   "Q": 231721857.64000002,
-   "n": 1461
+   "Q": 231631085.64000002,
+   "n": 1458
   },
   {
    "fecha": "2026-10-29",
@@ -3201,8 +3196,8 @@
   },
   {
    "fecha": "2026-10-30",
-   "Q": 148365402.85,
-   "n": 550
+   "Q": 148281792.85,
+   "n": 549
   },
   {
    "fecha": "2026-10-31",
@@ -3221,23 +3216,23 @@
   },
   {
    "fecha": "2026-11-03",
-   "Q": 544834361.03,
-   "n": 1124
+   "Q": 544438361.03,
+   "n": 1118
   },
   {
    "fecha": "2026-11-04",
-   "Q": 337832661.15000004,
-   "n": 1401
+   "Q": 337743211.15000004,
+   "n": 1400
   },
   {
    "fecha": "2026-11-05",
-   "Q": 258703658.06,
-   "n": 1368
+   "Q": 258679076.56,
+   "n": 1366
   },
   {
    "fecha": "2026-11-06",
-   "Q": 247796776.15,
-   "n": 1366
+   "Q": 247715023.15,
+   "n": 1364
   },
   {
    "fecha": "2026-11-07",
@@ -3246,8 +3241,8 @@
   },
   {
    "fecha": "2026-11-09",
-   "Q": 272478930.19,
-   "n": 1228
+   "Q": 272474142.19,
+   "n": 1227
   },
   {
    "fecha": "2026-11-10",
@@ -3256,18 +3251,18 @@
   },
   {
    "fecha": "2026-11-11",
-   "Q": 413100883.92,
-   "n": 1516
+   "Q": 413087123.92,
+   "n": 1515
   },
   {
    "fecha": "2026-11-12",
-   "Q": 227406115.68,
-   "n": 1543
+   "Q": 227321595.08,
+   "n": 1537
   },
   {
    "fecha": "2026-11-13",
-   "Q": 304349723.77,
-   "n": 1291
+   "Q": 304221162.92,
+   "n": 1280
   },
   {
    "fecha": "2026-11-15",
@@ -3276,13 +3271,18 @@
   },
   {
    "fecha": "2026-11-16",
-   "Q": 599940169.25,
-   "n": 1777
+   "Q": 599647338.03,
+   "n": 1772
   },
   {
    "fecha": "2026-11-17",
-   "Q": 200241627.27,
-   "n": 2066
+   "Q": 199955017.27,
+   "n": 2062
+  },
+  {
+   "fecha": "2026-11-18",
+   "Q": 277466832.12,
+   "n": 1587
   }
  ],
  "constelacion": {
@@ -3290,52 +3290,52 @@
    {
     "id": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "nombre": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOC…",
-    "Q": 10093109129.34
+    "Q": 10136746773.22
    },
    {
     "id": "MINISTERIO DE COMUNICACIONES, INFRAESTRUCTURA Y VIVIENDA",
     "nombre": "MINISTERIO DE COMUNICACIONES, INFRAESTR…",
-    "Q": 6687612196.280001
+    "Q": 6687055210.779999
    },
    {
     "id": "MINISTERIO DE SALUD PÚBLICA",
     "nombre": "MINISTERIO DE SALUD PÚBLICA",
-    "Q": 2992214631.66
+    "Q": 3050274188.17
    },
    {
     "id": "INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE",
     "nombre": "INSTITUTO NACIONAL DE ELECTRIFICACIÓN -…",
-    "Q": 2326735554.97
+    "Q": 2332439197.1000004
    },
    {
     "id": "MINISTERIO DE LA DEFENSA NACIONAL",
     "nombre": "MINISTERIO DE LA DEFENSA NACIONAL",
-    "Q": 2099291626.67
+    "Q": 2101341441.45
    },
    {
     "id": "MINISTERIO DE DESARROLLO SOCIAL",
     "nombre": "MINISTERIO DE DESARROLLO SOCIAL",
-    "Q": 1427729853.58
+    "Q": 1427841188.58
    },
    {
     "id": "EMPRESA PORTUARIA QUETZAL -EPQ-",
     "nombre": "EMPRESA PORTUARIA QUETZAL -EPQ-",
-    "Q": 1378622324.45
+    "Q": 1378797674.4500003
    },
    {
     "id": "MINISTERIO DE GOBERNACIÓN",
     "nombre": "MINISTERIO DE GOBERNACIÓN",
-    "Q": 1016028565.7900001
+    "Q": 1018368316.7900001
    },
    {
     "id": "MUNICIPALIDAD DE GUATEMALA, GUATEMALA",
     "nombre": "MUNICIPALIDAD DE GUATEMALA, GUATEMALA",
-    "Q": 913721078.18
+    "Q": 914086638.1800001
    },
    {
     "id": "MINISTERIO DE FINANZAS PÚBLICAS",
     "nombre": "MINISTERIO DE FINANZAS PÚBLICAS",
-    "Q": 671129508.45
+    "Q": 671365887.24
    },
    {
     "id": "FIDEICOMISO DE TRANSPORTE DE LA CIUDAD DE GUATEMALA",
@@ -3350,12 +3350,12 @@
    {
     "id": "MUNICIPALIDAD DE QUETZALTENANGO, QUETZALTENANGO",
     "nombre": "MUNICIPALIDAD DE QUETZALTENANGO, QUETZA…",
-    "Q": 408699107.6
+    "Q": 416308913.6
    },
    {
     "id": "MINISTERIO DE EDUCACIÓN",
     "nombre": "MINISTERIO DE EDUCACIÓN",
-    "Q": 324834569.15999997
+    "Q": 325427432.16
    }
   ],
   "proveedores": [
@@ -3369,7 +3369,7 @@
     "id": "GT-NIT-107291649",
     "nombre": "PLENITUD 365, S.A.",
     "persona": false,
-    "Q": 209617097.27
+    "Q": 213273191.47
    },
    {
     "id": "GT-NIT-11846135",
@@ -3441,7 +3441,7 @@
     "id": "GT-NIT-1700510",
     "nombre": "PRODUCTOS ROCHE GUATEMALA, S.A.",
     "persona": false,
-    "Q": 240072979.75
+    "Q": 241613170.70999998
    },
    {
     "id": "GT-NIT-22319700",
@@ -3453,13 +3453,13 @@
     "id": "GT-NIT-22339655",
     "nombre": "SERVICIO DE COMERCIO INTERNACIONAL, S.A.",
     "persona": false,
-    "Q": 105990572.07
+    "Q": 106443021.15
    },
    {
     "id": "GT-NIT-22345388",
     "nombre": "J.I. COHEN, S.A.",
     "persona": false,
-    "Q": 1418241296.99
+    "Q": 1424217923.32
    },
    {
     "id": "GT-NIT-2342855",
@@ -3513,7 +3513,7 @@
     "id": "GT-NIT-30428378",
     "nombre": "LABYMED, S.A.",
     "persona": false,
-    "Q": 322265236.95
+    "Q": 323313570.95
    },
    {
     "id": "GT-NIT-30993350",
@@ -3525,7 +3525,7 @@
     "id": "GT-NIT-320811",
     "nombre": "COMPAÑIA FARMACEUTICA LANQUETIN, S.A.",
     "persona": false,
-    "Q": 914005577.3000001
+    "Q": 914786487.28
    },
    {
     "id": "GT-NIT-32374399",
@@ -3549,7 +3549,7 @@
     "id": "GT-NIT-332917",
     "nombre": "COFIÑO STAHL Y COMPAÑIA, S.A.",
     "persona": false,
-    "Q": 251094224.61
+    "Q": 251122034.36
    },
    {
     "id": "GT-NIT-40247538",
@@ -3561,19 +3561,19 @@
     "id": "GT-NIT-42102731",
     "nombre": "NIPRO MEDICAL CORPORATION - SUCURSAL DE…",
     "persona": false,
-    "Q": 224145441.43
+    "Q": 226751681.43
    },
    {
     "id": "GT-NIT-44835035",
     "nombre": "RENTAS Y SERVICIOS EMPRESARIALES DE LAS…",
     "persona": false,
-    "Q": 139590007.55
+    "Q": 139991556.05
    },
    {
     "id": "GT-NIT-4556984",
     "nombre": "COMPAÑIA DE EQUIPO MEDICO-HOSPITALARIO,…",
     "persona": false,
-    "Q": 147118257.55
+    "Q": 147512081.15
    },
    {
     "id": "GT-NIT-46129359",
@@ -3597,7 +3597,7 @@
     "id": "GT-NIT-5801338",
     "nombre": "SERVICIOS QUIRURGICOS, S.A.",
     "persona": false,
-    "Q": 286828128.01
+    "Q": 287844919.01
    },
    {
     "id": "GT-NIT-58577246",
@@ -3609,13 +3609,13 @@
     "id": "GT-NIT-6177999",
     "nombre": "DROGUERIA Y LABORATORIO PHARMALAT, S.A.",
     "persona": false,
-    "Q": 157517976.23
+    "Q": 157957521.23
    },
    {
     "id": "GT-NIT-62240439",
     "nombre": "DISEÑOS DE POTENCIA, S.A.",
     "persona": false,
-    "Q": 126631663.5
+    "Q": 127133208.5
    },
    {
     "id": "GT-NIT-63015528",
@@ -3663,13 +3663,13 @@
     "id": "GT-NIT-735442",
     "nombre": "CENTRO DISTRIBUIDOR, S.A.",
     "persona": false,
-    "Q": 343868333.63
+    "Q": 344951033.34999996
    },
    {
     "id": "GT-NIT-7477279",
     "nombre": "AGENCIA FARMACEUTICA INTERNACIONAL, S.A.",
     "persona": false,
-    "Q": 562402191.82
+    "Q": 565519554.79
    },
    {
     "id": "GT-NIT-78485428",
@@ -3693,7 +3693,7 @@
     "id": "GT-NIT-81778244",
     "nombre": "LA BOTICA, S.A.",
     "persona": false,
-    "Q": 229599688.31
+    "Q": 229613038.31
    },
    {
     "id": "GT-NIT-8372977",
@@ -3705,7 +3705,7 @@
     "id": "GT-NIT-89120426",
     "nombre": "AVIV FARMACEUTICA, S.A.",
     "persona": false,
-    "Q": 249807922.9
+    "Q": 251152294.9
    },
    {
     "id": "GT-NIT-91715385",
@@ -3717,7 +3717,7 @@
     "id": "GT-NIT-94197016",
     "nombre": "REUS PHARMA, S.A.",
     "persona": false,
-    "Q": 556149973.05
+    "Q": 558172844.05
    }
   ],
   "aristas": [
@@ -3739,7 +3739,7 @@
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-107291649",
-    "Q": 209617097.27
+    "Q": 213273191.47
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
@@ -3749,17 +3749,17 @@
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-1700510",
-    "Q": 157545395.98
+    "Q": 158647484.94
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-22339655",
-    "Q": 80793298.22
+    "Q": 81214101.3
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-22345388",
-    "Q": 1166569346.57
+    "Q": 1171472456.54
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
@@ -3774,27 +3774,27 @@
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-30428378",
-    "Q": 113599257.89
+    "Q": 113834771.89
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-320811",
-    "Q": 869492885.21
+    "Q": 869836331.81
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-42102731",
-    "Q": 215871622.35
+    "Q": 218477862.35
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-44835035",
-    "Q": 129397552.55
+    "Q": 129799101.05
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-4556984",
-    "Q": 44303375.46
+    "Q": 44478899.06
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
@@ -3804,12 +3804,12 @@
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-5801338",
-    "Q": 133412339.98
+    "Q": 133703415.98
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-6177999",
-    "Q": 151403338.19
+    "Q": 151838938.19
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
@@ -3819,17 +3819,17 @@
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-735442",
-    "Q": 292565815.99
+    "Q": 293490593.71
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-7477279",
-    "Q": 451432768.59000003
+    "Q": 454112863.01
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-81778244",
-    "Q": 224598337.31
+    "Q": 224611687.31
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
@@ -3839,12 +3839,12 @@
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-89120426",
-    "Q": 249807922.9
+    "Q": 251152294.9
    },
    {
     "s": "INSTITUTO GUATEMALTECO DE SEGURIDAD SOCIAL -IGSS-",
     "t": "GT-NIT-94197016",
-    "Q": 549091394.4
+    "Q": 551114265.4
    },
    {
     "s": "INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE",
@@ -3869,7 +3869,7 @@
    {
     "s": "INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE",
     "t": "GT-NIT-332917",
-    "Q": 5544647.61
+    "Q": 5572457.36
    },
    {
     "s": "INSTITUTO NACIONAL DE ELECTRIFICACIÓN -INDE",
@@ -4049,7 +4049,7 @@
    {
     "s": "MINISTERIO DE LA DEFENSA NACIONAL",
     "t": "GT-NIT-62240439",
-    "Q": 114436724.5
+    "Q": 114938269.5
    },
    {
     "s": "MINISTERIO DE LA DEFENSA NACIONAL",
@@ -4064,27 +4064,27 @@
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-1700510",
-    "Q": 82527583.77
+    "Q": 82965685.77
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-22339655",
-    "Q": 25197273.85
+    "Q": 25228919.85
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-22345388",
-    "Q": 151593175.42
+    "Q": 152666691.78
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-30428378",
-    "Q": 208665979.06
+    "Q": 209478799.06
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-320811",
-    "Q": 44512692.09
+    "Q": 44950155.47
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
@@ -4104,7 +4104,7 @@
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-4556984",
-    "Q": 102814882.09
+    "Q": 103033182.09
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
@@ -4114,22 +4114,22 @@
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-5801338",
-    "Q": 153415788.03
+    "Q": 154141503.03
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-6177999",
-    "Q": 6114638.04
+    "Q": 6118583.04
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-735442",
-    "Q": 51302517.64
+    "Q": 51460439.64
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
     "t": "GT-NIT-7477279",
-    "Q": 91843776.23
+    "Q": 92281044.78
    },
    {
     "s": "MINISTERIO DE SALUD PÚBLICA",
